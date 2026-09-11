@@ -13,3 +13,4 @@ __pycache__/
 
 contract_nli/
 flat_data/
+sft_data/
