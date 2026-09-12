@@ -1,0 +1,37 @@
+{
+  "ranking": [
+    "Qwen/Qwen3-8B",
+    "microsoft/phi-4",
+    "Qwen/Qwen3-14B",
+    "ibm-granite/granite-4.2-8b"
+  ],
+  "comparisons": [
+    {
+      "a": "Qwen/Qwen3-8B",
+      "b": "microsoft/phi-4",
+      "mean_diff": 0.002519171270502551,
+      "ci_low": -0.02236187034169479,
+      "ci_high": 0.027505758079398923,
+      "p_a_better": 0.578,
+      "verdict": "WITHIN NOISE"
+    },
+    {
+      "a": "microsoft/phi-4",
+      "b": "Qwen/Qwen3-14B",
+      "mean_diff": 0.0008206701174319923,
+      "ci_low": -0.021875700835562673,
+      "ci_high": 0.023233325093725776,
+      "p_a_better": 0.528,
+      "verdict": "WITHIN NOISE"
+    },
+    {
+      "a": "Qwen/Qwen3-14B",
+      "b": "ibm-granite/granite-4.2-8b",
+      "mean_diff": 0.03500938897281386,
+      "ci_low": 0.01179637085782792,
+      "ci_high": 0.06075675003261194,
+      "p_a_better": 0.997,
+      "verdict": "separated"
+    }
+  ]
+}

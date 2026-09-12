@@ -232,3 +232,73 @@ Priority if there is queue budget:
    ranking metric is stable at all, and whether the CIs are honest.
 3. **W3 — thinking-mode counterfactual** (~6 min). Converts an argument into a
    measurement.
+
+---
+
+# Added after the `--system sft` rerun
+
+## O3. `json_valid` conflated "not JSON" with "JSON, wrong key"
+
+**Original.** A single `json_valid` flag, set only when the reply was JSON
+carrying the `verdict` key. Reported in `SCREEN_RESULTS.md` as "JSON validity".
+
+**Judgment: OVERTURNED.** The flag measured *schema compliance* and was labelled
+*JSON validity*. Under the `spec` prompt the two coincide, so the original
+screen's 100% figures were correct and the defect stayed invisible. The `sft`
+rerun separated them and the mislabel became a false conclusion: every zero-shot
+cell reported **0.0% "JSON validity"** while simultaneously reporting **0 parse
+failures**, which is self-contradictory on its face.
+
+**What was actually happening.** The models emitted well-formed JSON with an
+invented key, because the `sft` prompt asks for "a single JSON object" without
+naming the field:
+
+| prompt | zero-shot JSON-parseable | zero-shot schema-valid | keys invented |
+|---|---|---|---|
+| `spec` (names `{"verdict": ...}`) | 100% | 100% | — |
+| `sft` ("a single JSON object") | 100% | **0%** | `Relation`, `relationship`, `relation`, `result` |
+
+All four models, independently, reached for `Relation`/`relationship`. Granite
+used `relation` on 978/978 rows.
+
+**Fix.** Split the metric into `json_parseable` (well-formed JSON at all) and
+`schema_valid` (JSON carrying `verdict`), both recomputed from `raw_output` in
+`harness_core.json_shape()`. **No job was re-run** — every raw output was
+archived, so all sixteen cells were re-scored offline. That is the payoff for
+saving raw outputs rather than only metrics.
+
+**What this rescues.** The parser's fallback tiers. `bare_label` recovered the
+verdict from the JSON *value* even when the key was wrong, so accuracy stayed
+measurable (76-81% zero-shot). A strict-only parser would have recorded 0%
+accuracy across eight cells and I would have concluded four capable models were
+broken — the exact failure the brief's guardrail warned about.
+
+**Consequence for the deck (revises 15a).** The "prompting is not enough"
+argument is not dead after all; it was aimed at the wrong target. The finding is
+sharper than the original one:
+
+> Base models do not fail at JSON. They fail at *unspecified schema*. Told the
+> exact shape, all four comply 100% of the time. Told only "return JSON", all
+> four invent a field name and none produce the required schema.
+
+**Actionable, and it affects your pipeline.** `02_build_sft_data.py`'s system
+prompt does not name the `verdict` key. Its training *targets* do use
+`{"verdict": ...}`, so fine-tuning will teach the schema regardless. But that
+prompt produces 0% schema compliance from a base model, which matters for the
+prompt-only fallback path and for any base-vs-tuned comparison that uses it.
+Adding the key to the prompt costs one line and removes the whole effect.
+
+## C4. The ranking order is prompt-dependent too
+
+Under the `sft` prompt the 3-shot order becomes Qwen3-8B (0.793) > phi-4
+(0.790) > Qwen3-14B (0.790) — all three still mutually within noise, Granite
+still separated downward (0.755).
+
+So the *conclusions* are robust to the prompt: three inseparable leaders, one
+separated laggard. The *order among the leaders* changed for the second time,
+now under prompt variation as well as condition variation. Third independent
+reason not to read that order as real.
+
+Zero-shot macro-F1 also fell under the less specific prompt (Qwen3-14B
+0.771 -> 0.708; Qwen3-8B 0.696 -> 0.662), so schema under-specification costs
+accuracy, not just format.

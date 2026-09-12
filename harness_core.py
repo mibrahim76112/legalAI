@@ -106,3 +106,49 @@ def parse_verdict(raw: str):
             return v, False, "bare_label"
 
     return None, False, "unparseable"
+
+
+# ---- format diagnostics --------------------------------------------------
+# The `json_valid` flag returned by parse_verdict() means "JSON carrying the
+# requested `verdict` key". The --system sft rerun showed that is two different
+# things: models there emitted well-formed JSON with an INVENTED key
+# ({"Relation": ...}, {"relationship": ...}), which scored as 0% "json valid"
+# and made it look like they could not produce JSON at all. They could; they
+# just were not told the key name.
+#
+# So format compliance is reported at two levels:
+#   json_parseable - is the reply well-formed JSON at all?
+#   schema_valid   - is it JSON carrying the `verdict` key?
+# Both are recomputed from raw_output, so archived runs can be re-scored
+# without re-running any job.
+_FENCE_RE = re.compile(r"^\s*```(?:json)?\s*|\s*```\s*$", re.I)
+
+
+def _strip_wrappers(raw: str) -> str:
+    text = _THINK_RE.sub(" ", raw or "").strip()
+    return _FENCE_RE.sub("", text).strip()
+
+
+def json_shape(raw: str):
+    """-> (json_parseable, schema_valid, key_used|None)."""
+    text = _strip_wrappers(raw)
+    if not text:
+        return False, False, None
+    obj = None
+    try:
+        obj = json.loads(text)
+    except Exception:
+        # a JSON object embedded in surrounding prose
+        m = re.search(r"\{.*\}", text, re.S)
+        if m:
+            try:
+                obj = json.loads(m.group(0))
+            except Exception:
+                obj = None
+    if not isinstance(obj, dict):
+        return False, False, None
+    if "verdict" in obj:
+        return True, True, "verdict"
+    # well-formed JSON, wrong key: report which key so schema drift is visible
+    keys = [k for k in obj if isinstance(obj[k], str)]
+    return True, False, (keys[0] if keys else None)
