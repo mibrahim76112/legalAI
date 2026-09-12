@@ -1,0 +1,4 @@
+Qwen/Qwen3-14B
+Qwen/Qwen3-8B
+ibm-granite/granite-4.2-8b
+microsoft/phi-4
