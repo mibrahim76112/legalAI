@@ -1,0 +1,13 @@
+{
+  "model": "microsoft/phi-4",
+  "condition": "zeroshot",
+  "system_prompt": "spec",
+  "n_examples": 978,
+  "max_new_tokens": 128,
+  "direct_answer_kwarg": null,
+  "mean_output_tokens": 27.38,
+  "wall_seconds": 72.8,
+  "host": "g3.nibi.sharcnet",
+  "gpu": "0",
+  "prompt_tokens_median": 216
+}

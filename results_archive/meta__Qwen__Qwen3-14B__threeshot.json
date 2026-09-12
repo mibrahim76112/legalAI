@@ -1,0 +1,13 @@
+{
+  "model": "Qwen/Qwen3-14B",
+  "condition": "threeshot",
+  "system_prompt": "spec",
+  "n_examples": 978,
+  "max_new_tokens": 128,
+  "direct_answer_kwarg": "enable_thinking",
+  "mean_output_tokens": 10.36,
+  "wall_seconds": 46.5,
+  "host": "g2.nibi.sharcnet",
+  "gpu": "0",
+  "prompt_tokens_median": 636
+}
