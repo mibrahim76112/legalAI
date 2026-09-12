@@ -302,3 +302,60 @@ reason not to read that order as real.
 Zero-shot macro-F1 also fell under the less specific prompt (Qwen3-14B
 0.771 -> 0.708; Qwen3-8B 0.696 -> 0.662), so schema under-specification costs
 accuracy, not just format.
+
+---
+
+# Verdicts after the verification runs (27 cells)
+
+## W1 -> UPHELD (tested)
+
+Granite 4.1-8b scored **lower** than 4.2-8b (3-shot 0.739 vs 0.746; zero-shot
+0.698 vs 0.741) and remains separated from the leaders. My version choice was
+the one *favourable* to Granite, so "drop Granite" and the benchmark-non-transfer
+finding both stand. The WEAK rating was appropriate caution; the decision
+survived it.
+
+## W2 -> CONFIRMED WEAK. The concern was real and it corrected a recommendation.
+
+Exemplar spread reaches **0.105** per model against published gaps of **0.016**
+and **0.003**. Five triples produced **three distinct orders**.
+
+The concrete damage: **Qwen3-8B's 2nd place was an artefact of my exemplar
+choice.** It is 3rd in all four alternative triples; phi-4 beats it in 4 of 5
+and is separated in 2. The headline triple was the only one where Qwen3-8B came
+out ahead, by 0.003, inside noise.
+
+**What I got right.** Refusing to present an ordering among the top three. That
+refusal is what kept the published conclusion correct despite the design flaw
+underneath it. Had I ranked them confidently, the deck would now contain a claim
+the follow-up experiment refutes.
+
+**What I got wrong.** Treating "identical exemplars across models" as
+sufficient. It secures fairness *between* models but says nothing about the
+stability of the *level*, and I reported CIs that omit this variance term.
+Single-triple few-shot evaluation is not adequate for gaps under ~0.05 on a set
+this size, and I should have known that from the +0.090 few-shot gain the first
+run already showed me.
+
+**Standing fix.** Report mean across triples, with the spread, as the estimate.
+Treat any single-triple few-shot number as a point sample.
+
+## W3 -> UPHELD (tested)
+
+Thinking mode is worse by **0.039 [-0.064, -0.014], separated**, at **40x** the
+output tokens, with 89/978 still truncating at a 1024-token cap. The control
+helped the models it touched rather than penalising them, and created no bias
+against phi-4. Asserted correctly, and now measured rather than argued.
+
+## Net
+
+Of the three WEAK ratings, two were over-caution and one was a genuine defect
+that changed a recommendation. That ratio is the argument for running the checks:
+the two cheap ones cost ~6 minutes each to convert into evidence, and the third
+caught a flaw in my own methodology that no amount of re-reading would have
+surfaced.
+
+**Unchanged by all of it:** drop Granite; the top group is inseparable on a
+single triple; the refusal to rank was the right call. **Changed:** Qwen3-8B is
+3rd on merit, not 2nd, so its place in the fine-tuning pair now rests on serving
+cost and Contradiction recall rather than on rank.

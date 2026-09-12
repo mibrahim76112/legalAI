@@ -195,3 +195,125 @@ Correct protocol: fine-tune both, **select on post-SFT dev, report both models
 on test**, and recommend on cost/performance grounds. "The 8B is within X points
 of the 14B at half the serving footprint" is both statistically clean and a
 stronger argument than naming one winner and burying the other run.
+
+---
+
+# Verification runs (27 extra cells)
+
+Three decisions flagged **WEAK** in `decision_reviews.md` were tested rather
+than argued. One of them changes a recommendation.
+
+## W2. Exemplar choice swamps the gaps the ranking rested on
+
+4 alternative balanced triples (random draws, fixed seeds, same constraints as
+the headline triple) x 4 models, 3-shot. With the headline triple that is 5
+observations per model.
+
+| model | base | t1 | t2 | t3 | t4 | mean | sd | range |
+|---|---|---|---|---|---|---|---|---|
+| Qwen3-14B | 0.802 | 0.792 | 0.757 | 0.785 | 0.813 | **0.790** | 0.021 | 0.056 |
+| phi-4 | 0.783 | 0.800 | 0.771 | 0.785 | 0.779 | **0.784** | 0.010 | **0.028** |
+| Qwen3-8B | 0.786 | 0.774 | 0.734 | 0.765 | 0.765 | **0.765** | 0.019 | 0.052 |
+| granite-4.2-8b | 0.746 | 0.732 | 0.641 | 0.679 | 0.738 | **0.707** | 0.045 | 0.105 |
+
+**The concern was justified.** Largest per-model spread from exemplar choice
+alone is **0.105**. The published 3-shot gaps were **0.016** and **0.003**. Both
+are swamped several times over.
+
+**The order is not stable.** Five triples produced **three distinct orders**.
+phi-4 leads in 3 of 5, Qwen3-14B in 2 of 5.
+
+**The specific correction that matters.** Qwen3-8B placed 2nd in the published
+ranking. Across the four alternative triples it is **3rd every time**. phi-4
+beats it in **4 of 5** triples and is separated in 2:
+
+| triple | phi-4 minus Qwen3-8B | 95% CI | |
+|---|---|---|---|
+| base | -0.003 | [-0.027, +0.021] | within noise |
+| t1 | +0.026 | [+0.004, +0.048] | **phi-4 separated** |
+| t2 | +0.038 | [+0.011, +0.063] | **phi-4 separated** |
+| t3 | +0.020 | [-0.001, +0.042] | within noise |
+| t4 | +0.015 | [-0.008, +0.038] | within noise |
+
+The headline triple was the **only** one where Qwen3-8B edged phi-4, and by
+0.003 — inside noise. **Its 2nd place was an artefact of my exemplar choice.**
+
+**Consequence for the published table.** The bootstrap CIs in the results table
+capture example sampling only. Total uncertainty is larger. Use the mean across
+triples as the more robust estimate, and treat exemplar variance as a real term
+in the error budget when comparing base to fine-tuned.
+
+**Secondary finding.** Exemplar robustness is itself a model property worth
+reporting: phi-4 varies by 0.028 across triples, Granite by 0.105. A model whose
+score swings 10 points on which three examples you picked is a deployment risk
+in a prompt-only configuration.
+
+## W1. Granite's exclusion is not a version artefact
+
+Granite 4.1-8b, both conditions, headline triple:
+
+| model | zero-shot | 3-shot | 3-shot C-recall |
+|---|---|---|---|
+| granite-4.1-8b | 0.698 | 0.739 | 0.899 |
+| granite-4.2-8b | 0.741 | 0.746 | 0.865 |
+
+4.1-8b is **worse**, clearly so zero-shot. Both remain separated from the
+leaders (vs Qwen3-14B: +0.063 [+0.038, +0.087]; vs phi-4: +0.044 [+0.021,
++0.067]).
+
+**Verdict: "drop Granite" holds**, and my version choice was the one *favourable*
+to Granite. The "published benchmarks did not transfer" finding also survives —
+it is not an artefact of testing a fresh point release.
+
+## W3. The thinking-mode control was correct, and is now measured
+
+Qwen3-8B, 3-shot, thinking left ON with the cap raised to 1024 tokens:
+
+| | macro-F1 | acc | C-recall | NM-recall | mean out tok | truncated | parse fail |
+|---|---|---|---|---|---|---|---|
+| thinking OFF (as screened) | **0.786** | 0.821 | 0.921 | 0.719 | 10.3 | 0 | 0 |
+| thinking ON | 0.747 | 0.786 | 0.787 | 0.757 | **416.4** | 89 | 3 |
+
+Thinking mode is **worse by 0.039 [-0.064, -0.014], separated**, and costs
+**40x the output tokens**. Even at a 1024-token cap, 89 rows still truncated.
+
+So the fairness control did not disadvantage the models it touched; it helped
+them, and the asymmetry with phi-4 (which has no such mode) did not bias the
+comparison against phi-4. Note thinking *did* improve NotMentioned recall
+(0.757 vs 0.719) while hurting Contradiction recall badly (0.787 vs 0.921) —
+worth remembering if abstention becomes the binding constraint post-SFT.
+
+## Revised recommendation
+
+Ranking by **mean macro-F1 across 5 triples**, which is the more defensible
+estimate:
+
+| model | mean | range | note |
+|---|---|---|---|
+| Qwen3-14B | 0.790 | 0.056 | leads on mean |
+| phi-4 | 0.784 | 0.028 | most exemplar-robust |
+| Qwen3-8B | 0.765 | 0.052 | **3rd, not 2nd** |
+| granite-4.2-8b | 0.707 | 0.105 | separated, and most fragile |
+
+**Drop Granite** — unchanged, now confirmed across two point releases.
+
+**The fine-tuning pair is now a real trade-off, not a ranking readout.**
+Qwen3-8B is measurably behind phi-4, so "take the top two" no longer selects it.
+Two defensible pairs:
+
+- **Qwen3-14B + Qwen3-8B** (still recommended). Pairing the two ~14B models
+  answers no cost question — both sit in the same serving class. The
+  commercially decisive question is whether the *cheap* model can be made good
+  enough, and Qwen3-8B is the cheap candidate with the screen's **best
+  Contradiction recall (0.921)**. Its weakness is abstention calibration, which
+  is precisely what SFT on balanced data is most likely to repair. The
+  justification changes though: not "it ranked 2nd" (it did not), but "it is the
+  cheap serving candidate whose one weakness is the one SFT should fix."
+- **Qwen3-14B + phi-4** if you would rather fine-tune the two strongest and most
+  robust base models. Cleaner on current evidence, but confounds family with
+  scale, gives you two models in the same cost class, and phi-4's 16K context
+  constrains the full-document roadmap.
+
+**Fallback, stated in advance:** if the Qwen3-8B fine-tune underperforms its base
+by more than the exemplar spread, phi-4 is the replacement, on the strength of
+being 2nd on mean and 1st on robustness.
