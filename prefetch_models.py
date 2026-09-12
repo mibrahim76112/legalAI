@@ -99,10 +99,19 @@ def main():
         print(f"    OK  {len(shards)} shards, {size_gb:.1f} GB -> {local}", flush=True)
         manifest[mid] = {"path": str(local), "shards": len(shards), "size_gb": round(size_gb, 1)}
 
+    # Merge rather than replace: a partial run (e.g. --models-file with one
+    # extra candidate) must not erase the record of the already-cached models.
     out = Path(args.hf_home) / "prefetch_manifest.json"
-    out.write_text(json.dumps(manifest, indent=2))
+    merged = {}
+    if out.exists():
+        try:
+            merged = json.loads(out.read_text())
+        except Exception:
+            merged = {}
+    merged.update(manifest)
+    out.write_text(json.dumps(merged, indent=2))
     print(f"\nmanifest -> {out}")
-    print(f"total {sum(m['size_gb'] for m in manifest.values()):.1f} GB")
+    print(f"total {sum(m['size_gb'] for m in merged.values()):.1f} GB ({len(merged)} models cached)")
 
     if failures:
         print("\nFAILURES:")
