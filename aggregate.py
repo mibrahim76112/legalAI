@@ -81,7 +81,10 @@ def main():
         rows = [json.loads(l) for l in open(fp, encoding="utf-8")]
         if not rows:
             continue
-        key = (rows[0]["model"], rows[0]["condition"])
+        # system prompt is part of the identity: spec and sft runs are
+        # different measurements and must never merge into one cell.
+        key = (rows[0]["model"], rows[0]["condition"],
+               rows[0].get("system_prompt", "spec"))
         rows.sort(key=lambda r: r["example_id"])       # align across models
         cells[key] = rows
 
@@ -90,14 +93,14 @@ def main():
 
     outd = Path(args.out); outd.mkdir(exist_ok=True)
     table = []
-    for (model, cond), rows in sorted(cells.items()):
+    for (model, cond, system), rows in sorted(cells.items()):
         gold = [r["gold_verdict"] for r in rows]
         pred = [r["parsed_verdict"] or UNPARSED for r in rows]
         m = prf(pred, gold)
         lo, hi = boot_ci(pred, gold, args.bootstrap)
         n = len(rows)
         rec = {
-            "model": model, "condition": cond, "n": n,
+            "model": model, "condition": cond, "system": system, "n": n,
             "macro_f1": m["macro_f1"], "macro_f1_lo": lo, "macro_f1_hi": hi,
             "accuracy": m["accuracy"],
             "json_valid_rate": sum(r["json_valid"] for r in rows) / n,
@@ -134,7 +137,11 @@ def main():
         print(s)
 
     # ---- ranking + is the gap real? -------------------------------------
-    three = {m: rows for (m, c), rows in cells.items() if c == "threeshot"}
+    systems = {k[2] for k in cells}
+    if len(systems) > 1:
+        print(f"\nNOTE: {len(systems)} system prompts present {sorted(systems)}; "
+              f"ranking is computed per prompt.")
+    three = {m: rows for (m, c, sy), rows in cells.items() if c == "threeshot"}
     if len(three) >= 2:
         gold = [r["gold_verdict"] for r in next(iter(three.values()))]
         preds = {m: [r["parsed_verdict"] or UNPARSED for r in rows]

@@ -118,7 +118,10 @@ def main():
 
     Path(args.out_dir).mkdir(parents=True, exist_ok=True)
     slug = args.model.replace("/", "__")
-    raw_path = Path(args.out_dir) / f"raw__{slug}__{args.condition}.jsonl"
+    # system tag in the filename: without it a --system sft run silently
+    # overwrites the spec results, which are the ranking of record.
+    stem = f"{slug}__{args.condition}__{args.system}"
+    raw_path = Path(args.out_dir) / f"raw__{stem}.jsonl"
 
     n_tok = 0
     with open(raw_path, "w", encoding="utf-8") as f:
@@ -146,7 +149,7 @@ def main():
         "gpu": os.environ.get("CUDA_VISIBLE_DEVICES", "?"),
         "prompt_tokens_median": sorted(plen)[len(plen)//2],
     }
-    (Path(args.out_dir) / f"meta__{slug}__{args.condition}.json").write_text(
+    (Path(args.out_dir) / f"meta__{stem}.json").write_text(
         json.dumps(meta, indent=2))
     print(f"\nwrote {raw_path}  ({elapsed:.0f}s, mean out tokens "
           f"{meta['mean_output_tokens']})")

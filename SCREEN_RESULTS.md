@@ -113,9 +113,18 @@ and pays for it: **27.4 mean output tokens zero-shot vs ~10 for everyone else**,
 a 2.7x inference-cost premium that 3-shot removes (12.4).
 
 This kills the "prompting is not enough, we need SFT" argument *on formatting
-grounds* — these models already emit clean JSON. The case for SFT has to rest
-on the accuracy ceiling (~0.80 macro-F1), on abstention calibration, and on
-evidence-span extraction, which no base model can do at all.
+grounds* — these models already emit clean JSON. Drop it. The case for SFT
+rests instead on, strongest first:
+
+1. **Evidence spans** — no base model can produce them at all. This makes the
+   span rebuild load-bearing rather than optional.
+2. **Abstention calibration** — Qwen3-8B forces a verdict on 46% of silent
+   clauses zero-shot; quantify how much SFT improves NotMentioned recall.
+3. **The ~0.80 accuracy ceiling** — base models plateau there even with exemplars.
+4. **Per-client playbook adaptation** — the generalization story.
+
+A metric that kills one of your own arguments is a working metric; collecting
+and reporting it is itself evidence the evaluation is real.
 
 ## Hardest hypotheses (mean accuracy across all four, 3-shot)
 
@@ -152,6 +161,12 @@ minute, because 978 short prompts is a tiny batch for an H100.
 **Drop Granite.** It is the only model the data separates, and it is separated
 downward against all three others in both conditions.
 
+Granite was included on the strength of its published IFEval (87.06), the best
+of the four, and it finished last. Worth stating plainly in the deck: *a
+candidate selected on a published proxy benchmark finished last on our task;
+public benchmark scores did not transfer.* That is evidence for measuring on
+your own data, and it is more persuasive because it cost us a candidate.
+
 **The screen cannot pick your top two by macro-F1** — Qwen3-14B, Qwen3-8B and
 phi-4 are mutually inseparable. Choose on the tiebreakers instead:
 
@@ -170,5 +185,13 @@ difference, and they currently hold opposite strengths (NotMentioned recall vs
 Contradiction recall). That isolates model scale, and the post-SFT gap answers
 "does 14B earn its serving cost" directly.
 
-Decide on the test split, not this one. Dev's 89 Contradiction examples cannot
-resolve 2-point differences; test has 210.
+**Do not select the winner on test.** An earlier draft of this document advised
+deciding on test because it has 210 Contradiction examples rather than 89. That
+was wrong and is retracted: choosing the winner on test and then reporting that
+same number is selection contamination, reporting the max of two models over the
+set it is reported against.
+
+Correct protocol: fine-tune both, **select on post-SFT dev, report both models
+on test**, and recommend on cost/performance grounds. "The 8B is within X points
+of the 14B at half the serving footprint" is both statistically clean and a
+stronger argument than naming one winner and burying the other run.

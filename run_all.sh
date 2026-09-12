@@ -29,18 +29,27 @@ source setup_env.sh
 export HF_HOME=/scratch/ibi761/legalai/hf_home
 export HF_HUB_OFFLINE=1
 export TOKENIZERS_PARALLELISM=false
-export RESULTS_DIR=/scratch/ibi761/legalai/results
+# SYSTEM selects the system prompt: "spec" (the brief's) or "sft" (the string
+# 02_build_sft_data.py trains on). Separate results dir per prompt so the two
+# runs never mix.  sbatch --export=ALL,SYSTEM=sft run_all.sh
+SYSTEM=${SYSTEM:-spec}
+if [ "$SYSTEM" = "spec" ]; then
+  export RESULTS_DIR=/scratch/ibi761/legalai/results
+else
+  export RESULTS_DIR=/scratch/ibi761/legalai/results_$SYSTEM
+fi
+echo "=== system prompt: $SYSTEM  -> $RESULTS_DIR ==="
 
 # Sample the GPU DURING generation. Querying after the run reports 0 MiB /0%
 # because the process has already exited - that is what the smoke test showed.
 SLUG=$(echo "$MODEL" | tr '/' '_')
-GPULOG="$RESULTS_DIR/gpu__${SLUG}__${COND}.csv"
+GPULOG="$RESULTS_DIR/gpu__${SLUG}__${COND}__${SYSTEM}.csv"
 mkdir -p "$RESULTS_DIR"
 nvidia-smi --query-gpu=timestamp,memory.used,utilization.gpu,power.draw \
            --format=csv -l 5 > "$GPULOG" &
 SAMPLER=$!
 
-python run_eval.py --model "$MODEL" --condition "$COND"
+python run_eval.py --model "$MODEL" --condition "$COND" --system "$SYSTEM"
 
 kill $SAMPLER 2>/dev/null || true
 echo "=== GPU during run (peak) ==="
