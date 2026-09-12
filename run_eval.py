@@ -72,6 +72,8 @@ def main():
     ap.add_argument("--max-model-len", type=int, default=8192)
     ap.add_argument("--gpu-mem-util", type=float, default=0.90)
     ap.add_argument("--limit", type=int, default=0, help="debug: first N examples")
+    ap.add_argument("--tag", default="", help="suffix for output files; use when "
+                    "varying --fewshot-file so runs do not overwrite each other")
     ap.add_argument("--allow-thinking", action="store_true",
                     help="do NOT request direct-answer mode (diagnostic only)")
     args = ap.parse_args()
@@ -121,6 +123,8 @@ def main():
     # system tag in the filename: without it a --system sft run silently
     # overwrites the spec results, which are the ranking of record.
     stem = f"{slug}__{args.condition}__{args.system}"
+    if args.tag:
+        stem += f"__{args.tag}"
     raw_path = Path(args.out_dir) / f"raw__{stem}.jsonl"
 
     n_tok = 0
@@ -131,7 +135,7 @@ def main():
             n_tok += len(g.token_ids)
             f.write(json.dumps({
                 "model": args.model, "condition": args.condition,
-                "system_prompt": args.system,
+                "system_prompt": args.system, "fewshot_tag": args.tag or "base",
                 "example_id": r["example_id"], "chunk_id": r["chunk_id"],
                 "hypothesis_id": r["hypothesis_id"],
                 "raw_output": g.text,
@@ -143,6 +147,7 @@ def main():
 
     meta = {
         "model": args.model, "condition": args.condition, "system_prompt": args.system,
+        "fewshot_tag": args.tag or "base", "fewshot_file": args.fewshot_file,
         "n_examples": len(rows), "max_new_tokens": args.max_new_tokens,
         "direct_answer_kwarg": think_kw, "mean_output_tokens": round(n_tok/len(rows), 2),
         "wall_seconds": round(elapsed, 1), "host": socket.gethostname(),
