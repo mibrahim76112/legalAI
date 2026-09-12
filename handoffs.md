@@ -636,3 +636,36 @@ deliberate:
    68-77% across all four models. All are partial-scope or permission policies
    ("some", "may"). Consistent across models, so it is a task property and the
    place SFT has the most room.
+
+---
+
+## Step 18 — Self-adjudication of decisions (standing practice)
+
+**Decision.** Every decision on this project gets an explicit LLM-as-a-judge
+pass before being reported, with the verdict written to `decision_reviews.md`.
+
+**Why.** The deliverable is a client presentation the user has to defend in Q&A.
+An unexamined decision is a liability even when it happens to be right. This
+file records what I did and why *at the time*; `decision_reviews.md` asks
+whether each choice still holds *now that there is evidence*, using a four-level
+rubric (UPHELD / UPHELD-CAVEAT / WEAK / OVERTURNED) and requiring a falsifier
+for every verdict.
+
+**What the first pass found.** Three decisions rated **WEAK**, all of them mine
+and all previously under-weighted:
+
+| id | decision | why weak |
+|---|---|---|
+| W1 | Granite 4.2-8b over 4.1-8b | Underpins the screen's *only* separated conclusion; the alternative has 5x the downloads and 4 more months of maturity |
+| W2 | A single 3-shot exemplar triple | Exemplar variance never measured, yet the condition demonstrably moves scores by up to +0.090 — larger than the 0.016 and 0.003 gaps the ranking rests on |
+| W3 | Thinking mode disabled | I asserted the counterfactual would be worse, built `--allow-thinking`, and never ran it |
+
+**W2 is the important one.** My reported bootstrap CIs capture example sampling
+only, not exemplar choice, so total uncertainty is understated. It does not
+damage the published conclusion — I declined to rank the top three — but it
+would damage any future reading of that order as real.
+
+**Improvement.** A judge that never rules against the author is decoration, so
+the rubric requires naming what evidence would overturn each verdict. Two of the
+three weak items are settleable in about six minutes of queue time each, which
+makes them cheaper to test than to argue about.
