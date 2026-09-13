@@ -669,3 +669,48 @@ would damage any future reading of that order as real.
 the rubric requires naming what evidence would overturn each verdict. Two of the
 three weak items are settleable in about six minutes of queue time each, which
 makes them cheaper to test than to argue about.
+
+---
+
+## Step 19 — Context-length budget for document-level SFT
+
+**Decision.** `max_seq_len = 8192`, with three training pairs dropped rather
+than truncated.
+
+**Why measured rather than estimated.** The obvious shortcut is to add part
+counts (document + prompt overhead + target). Token counts are **not additive**
+across subword boundaries, so that estimate is wrong by an unknown margin. A
+benchmark first showed 607 documents tokenize in ~1.9s per tokenizer, making
+exact end-to-end measurement of all 10,319 pairs x 4 tokenizers affordable
+(2m48s total, CPU only, login node). No approximation was needed anywhere.
+
+**What failed.** `get_contractnli.py` named in the task does not exist, and only
+`dev.json` was cached. Re-pulled all three official splits via the same path
+`01_inspect_data.py` uses; document counts verified against the paper
+(423/61/123 = 607).
+
+**Result.** p99 of total sequence length is 6,743 (worst tokenizer), max 11,944.
+Nothing exceeds 16384 under any tokenizer.
+
+**The part that needed care.** Truncation is only acceptable if gold evidence
+survives the cut - a target citing text the model cannot see teaches citation
+fabrication, which corrupts the label rather than shortening the example. So the
+check converts each candidate token budget into a **character cutoff via
+offset mappings** and compares against the real gold span offsets, using the
+*measured* template overhead rather than an assumed constant.
+
+At 8192: ~39 pairs exceed, but only **3** lose evidence (doc 622 nda-10 loses
+its only span, ending at char 53,168 against a cut near 37,800; doc 622 nda-19
+and doc 162 nda-19 lose one span each). All three are in **train**, so no
+reported metric is affected. Dropping them costs 0.03% of training pairs.
+
+**Negative result worth keeping.** Tokenizer efficiency spread is **under 2.2%**
+across the four models (phi-4 5.21 chars/token, Granite 5.10). It is not a
+usable selection criterion on legal text - a 2% effect next to an 8B-vs-14B
+serving difference. Reporting it as a differentiator would overstate it.
+
+**Discrepancy flagged.** The supplied system prompt says to return
+`'no related clause'` when nothing applies, but the specified target uses empty
+evidence. Measured both: `[]` is 16 tokens, `["no related clause"]` is 19. The
+budget is unaffected, but prompt and target must agree or the model is trained
+to ignore an explicit instruction. Needs a decision before SFT data is built.
