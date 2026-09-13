@@ -58,14 +58,38 @@ def main():
 
     # ---- primary ----
     A("\n## Ranking — macro-F1, condition A (zero-shot non-thinking)\n")
-    A("| model | cond | macro-F1 | 95% CI | acc | Contradiction recall | NotMentioned recall |")
-    A("|---|---|---|---|---|---|---|")
+    A("| model | cond | macro-F1 | 95% CI | acc | **Contra PRECISION** | Contra recall | NotMent recall |")
+    A("|---|---|---|---|---|---|---|---|")
     order = sorted(recs, key=lambda k: -recs[k]["macro_f1"])
     for k in order:
         m = recs[k]
         A(f"| {k[0].split('/')[-1]} | {SHORT[k[1]]} | **{m['macro_f1']:.3f}** | "
           f"[{m['ci'][0]:.3f}, {m['ci'][1]:.3f}] | {m['accuracy']:.3f} | "
+          f"**{m['Contradiction_precision']:.3f}** | "
           f"{m['Contradiction_recall']:.3f} | {m['NotMentioned_recall']:.3f} |")
+
+    # ---- VETO: contradiction precision ---------------------------------
+    A("\n## VETO METRIC — Contradiction precision (the cry-wolf rate)\n")
+    A("Recall was the assumed veto metric on the theory that a missed conflict is")
+    A("catastrophic. The data says that is not the failure mode: **recall is")
+    A("adequate everywhere (0.64-0.84) while precision is 0.28-0.58**. These models")
+    A("over-flag conflicts.\n")
+    A("A reviewer handed 200 escalations of which 90 are real stops trusting the")
+    A("flags and re-reads everything, which is the workflow the tool replaces. So")
+    A("**precision is the commercial bottleneck and the metric SFT must move.**\n")
+    A(f"Dev contains **{recs[order[0]]['Contradiction_support']} gold Contradictions** "
+      f"of {recs[order[0]]['fmt_n'] if 'fmt_n' in recs[order[0]] else 1037}.\n")
+    A("| model | cond | flagged | real | false | precision | recall | false-flag rate | over-flag |")
+    A("|---|---|---|---|---|---|---|---|---|")
+    for k in sorted(recs, key=lambda k: -recs[k]["Contradiction_precision"]):
+        rows = cells[k]
+        fl = [x for x in rows if x["parsed_verdict"] == "Contradiction"]
+        real = sum(1 for x in fl if x["gold_verdict"] == "Contradiction")
+        gold_n = sum(1 for x in rows if x["gold_verdict"] == "Contradiction")
+        m = recs[k]
+        A(f"| {k[0].split('/')[-1]} | {SHORT[k[1]]} | {len(fl)} | {real} | {len(fl)-real} | "
+          f"**{m['Contradiction_precision']:.2f}** | {m['Contradiction_recall']:.2f} | "
+          f"{(len(fl)-real)/max(len(fl),1):.0%} | {len(fl)/max(gold_n,1):.1f}x |")
 
     A("\n## Verdict — per class\n")
     A("| model | cond | " + " | ".join(f"{c} P/R/F1" for c in CLASSES) + " |")

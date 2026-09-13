@@ -532,3 +532,88 @@ short spans moves evidence F1 by X points" with X measured per model.
 Examples whose gold evidence is *entirely* trivial are excluded from the
 variant rather than reclassified as gold-empty — reclassifying would turn a
 TP/FN into an FP/TN and silently change what is being measured.
+
+---
+
+# D9. The veto metric was wrong — precision, not recall
+
+**Original.** Contradiction *recall* was carried forward from the clause-level
+screen as the veto metric, on the theory that a missed conflict auto-clears a
+bad NDA.
+
+**Judgment: OVERTURNED by the data.**
+
+| | range across all 8 cells |
+|---|---|
+| Contradiction recall | 0.64 – 0.84 (adequate everywhere) |
+| Contradiction **precision** | **0.28 – 0.58** |
+
+Recall was never the failure mode. **Over-flagging is.** Dev holds 95 gold
+Contradictions; Qwen3-8B flags **284** (3.0x), Granite **234** (2.5x).
+
+| model | cond | flagged | real | false-flag rate |
+|---|---|---|---|---|
+| Qwen3-14B | thinking | 125 | 72 | 42% |
+| gemma-4-12B-it | zero-shot | 151 | 68 | 55% |
+| granite-4.2-8b | zero-shot | 234 | 76 | 68% |
+| Qwen3-8B | zero-shot | 284 | 80 | **72%** |
+
+**Why it matters more than the ranking.** A reviewer handed 200 escalations of
+which 90 are real stops trusting the flags and re-reads every clause — which is
+exactly the workflow the product replaces. Precision is therefore the commercial
+bottleneck, and moving it is the result SFT has to deliver.
+
+Evaluation priority is now: **1. Contradiction precision · 2. evidence F1 /
+joint · 3. macro-F1** (headline, least diagnostic).
+
+# D10. Two reported numbers were artifacts
+
+## Granite's schema validity was cap-suppressed — CONFIRMED
+
+| | |
+|---|---|
+| truncated at 512 | 40 |
+| `not_json` | 48 |
+| **overlap** | **40 (100% of truncations)** |
+| genuinely malformed | 8 (0.8%) |
+| truncated rows earning an evidence TP | **0 of 40** (24 had gold evidence) |
+
+So Granite's 95.4% schema validity is **4.6% = 3.9% cap artifact + 0.8% real**.
+Its true formatting failure rate is 0.8%, and its evidence F1 of 0.510 is a
+**floor**, not a measurement. The 8 genuine failures are a specific bug: Granite
+omits commas between evidence array elements.
+
+**Action:** re-running **all five** condition-A cells at `max_new_tokens=1024`,
+not just Granite, so the "identical cap across models" fairness control survives
+while the cap stops being a confound.
+
+## Gemma's 0.024 s/example is NOT yet explained — do not publish it
+
+Gemma and Qwen3-14B-A both emit **72 mean output tokens**, yet Gemma is 28x
+faster. Hypotheses tested and their status:
+
+| hypothesis | result |
+|---|---|
+| larger batch / more concurrency | **rejected** — Gemma had the *lowest* (8.81x vs 16-27x) |
+| prefix caching on for Gemma only | **rejected** — enabled for both |
+| smaller text tower | **rejected** — ~11.7B dense, comparable to Qwen3-14B |
+| sliding-window attention | **partial** — 40 of 48 layers use window 1024 vs full attention on all 40 of Qwen's; helps, but does not account for 28x |
+
+The gap is in **decode throughput** (3,112 tok/s vs ~110-120 for every other
+cell), not prefill, which sliding-window attention explains least well.
+
+**Verdict: unexplained. Withheld from any cost claim.** The 1024-token re-run
+measures all five cells under identical conditions and will show whether this
+reproduces (architectural) or vanishes (scheduling artifact).
+
+# D11. Llama-3.1-8B-Instruct never ran
+
+Still `GatedRepoError: 403`. The token authenticates (`mibrahim7611`, read
+scope) and model metadata is readable, so the credential is fine — the licence
+has not been granted for that account. Re-checked at the end of Phase 1;
+unchanged.
+
+This costs more than one row: Llama was the only candidate with an **external
+published number** to sanity-check the whole harness against. Without it there
+is no independent anchor confirming our absolute numbers are in the right range,
+only internal consistency. Worth fixing before Phase 3.

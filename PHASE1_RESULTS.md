@@ -13,16 +13,40 @@ n = 1037 (document, hypothesis) pairs per cell.
 
 ## Ranking — macro-F1, condition A (zero-shot non-thinking)
 
-| model | cond | macro-F1 | 95% CI | acc | Contradiction recall | NotMentioned recall |
-|---|---|---|---|---|---|---|
-| Qwen3-14B | B thinking | **0.762** | [0.728, 0.792] | 0.802 | 0.758 | 0.742 |
-| gemma-4-12B-it | A zero-shot | **0.730** | [0.698, 0.761] | 0.792 | 0.716 | 0.697 |
-| Qwen3-4B | B thinking | **0.712** | [0.677, 0.746] | 0.770 | 0.674 | 0.759 |
-| Qwen3-8B | B thinking | **0.704** | [0.670, 0.737] | 0.757 | 0.684 | 0.700 |
-| Qwen3-14B | A zero-shot | **0.701** | [0.668, 0.733] | 0.753 | 0.811 | 0.700 |
-| granite-4.2-8b | A zero-shot | **0.623** | [0.590, 0.654] | 0.675 | 0.800 | 0.541 |
-| Qwen3-4B | A zero-shot | **0.615** | [0.579, 0.650] | 0.669 | 0.642 | 0.584 |
-| Qwen3-8B | A zero-shot | **0.553** | [0.519, 0.585] | 0.623 | 0.842 | 0.314 |
+| model | cond | macro-F1 | 95% CI | acc | **Contra PRECISION** | Contra recall | NotMent recall |
+|---|---|---|---|---|---|---|---|
+| Qwen3-14B | B thinking | **0.762** | [0.728, 0.792] | 0.802 | **0.576** | 0.758 | 0.742 |
+| gemma-4-12B-it | A zero-shot | **0.730** | [0.699, 0.762] | 0.792 | **0.450** | 0.716 | 0.697 |
+| Qwen3-4B | B thinking | **0.712** | [0.678, 0.746] | 0.770 | **0.444** | 0.674 | 0.759 |
+| Qwen3-8B | B thinking | **0.704** | [0.669, 0.736] | 0.757 | **0.464** | 0.684 | 0.700 |
+| Qwen3-14B | A zero-shot | **0.701** | [0.669, 0.734] | 0.753 | **0.399** | 0.811 | 0.700 |
+| granite-4.2-8b | A zero-shot | **0.623** | [0.590, 0.653] | 0.675 | **0.325** | 0.800 | 0.541 |
+| Qwen3-4B | A zero-shot | **0.615** | [0.579, 0.649] | 0.669 | **0.349** | 0.642 | 0.584 |
+| Qwen3-8B | A zero-shot | **0.553** | [0.519, 0.585] | 0.623 | **0.282** | 0.842 | 0.314 |
+
+## VETO METRIC — Contradiction precision (the cry-wolf rate)
+
+Recall was the assumed veto metric on the theory that a missed conflict is
+catastrophic. The data says that is not the failure mode: **recall is
+adequate everywhere (0.64-0.84) while precision is 0.28-0.58**. These models
+over-flag conflicts.
+
+A reviewer handed 200 escalations of which 90 are real stops trusting the
+flags and re-reads everything, which is the workflow the tool replaces. So
+**precision is the commercial bottleneck and the metric SFT must move.**
+
+Dev contains **95 gold Contradictions** of 1037.
+
+| model | cond | flagged | real | false | precision | recall | false-flag rate | over-flag |
+|---|---|---|---|---|---|---|---|---|
+| Qwen3-14B | B thinking | 125 | 72 | 53 | **0.58** | 0.76 | 42% | 1.3x |
+| Qwen3-8B | B thinking | 140 | 65 | 75 | **0.46** | 0.68 | 54% | 1.5x |
+| gemma-4-12B-it | A zero-shot | 151 | 68 | 83 | **0.45** | 0.72 | 55% | 1.6x |
+| Qwen3-4B | B thinking | 144 | 64 | 80 | **0.44** | 0.67 | 56% | 1.5x |
+| Qwen3-14B | A zero-shot | 193 | 77 | 116 | **0.40** | 0.81 | 60% | 2.0x |
+| Qwen3-4B | A zero-shot | 175 | 61 | 114 | **0.35** | 0.64 | 65% | 1.8x |
+| granite-4.2-8b | A zero-shot | 234 | 76 | 158 | **0.32** | 0.80 | 68% | 2.5x |
+| Qwen3-8B | A zero-shot | 284 | 80 | 204 | **0.28** | 0.84 | 72% | 3.0x |
 
 ## Verdict — per class
 
@@ -108,142 +132,13 @@ hallucinated-citation rate on NotMentioned rows.
 
 | comparison | diff | 95% CI | verdict |
 |---|---|---|---|
-| gemma-4-12B-it vs Qwen3-14B | +0.029 | [-0.002, +0.058] | within noise |
+| gemma-4-12B-it vs Qwen3-14B | +0.028 | [-0.002, +0.058] | within noise |
 | gemma-4-12B-it vs granite-4.2-8b | +0.107 | [+0.076, +0.141] | **separated** |
-| gemma-4-12B-it vs Qwen3-4B | +0.115 | [+0.083, +0.146] | **separated** |
-| gemma-4-12B-it vs Qwen3-8B | +0.177 | [+0.145, +0.211] | **separated** |
+| gemma-4-12B-it vs Qwen3-4B | +0.115 | [+0.082, +0.146] | **separated** |
+| gemma-4-12B-it vs Qwen3-8B | +0.177 | [+0.144, +0.211] | **separated** |
 | Qwen3-14B vs granite-4.2-8b | +0.079 | [+0.050, +0.109] | **separated** |
-| Qwen3-14B vs Qwen3-4B | +0.086 | [+0.055, +0.120] | **separated** |
+| Qwen3-14B vs Qwen3-4B | +0.087 | [+0.055, +0.120] | **separated** |
 | Qwen3-14B vs Qwen3-8B | +0.149 | [+0.121, +0.177] | **separated** |
 | granite-4.2-8b vs Qwen3-4B | +0.008 | [-0.025, +0.044] | within noise |
 | granite-4.2-8b vs Qwen3-8B | +0.070 | [+0.039, +0.101] | **separated** |
-| Qwen3-4B vs Qwen3-8B | +0.062 | [+0.031, +0.094] | **separated** |
-
----
-
-# Written summary
-
-## Ranking on the primary condition (A, zero-shot non-thinking)
-
-| rank | model | macro-F1 | 95% CI |
-|---|---|---|---|
-| 1 | gemma-4-12B-it | 0.730 | [0.698, 0.761] |
-| 2 | Qwen3-14B | 0.701 | [0.668, 0.733] |
-| 3 | granite-4.2-8b | 0.623 | [0.590, 0.654] |
-| 4 | Qwen3-4B | 0.615 | [0.579, 0.650] |
-| 5 | Qwen3-8B | 0.553 | [0.519, 0.585] |
-
-**Two tiers, not five ranks.** The paired bootstrap separates most pairs but
-not within tiers:
-
-- **Top tier**: gemma-4-12B-it and Qwen3-14B are **within noise**
-  (+0.029, CI [-0.002, +0.058]). Do not claim Gemma beats Qwen3-14B.
-- **Middle tier**: granite-4.2-8b and Qwen3-4B are **within noise**
-  (+0.008, CI [-0.025, +0.044]).
-- **Qwen3-8B is separated from everything**, at the bottom.
-
-Every cross-tier comparison is separated, so the tier structure itself is real.
-
-## Thinking mode is a large, consistent gain (condition B, Qwen3 only)
-
-| model | A zero-shot | B thinking | gain |
-|---|---|---|---|
-| Qwen3-8B | 0.553 | 0.704 | **+0.151** |
-| Qwen3-4B | 0.615 | 0.712 | +0.097 |
-| Qwen3-14B | 0.701 | 0.762 | +0.061 |
-
-**Qwen3-14B with thinking (0.762) is the best cell in the screen**, above every
-condition-A result. The gain is inversely proportional to model size: the
-weakest model benefits most.
-
-It is not free. Thinking costs **~6x the wall clock** (3.9-4.6 s/example vs
-0.67-0.78) and ~6x the output tokens (437-575 mean vs 72-95).
-
-## The interesting failure: Qwen3-8B cannot abstain zero-shot
-
-| Qwen3-8B, condition A | precision | recall |
-|---|---|---|
-| NotMentioned | 0.95 | **0.31** |
-| Contradiction | 0.28 | 0.84 |
-
-It almost never answers NotMentioned, but is right when it does. Instead it
-forces Entailment or Contradiction on ~69% of the clauses that do not address
-the policy — which is why its Contradiction precision collapses to 0.28.
-
-This is the **same abstention-calibration failure this model showed at clause
-level**, now larger at document scale. Thinking repairs most of it
-(NotMentioned recall 0.31 -> 0.70). Abstention is the core product capability,
-so this is the most commercially significant result in the screen.
-
-## Evidence extraction is the binding constraint
-
-Best strict F1 is **0.510** (granite). Every model is far weaker at evidence
-than at verdicts. Note the inversion: **granite has the best evidence F1 and the
-worst verdict macro-F1** — it retrieves well and judges poorly.
-
-Granite's number carries an asterisk: it hit the 512-token cap on **40 examples
-(3.9%)**, mid-way through enumerating spans. Its evidence score is suppressed by
-the cap, not only by capability.
-
-**Excluding trivially-matchable short gold spans changes evidence F1 by exactly
-0.000 on every cell.** The 11 affected dev rows never flip TP/FN, because their
-long spans are already uncovered. The concern was real; the measured magnitude
-is nil.
-
-## Joint metric — the product number
-
-| model | cond | joint strict | joint lenient | gap |
-|---|---|---|---|---|
-| gemma-4-12B-it | A | **0.464** | 0.464 | 0.000 |
-| granite-4.2-8b | A | 0.452 | 0.452 | 0.000 |
-| Qwen3-14B | B | 0.449 | 0.452 | 0.003 |
-| Qwen3-14B | A | 0.440 | 0.440 | 0.000 |
-| Qwen3-8B | B | 0.440 | 0.449 | 0.009 |
-| Qwen3-4B | A | 0.379 | 0.380 | 0.001 |
-| **Qwen3-4B** | **B** | **0.353** | **0.442** | **0.089** |
-| Qwen3-8B | A | 0.260 | 0.260 | 0.000 |
-
-The strict/lenient gap is the hallucinated-citation rate on NotMentioned rows.
-It is ~0 everywhere except **Qwen3-4B with thinking, at 8.9 points** — thinking
-makes the 4B model invent evidence for clauses it correctly judges NotMentioned.
-A model that says "not mentioned" and then cites a clause anyway is a specific
-liability for this product, and it is only visible because joint is reported
-both ways.
-
-## Cost
-
-| model | s/example | mean output tokens |
-|---|---|---|
-| gemma-4-12B-it | **0.024** | 72 |
-| Qwen3-14B A | 0.669 | 72 |
-| Qwen3-4B A | 0.746 | 93 |
-| Qwen3-8B A | 0.776 | 95 |
-| granite-4.2-8b A | 1.420 | 159 |
-| Qwen3-14B B | 3.918 | 437 |
-| Qwen3-8B B | 4.464 | 563 |
-| Qwen3-4B B | 4.572 | 575 |
-
-Gemma is **28x faster than Qwen3-14B** at equal output length and **163x faster
-than the best cell overall**. On a cost/performance basis it is the standout:
-joint-best, top-tier macro-F1, and the cheapest by a wide margin.
-
-## Format quality is not a discriminator
-
-Schema validity is 95.4-99.7%; parse failures are 0.0-0.4%. "JSON, wrong
-schema" is **0.0% everywhere** — when these models emit JSON they use the right
-keys. As at clause level, formatting does not separate them, so it cannot carry
-the argument for SFT.
-
-## What this means for Phase 2
-
-- **Fine-tune Qwen3-14B first**, as planned. It leads condition A within noise
-  of Gemma, has the best thinking result, and is the only model that is strong
-  on both verdict and abstention.
-- **Gemma deserves a place in the SFT set** on the strength of being joint-best
-  and 28x cheaper, which is a genuine deployment argument rather than a metric
-  artefact.
-- **Qwen3-8B is the most interesting SFT candidate despite ranking last**: its
-  deficit is abstention calibration, exactly what supervised training on
-  balanced targets should repair, and thinking already recovers +0.151 of it.
-- Evidence extraction, not verdict accuracy, is where SFT has the most room
-  (best strict F1 0.510).
+| Qwen3-4B vs Qwen3-8B | +0.062 | [+0.029, +0.093] | **separated** |
