@@ -10,11 +10,22 @@
 #SBATCH --error=/scratch/ibi761/legalai/logs/p1_%A_%a.out
 
 # PHASE 1: document-level pre-SFT screen on the DEV split.
-# Cells listed in cells_phase1.txt, one line per (model, condition).
+#
+# GPU class is chosen per cell by MEMORY, and overridden at submit time:
+#   sbatch --gpus=h100_3g.40gb:1 --cpus-per-task=6 --mem=124G \
+#          --array=0-5 --export=ALL,CELLS=cells_mig40.txt run_phase1.sh
+#   sbatch --gpus=h100:1 --cpus-per-task=14 --mem=240G \
+#          --array=0-1 --export=ALL,CELLS=cells_full.txt  run_phase1.sh
+#
+# A 3g.40gb instance bills 6.1 RGU against 12.2 for a full H100, so everything
+# that fits in 40GB costs half the priority and schedules sooner. Only
+# Qwen3-14B (29.6GB of weights) needs a full card: on 40GB it would leave
+# ~6GB for KV cache, throttling concurrency at 16k context.
 set -euo pipefail
 cd /project/6030214/ibrahim/legalAI
 
-LINE=$(sed -n "$(( SLURM_ARRAY_TASK_ID + 1 ))p" cells_phase1.txt)
+CELLS=${CELLS:-cells_phase1.txt}
+LINE=$(sed -n "$(( SLURM_ARRAY_TASK_ID + 1 ))p" "$CELLS")
 MODEL=$(echo "$LINE" | awk '{print $1}')
 COND=$(echo "$LINE" | awk '{print $2}')
 SPLIT=${SPLIT:-dev}

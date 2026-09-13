@@ -1,0 +1,6 @@
+Qwen/Qwen3-4B nothink
+Qwen/Qwen3-8B nothink
+ibm-granite/granite-4.2-8b nothink
+google/gemma-4-12B-it nothink
+Qwen/Qwen3-4B think
+Qwen/Qwen3-8B think
