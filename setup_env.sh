@@ -12,7 +12,22 @@ module purge
 # opencv module is REQUIRED before the venv: vllm depends on
 # opencv-python-headless, and the wheelhouse ships a dummy wheel that errors
 # out telling you to load the module instead. opencv needs cuda/12.9 (not 12.6).
-module load StdEnv/2023 gcc/12.3 python/3.11 cuda/12.9 opencv/4.13.0 arrow/17.0.0
+# arrow/17.0.0 requires cudacore/.12.2.2 and so SILENTLY fails to load beside
+# cuda/12.9 -- it never appeared in `module list` and nothing complained until
+# `datasets` needed pyarrow. arrow/19.0.1+ coexist with cuda/12.9.
+module load StdEnv/2023 gcc/12.3 python/3.11 cuda/12.9 opencv/4.13.0 arrow/21.0.0
+
+# Lmod reports success for an unsatisfiable combination, so assert instead of
+# trusting it. This class of silent failure has now cost two debugging cycles
+# (opencv with cuda/12.6, arrow with cuda/12.9).
+for _m in python cuda opencv arrow; do
+    if ! module -t list 2>&1 | grep -q "^${_m}/"; then
+        echo "[setup_env] FATAL: module '${_m}' did not load" >&2
+        module -t list 2>&1 | tr '\n' ' ' >&2; echo >&2
+        return 1 2>/dev/null || exit 1
+    fi
+done
+echo "[setup_env] modules verified: $(module -t list 2>&1 | grep -E '^(python|cuda|opencv|arrow)/' | tr '\n' ' ')" 
 
 VENV=${SLURM_TMPDIR:-/tmp/$USER}/vllm_env
 if [ ! -x "$VENV/bin/python" ]; then
