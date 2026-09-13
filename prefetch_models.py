@@ -16,6 +16,19 @@ import json
 import argparse
 from pathlib import Path
 
+
+def load_dotenv(path=".env"):
+    """Gated repos (e.g. meta-llama/*) need HF_TOKEN; the repo keeps it in .env."""
+    p = Path(path)
+    if not p.exists():
+        return None
+    for line in p.read_text().splitlines():
+        line = line.strip()
+        if line and not line.startswith("#") and "=" in line:
+            k, v = line.split("=", 1)
+            os.environ.setdefault(k.strip(), v.strip().strip('"').strip("'"))
+    return os.environ.get("HF_TOKEN")
+
 from huggingface_hub import snapshot_download
 from huggingface_hub.utils import GatedRepoError, RepositoryNotFoundError
 
@@ -52,6 +65,7 @@ def main():
     if not args.hf_home:
         sys.exit("HF_HOME not set. export HF_HOME=$SCRATCH/legalai/hf_home")
 
+    token = load_dotenv() or os.environ.get("HF_TOKEN")
     os.environ["HF_HOME"] = args.hf_home
     # Must be OFF here - this is the one place we are allowed to hit the network.
     os.environ["HF_HUB_OFFLINE"] = "0"
@@ -69,10 +83,12 @@ def main():
                 repo_id=mid,
                 allow_patterns=ALLOW,
                 ignore_patterns=IGNORE,
+                token=token,
                 max_workers=4,   # gentle on the shared login node; resume is automatic in hub>=1.0
             )
         except GatedRepoError:
-            print(f"    GATED - needs an accepted licence + HF_TOKEN: {mid}", flush=True)
+            print(f"    GATED - token present={bool(token)}; a 403 here means the "
+                  f"licence has not been accepted for this account: {mid}", flush=True)
             failures.append((mid, "gated")); continue
         except RepositoryNotFoundError:
             print(f"    NOT FOUND: {mid}", flush=True)
