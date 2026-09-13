@@ -25,7 +25,8 @@ if [ ! -x "$VENV/bin/python" ]; then
     # (text+vision+audio), so transformers gates its processor behind
     # is_vision_available() even for pure-text use. Without them vLLM refuses
     # to build the model at all.
-    pip install --no-index vllm transformers jinja2 pillow torchvision
+    pip install --no-index vllm transformers jinja2 pillow torchvision \
+        peft accelerate datasets
 else
     source "$VENV/bin/activate"
 fi
