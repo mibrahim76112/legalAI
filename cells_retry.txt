@@ -1,0 +1,3 @@
+Qwen/Qwen3-4B nothink
+Qwen/Qwen3-4B think
+Qwen/Qwen3-14B think

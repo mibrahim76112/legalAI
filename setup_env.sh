@@ -30,6 +30,22 @@ else
     source "$VENV/bin/activate"
 fi
 
+# --- per-job, node-local caches + spawn -------------------------------------
+# Two failures in the first Phase 1 launch came from here, not from the models:
+#   1. "Cannot re-initialize CUDA in forked subprocess" - vLLM's default fork
+#      start method breaks when CUDA is already initialised (seen on MIG).
+#   2. "OSError: [Errno 116] Stale file handle" inside torch inductor - the
+#      compile caches defaulted to $HOME on a networked filesystem, and two
+#      array tasks landed on the SAME node and raced each other.
+# Pinning every cache under $SLURM_TMPDIR makes them node-local and per-job.
+export VLLM_WORKER_MULTIPROC_METHOD=spawn
+_C=${SLURM_TMPDIR:-/tmp/$USER}/cache
+mkdir -p "$_C"/{vllm,inductor,triton,flashinfer}
+export VLLM_CACHE_ROOT="$_C/vllm"
+export TORCHINDUCTOR_CACHE_DIR="$_C/inductor"
+export TRITON_CACHE_DIR="$_C/triton"
+export FLASHINFER_WORKSPACE_DIR="$_C/flashinfer"
+
 python -c "import vllm, torch, transformers; print(
     f'[setup_env] vllm={vllm.__version__} torch={torch.__version__} '
     f'transformers={transformers.__version__} cuda={torch.cuda.is_available()}')"
