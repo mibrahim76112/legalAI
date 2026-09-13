@@ -45,6 +45,11 @@ ALLOW = [
     "special_tokens_map.json",
     "chat_template.*",
     "preprocessor_config.json",
+    # Multimodal repos (gemma-4-*) ship processor_config.json instead, and
+    # vLLM's multimodal loader refuses to start without the processor files.
+    # Matching only "preprocessor_config.json" silently omitted it.
+    "processor_config.json",
+    "*_config.json",
 ]
 IGNORE = ["original/*", "*.gguf", "*.onnx", "*.pth", "consolidated*", "*.bin"]
 

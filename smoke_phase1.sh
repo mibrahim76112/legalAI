@@ -2,9 +2,9 @@
 #SBATCH --job-name=doc_smoke
 #SBATCH --account=def-ekram_gpu
 #SBATCH --array=0-1
-#SBATCH --gpus=h100_3g.40gb:1
-#SBATCH --cpus-per-task=6
-#SBATCH --mem=124G
+#SBATCH --gpus=h100:1
+#SBATCH --cpus-per-task=14
+#SBATCH --mem=240G
 #SBATCH --time=1:00:00
 #SBATCH --output=/scratch/ibi761/legalai/logs/dsmoke_%A_%a.out
 #SBATCH --error=/scratch/ibi761/legalai/logs/dsmoke_%A_%a.out
@@ -12,12 +12,12 @@
 # Task 1: Gemma 4 -- channel syntax (most likely to surprise the parser) AND the
 # largest MIG candidate at 24GB of weights.
 #
-# Runs on a 3g.40gb MIG instance rather than a full H100: these are single-GPU
-# inference jobs whose measured mean utilization on the clause-level screen was
-# 10-33%, which is the Alliance doc's stated criterion for using an instance.
-# A 3g.40gb costs 6.1 RGU against 12.2 for a full H100, so it bills half the
-# priority and schedules sooner. This smoke also VALIDATES that vLLM works on
-# MIG at a realistic memory level before Phase 1 commits to it.
+# GPU class chosen from MEASURED queue state, not from the RGU table alone.
+# `sbatch --test-only` showed 3g.40gb was the single contended flavour (2h+
+# wait) while 1g.10gb, 2g.20gb and full H100 could all start immediately. A
+# half-price instance two hours from now is worse than an idle full card, and
+# taking idle capacity deprives nobody. Re-check with --test-only before each
+# submission; the right answer moves with the queue.
 set -euo pipefail
 cd /project/6030214/ibrahim/legalAI
 source setup_env.sh

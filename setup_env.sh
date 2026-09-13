@@ -21,7 +21,11 @@ if [ ! -x "$VENV/bin/python" ]; then
     source "$VENV/bin/activate"
     pip install --no-index --upgrade pip
     # vllm pulls torch/xformers etc. from the wheelhouse as dependencies
-    pip install --no-index vllm transformers jinja2
+    # pillow/torchvision: gemma-4-12B-it is Gemma4UnifiedForConditionalGeneration
+    # (text+vision+audio), so transformers gates its processor behind
+    # is_vision_available() even for pure-text use. Without them vLLM refuses
+    # to build the model at all.
+    pip install --no-index vllm transformers jinja2 pillow torchvision
 else
     source "$VENV/bin/activate"
 fi
