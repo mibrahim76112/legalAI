@@ -88,6 +88,22 @@ def main():
           f"{m['ev_false_abstention_rate']:.3f} | "
           f"{m['ev_tp']}/{m['ev_fn']}/{m['ev_fp']}/{m['ev_tn']} |")
 
+    A("\n### Evidence excluding trivially-matchable gold spans\n")
+    A(f"Gold spans of <=4 normalized characters are section numbers (`2.1`, `4.3`).")
+    A("Any output containing `2.1` anywhere covers them, so they are trivially")
+    A("matchable — but a model that quotes the clause and omits its section number")
+    A("loses the whole example to FN. The effect is therefore **signed**, and")
+    A("measured here rather than assumed. Headline numbers above keep them (they are")
+    A("real annotations); this table removes them. Examples whose gold is entirely")
+    A("trivial are excluded, not reclassified as gold-empty.\n")
+    A("| model | cond | F1 strict | F1 excl. trivial | delta | examples excluded |")
+    A("|---|---|---|---|---|---|")
+    for k in order:
+        m = recs[k]
+        A(f"| {k[0].split('/')[-1]} | {SHORT[k[1]]} | {m['ev_f1_strict']:.3f} | "
+          f"{m['evNT_f1_strict']:.3f} | {m['ev_f1_trivial_delta']:+.3f} | "
+          f"{m['evNT_n_excluded']} |")
+
     A("\n## JOINT — verdict correct AND all gold spans covered\n")
     A("The product metric. `lenient` is the brief's literal definition, under which")
     A("empty gold counts as 'all covered'. `strict` additionally requires the model")

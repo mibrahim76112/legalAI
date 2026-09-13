@@ -468,3 +468,67 @@ then act on it; do not combine the two.
 Setup is sound to proceed. One critical issue found (D1) that would have
 silently invalidated Gemma's post-SFT numbers, and one data defect fixed (D2).
 Neither affects Phase 1, which is inference only.
+
+---
+
+# D7. Loss masking — verified before the first fine-tune
+
+**Same bug class as D1: silent, invisible in metrics.** Unmasked prompt loss
+does not crash and the loss curve still looks plausible; the run is simply
+wasted on contract reconstruction.
+
+**Measured, not estimated.** Over 200 training examples:
+
+| | |
+|---|---|
+| prompt tokens | 491,056 |
+| target tokens | 13,620 |
+| target share of tokens | **2.70%** |
+| loss that would go to contract reconstruction if unmasked | **97.3%** |
+
+**Verification is token-level, not a claim.** `verify_loss_masking.py` prints the
+label tensor around the boundary and asserts three things per model: every label
+before the target start is `-100`, no label after it is, and labels equal
+input_ids after the boundary. Example (Qwen3-14B, boundary at 1859):
+
+```
+[ 1857] input= 151668  label=   -100              '</think>'
+[ 1858] input=    271  label=   -100                  '\n\n'
+[ 1859] input=   4913  label=   4913                    '{"'  <-- TARGET STARTS
+[ 1860] input=    423  label=    423                   'ver'
+```
+
+**It also closes D1 structurally.** The same check asserts the masked prefix IS
+the inference prompt, byte for byte. All five available models pass, Gemma
+included — its train prompt now ends `<|turn>model\n<|channel>thought\n<channel|>`,
+exactly what inference emits. Phase 2 imports `doc_sft_seq.py`, so the code that
+was verified is the code that trains.
+
+Truncation at `max_seq_len` cuts the PROMPT from the left, never the target:
+dropping target tokens would train the model to emit malformed JSON.
+
+# D8. Trivially-matchable short spans — now measured, not footnoted
+
+D5 flagged these as a caveat. A caveat with an unknown magnitude is not a
+finding, so every evidence metric is now computed twice and the difference is
+reported per cell.
+
+**The effect is SIGNED and genuinely goes both ways**, which is why assuming a
+direction would have been wrong:
+
+- *Inflates* when the model emits `2.1` anywhere — the span is covered for free.
+- *Deflates* when the model quotes the clause text but omits its section number
+  — under strict all-spans-covered matching that loses the **whole example** to FN.
+
+On a hand-built fixture the second effect dominated, moving F1 from 0.500 to
+1.000 once trivial spans were removed. So the honest label is a signed delta,
+not "inflation".
+
+Headline numbers keep these spans (they are real annotations, and filtering
+them would invent a convention). The report adds a table with F1 excluding
+them plus the delta, so the statement becomes "excluding trivially-matchable
+short spans moves evidence F1 by X points" with X measured per model.
+
+Examples whose gold evidence is *entirely* trivial are excluded from the
+variant rather than reclassified as gold-empty — reclassifying would turn a
+TP/FN into an FP/TN and silently change what is being measured.

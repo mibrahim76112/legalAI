@@ -24,15 +24,37 @@ def verdict_metrics(pred, gold):
     return out
 
 
-def evidence_metrics(rows):
+# Gold spans of <=4 normalized chars are section numbers ("2.1", "4.3", "8.2").
+# They are trivially substring-matchable: any output containing "2.1" anywhere
+# covers them. They are real annotations so they are NOT filtered from the
+# headline metric -- that would invent a convention. Instead every evidence
+# metric is reported twice, with and without them, so the inflation is a
+# measured number rather than a caveat.
+TRIVIAL_SPAN_CHARS = 4
+
+
+def _strip_trivial(gold):
+    return [g for g in gold if len(norm(g)) > TRIVIAL_SPAN_CHARS]
+
+
+def evidence_metrics(rows, exclude_trivial=False):
     """Strict ContractEval-style F1/F2 on example-level TP/FN/FP, plus a
     partial-credit variant and Jaccard. TN (gold empty, pred empty) is excluded
     from F1/F2 by construction - it is correct abstention, not a retrieval hit."""
     c = Counter()
     fracs, jacs = [], []
     false_abstain = 0
+    n_excluded = 0
     for r in rows:
         gold, pred = r["gold_evidence"], r["parsed_evidence"]
+        if exclude_trivial and gold:
+            gold = _strip_trivial(gold)
+            if not gold:
+                # every gold span was trivial; the example has no meaningful
+                # retrieval target left. Drop it rather than reclassify it as
+                # gold-empty, which would wrongly turn a TP/FN into an FP/TN.
+                n_excluded += 1
+                continue
         case, frac = evidence_case(gold, pred)
         c[case] += 1
         if gold:
@@ -48,7 +70,7 @@ def evidence_metrics(rows):
     f1 = 2 * P * R / (P + R) if P + R else 0.0
     f2 = 5 * tp / (5 * tp + 4 * fn + fp) if (5 * tp + 4 * fn + fp) else 0.0
     n_gold = tp + fn
-    return {"tp": tp, "fn": fn, "fp": fp, "tn": tn,
+    return {"tp": tp, "fn": fn, "fp": fp, "tn": tn, "n_excluded": n_excluded,
             "precision": P, "recall": R, "f1_strict": f1, "f2_strict": f2,
             "partial_credit": sum(fracs) / len(fracs) if fracs else 0.0,
             "jaccard": sum(jacs) / len(jacs) if jacs else 0.0,
@@ -98,6 +120,13 @@ def cell_metrics(rows):
         for k in ("precision", "recall", "f1", "support"):
             out[f"{c}_{k}"] = v[c][k]
     out.update({f"ev_{k}": val for k, val in evidence_metrics(rows).items()})
+    out.update({f"evNT_{k}": val for k, val in
+                evidence_metrics(rows, exclude_trivial=True).items()})
+    # SIGNED, and it genuinely goes both ways: a trivial span inflates when the
+    # model happens to emit "2.1" anywhere, and deflates when the model quotes
+    # the clause text but omits its section number, losing the whole example to
+    # FN under strict all-spans-covered matching.
+    out["ev_f1_trivial_delta"] = out["ev_f1_strict"] - out["evNT_f1_strict"]
     out.update(joint_metrics(rows))
     out.update({f"fmt_{k}": val for k, val in format_metrics(rows).items()
                 if k != "parse_modes"})
