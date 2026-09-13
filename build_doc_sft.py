@@ -57,7 +57,7 @@ def main():
     labels = splits["dev"]["labels"]
 
     outd = Path(args.out); outd.mkdir(exist_ok=True)
-    stats, bad_evidence, dropped = {}, [], []
+    stats, bad_evidence, dropped, whitespace_spans = {}, [], [], []
 
     for split in ("train", "dev", "test"):
         rows = []
@@ -69,11 +69,27 @@ def main():
                 if (did, hid) in DROP:
                     dropped.append((split, did, hid, a["choice"]))
                     continue
-                ev = []
+                ev, ws_dropped = [], 0
                 for i in a.get("spans", []):
                     if 0 <= i < len(d["spans"]):
                         s0, s1 = d["spans"][i]
-                        ev.append(text[s0:s1].strip())
+                        span = text[s0:s1].strip()
+                        # ContractNLI carries exactly one whitespace-only
+                        # annotated span (dev doc 582 nda-19, a single " ").
+                        # Keeping it would put "" in the training target and
+                        # make that example un-scoreable: an empty string can
+                        # never be "covered", so no model could ever earn a TP
+                        # on it. Dropping it is the only reading consistent
+                        # with "the exact sentence(s) that justify your answer".
+                        if not span:
+                            ws_dropped += 1
+                            continue
+                        ev.append(span)
+                if ws_dropped:
+                    whitespace_spans.append({"split": split, "doc_id": did,
+                                             "hypothesis_id": hid,
+                                             "dropped": ws_dropped,
+                                             "kept": len(ev)})
                 user = USER_TMPL.format(text=text, hypothesis=labels[hid]["hypothesis"])
                 target = json.dumps({"verdict": a["choice"], "evidence": ev},
                                     ensure_ascii=False)
@@ -106,6 +122,11 @@ def main():
     for s, did, hid, ch in dropped:
         print(f"  {s:6s} doc {did:>4s} {hid:8s} {ch}")
 
+    print(f"\nwhitespace-only gold spans dropped: {len(whitespace_spans)}")
+    for w in whitespace_spans:
+        print(f"  {w['split']:6s} doc {w['doc_id']:>4s} {w['hypothesis_id']:8s} "
+              f"dropped {w['dropped']}, kept {w['kept']}")
+
     print(f"\nEVIDENCE VERBATIM CHECK: {len(bad_evidence)} failures")
     if bad_evidence:
         for b in bad_evidence[:20]:
@@ -118,6 +139,7 @@ def main():
     json.dump({"stats": {k: v[1] for k, v in stats.items()},
                "counts": {k: v[0] for k, v in stats.items()},
                "dropped": dropped, "n_bad_evidence": len(bad_evidence),
+               "whitespace_spans_dropped": whitespace_spans,
                "system_prompt": SYSTEM},
               open(outd / "_manifest.json", "w"), indent=2)
 

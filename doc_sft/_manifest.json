@@ -42,5 +42,14 @@
     ]
   ],
   "n_bad_evidence": 0,
+  "whitespace_spans_dropped": [
+    {
+      "split": "dev",
+      "doc_id": "582",
+      "hypothesis_id": "nda-19",
+      "dropped": 1,
+      "kept": 5
+    }
+  ],
   "system_prompt": "You are a junior legal assistant reviewing a contract. Given the CONTRACT and the QUESTION, determine whether the contract supports the stated position (Entailment), conflicts with it (Contradiction), or does not address it (NotMentioned). Return the exact sentence(s) from the contract that justify your answer, or an empty evidence list if none apply. Respond with JSON only, in the form {\"verdict\": \"...\", \"evidence\": [...]}."
 }

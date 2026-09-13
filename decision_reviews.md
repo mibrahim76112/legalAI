@@ -359,3 +359,112 @@ surfaced.
 single triple; the refusal to rank was the right call. **Changed:** Qwen3-8B is
 3rd on merit, not 2nd, so its place in the fine-tuning pair now rests on serving
 cost and Contradiction recall rather than on rank.
+
+---
+
+# Judge pass — document-level phases (Phase 0 + Phase 1 harness)
+
+Run before Phase 1 results exist, so this audits the *setup*. Claims were
+re-verified against the data rather than restated.
+
+## D1. Gemma 4 train/inference template mismatch -> **CRITICAL, affects Phase 2**
+
+**Found.** For each model I checked whether the inference prompt is a literal
+prefix of what SFT would train on:
+
+| model | inference prompt is a prefix of training render |
+|---|---|
+| Qwen3-8B | yes |
+| granite-4.2-8b | yes |
+| **gemma-4-12B-it** | **NO** |
+
+Gemma's training render is `<\|turn>model\n{"verdict": ...}<turn\|>`, but the
+inference prompt is `<\|turn>model\n<\|channel>thought\n<channel\|>`. Fine-tuning
+on the former and serving with the latter means the model has never seen the
+empty thought channel that immediately precedes its answer at inference.
+
+**Why it matters.** This is precisely the guardrail's "train and infer at the
+same template settings — a mismatch is silent and would invalidate everything".
+It would not crash. Gemma would simply underperform for a reason invisible in
+the metrics, and we would have written it off as a weak model.
+
+**Fix for Phase 2 (applies to ALL models, not just Gemma).** Do not build
+training sequences with `apply_chat_template(full_messages)`. Build them as
+
+    prompt = apply_chat_template(msgs[:-1], add_generation_prompt=True,
+                                 enable_thinking=False)
+    sequence = prompt + target + eos
+
+so alignment is structural rather than coincidental, and prompt-token loss
+masking falls out of the same boundary. Qwen3 and Granite happen to be safe
+today; constructing it this way stops that being luck.
+
+**Phase 1 is unaffected** — it is inference only.
+
+## D2. Whitespace-only gold evidence span -> FIXED
+
+ContractNLI carries exactly **one** whitespace-only annotated span in 11,973:
+dev doc 582, nda-19, span 68 = a single `" "`.
+
+Two distinct harms, both silent:
+- **Training**: puts `""` into the target evidence array, teaching the model to
+  emit empty strings.
+- **Evaluation**: an empty string can never be "covered", so that example could
+  never be a TP for *any* model. A guaranteed, invisible FN.
+
+Dropped, with the drop recorded in the manifest. That example now carries 5
+spans instead of 6. It is the only reading consistent with "the exact
+sentence(s) from the contract that justify your answer".
+
+## D3. Phase 0 integrity assumptions -> UPHELD (all verified, none assumed)
+
+| assumption | verified |
+|---|---|
+| `annotation_sets[0]` is not lossy | every document in all 3 splits has exactly **1** annotation set |
+| dev's `labels` dict valid for all splits | key sets identical; **0** hypotheses differ in text |
+| all 17 hypotheses per document | 423/61/123 documents, all with exactly 17 |
+| no duplicate (doc, hypothesis) pairs | 0 in every split |
+| Entailment/Contradiction always carry evidence | 0 without |
+| NotMentioned never carries evidence | 0 with |
+
+Taking `[0]` would have been a real risk had any document carried two
+annotators; it does not, so the choice is safe rather than merely convenient.
+
+## D4. Context budget -> UPHELD, re-verified against the CURRENT prompt
+
+The 8192/16384 decision was made with a slightly different system prompt
+(`'no related clause'` vs `'an empty evidence list'`), so it was re-measured
+with the prompt actually in use, on the real built data, per model:
+
+- **Eval: 0 prompts over budget** on any model, split or condition. Worst case
+  is 8,125 tokens against a 15,872 budget (16384 − 512). Inference never
+  truncates, as required.
+- **Train: 31 of 7,188** sequences exceed 8192 (0.43%), which reconciles with
+  the earlier ~39-over figure after the 3 evidence-losing pairs were dropped.
+  All 31 keep their gold evidence.
+
+## D5. Very short gold spans -> CAVEAT, deliberately not filtered
+
+1–4 character gold spans (section numbers: `2.1`, `4.3`, `8.2`) occur in 0.4%
+of train, **1.8% of dev**, 1.1% of test gold-bearing pairs.
+
+They cut both ways under strict matching: `2.1` appears all over a contract so
+it can be matched trivially, but a model that quotes the clause text without its
+section number fails to cover it and loses the whole example to FN.
+
+Not filtered — the brief specifies resolving the annotated spans, and removing
+them would be inventing a convention. Flagged so the strict number is read with
+it in mind; the partial-credit variant is the check against it.
+
+## D6. My own error — cancelled running jobs
+
+I queried job state and issued `scancel` in the same command, so I killed two
+smoke tasks that had just transitioned to RUNNING rather than the pending ones I
+meant to replace. A few GPU-minutes wasted on a shared cluster. Check state,
+then act on it; do not combine the two.
+
+## Standing verdict
+
+Setup is sound to proceed. One critical issue found (D1) that would have
+silently invalidated Gemma's post-SFT numbers, and one data defect fixed (D2).
+Neither affects Phase 1, which is inference only.
