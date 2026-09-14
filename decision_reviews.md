@@ -617,3 +617,68 @@ This costs more than one row: Llama was the only candidate with an **external
 published number** to sanity-check the whole harness against. Without it there
 is no independent anchor confirming our absolute numbers are in the right range,
 only internal consistency. Worth fixing before Phase 3.
+
+---
+
+# D12. The Gemma recall loss was NOT a property of SFT — it is Gemma-specific
+
+**What I reported after model 1.** Gemma's Contradiction recall fell 0.716 ->
+0.547 while precision rose, and I framed it as the trade-off SFT makes: "the
+base over-flags, the fine-tune under-flags", with a cost-model decision needed.
+
+**What the other four models show.**
+
+| model | Contradiction recall, base -> SFT | precision gain |
+|---|---|---|
+| Qwen3-4B | 0.642 -> 0.811 (**+0.168**) | +0.298 |
+| Qwen3-14B | 0.811 -> 0.800 (−0.011) | +0.251 |
+| Qwen3-8B | 0.842 -> 0.821 (−0.021) | +0.328 |
+| granite-4.2-8b | 0.800 -> 0.779 (−0.021) | +0.272 |
+| **gemma-4-12B-it** | **0.716 -> 0.547 (−0.168)** | +0.231 |
+
+**Judgment: my generalisation was wrong.** Four of five models gained large
+Contradiction precision at **essentially no recall cost**, and Qwen3-4B gained
+recall *and* precision simultaneously. Gemma is the sole outlier, and it also
+has the **smallest** precision gain of the five.
+
+So the honest statement is not "SFT trades recall for precision" but "**Gemma
+degrades on Contradiction recall under SFT in a way no other model does**". That
+is a defect specific to one model, not a property of the method.
+
+**Why this matters.** Had Gemma been the only fine-tune, the deck would have
+carried a false generalisation about the method, and the two variant runs would
+have been chasing a problem the other models do not have. Running five models
+rather than one is what exposed it. The user's push to fine-tune more models,
+not just the one the checkpoint gated on, produced this finding.
+
+**Still worth knowing** whether the variants fix Gemma specifically; they are
+running. But the fix is no longer on the critical path, because four models
+already deliver the precision gain without the recall cost.
+
+# D13. The pre-SFT ranking did not predict the post-SFT ranking — it inverted
+
+| model | base rank | SFT rank |
+|---|---|---|
+| Qwen3-14B | 2 | **1** |
+| Qwen3-4B | 4 | **2** |
+| granite-4.2-8b | 3 | 3 |
+| Qwen3-8B | 5 | **4** |
+| **gemma-4-12B-it** | **1** | **5** |
+
+**Gemma goes from best base model to worst fine-tuned model.** Qwen3-8B goes
+from last to fourth with the largest gain in the screen (+0.273 macro-F1,
++0.446 evidence F1, +0.459 joint).
+
+Adaptation gain is **inversely related to base quality**: the weakest base
+models gained most (Qwen3-8B +0.273, Qwen3-4B +0.220) and the strongest gained
+least (Gemma +0.058). Post-SFT the field compresses from a 0.179 spread
+(0.553-0.732) to 0.050 (0.789-0.839).
+
+**Consequence for the methodology.** A pre-SFT screen is a poor predictor of
+post-SFT outcome on this task. That is a finding in its own right and it is the
+direct answer to the brief's question "whether the pre-SFT (dev) ranking
+predicted the post-SFT ranking at all". It did not — it inverted at the top.
+
+It also retrospectively justifies the Phase 1 refusal to rank within tiers: the
+base ordering that looked meaningful carried almost no signal about which model
+to ship.
