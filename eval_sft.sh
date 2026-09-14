@@ -17,9 +17,19 @@ MODEL=${MODEL:?set MODEL}
 SLUG=$(echo "$MODEL" | tr '/' '_')
 ADAPTER=/scratch/ibi761/legalai/sft_out/$(echo "$MODEL" | sed 's|/|__|')/adapter
 MERGED=$SLURM_TMPDIR/merged_$SLUG
-BASEDIR=$(python -c "
-from huggingface_hub import snapshot_download
-print(snapshot_download('$MODEL', local_files_only=True))")
+# Resolve the cached snapshot by path, NOT snapshot_download(local_files_only):
+# that helper treats a snapshot as incomplete if ANY repo file is absent, and
+# the prefetch allow-list deliberately skips .gitattributes and README.md.
+BASEDIR=$(python - <<'EOF'
+import glob, os, sys
+repo = os.environ["MODEL"].replace("/", "--")   # quoted heredoc: read from env, not $MODEL
+pat = os.path.join(os.environ["HF_HOME"], "hub", f"models--{repo}", "snapshots", "*")
+hits = [d for d in glob.glob(pat) if os.path.isfile(os.path.join(d, "config.json"))]
+if not hits:
+    sys.exit(f"no cached snapshot with config.json under {pat}")
+print(sorted(hits)[-1])
+EOF
+)
 echo "base=$BASEDIR"; echo "adapter=$ADAPTER"
 python merge_lora.py --base "$BASEDIR" --adapter "$ADAPTER" --out "$MERGED"
 export RESULTS_DIR=/scratch/ibi761/legalai/doc_results_sft
