@@ -15,7 +15,9 @@ source setup_env.sh
 export HF_HOME=/scratch/ibi761/legalai/hf_home HF_HUB_OFFLINE=1 TOKENIZERS_PARALLELISM=false
 MODEL=${MODEL:?set MODEL}
 SLUG=$(echo "$MODEL" | tr '/' '_')
-ADAPTER=/scratch/ibi761/legalai/sft_out/$(echo "$MODEL" | sed 's|/|__|')/adapter
+VARIANT=${VARIANT:-}
+SUF=${VARIANT:+__$VARIANT}
+ADAPTER=/scratch/ibi761/legalai/sft_out/$(echo "$MODEL" | sed 's|/|__|')${SUF}/adapter
 MERGED=$SLURM_TMPDIR/merged_$SLUG
 # Resolve the cached snapshot by path, NOT snapshot_download(local_files_only):
 # that helper treats a snapshot as incomplete if ANY repo file is absent, and
@@ -33,6 +35,6 @@ EOF
 echo "base=$BASEDIR"; echo "adapter=$ADAPTER"
 python merge_lora.py --base "$BASEDIR" --adapter "$ADAPTER" --out "$MERGED"
 export RESULTS_DIR=/scratch/ibi761/legalai/doc_results_sft
-python doc_eval.py --model "$MERGED" --condition nothink --split dev \
-       --max-new-tokens 1024 --tag sft
+python doc_eval.py --model "$MERGED" --condition nothink --split "${SPLIT:-dev}" \
+       --max-new-tokens 1024 --tag "sft${VARIANT:+_$VARIANT}"
 echo "=== done ==="
