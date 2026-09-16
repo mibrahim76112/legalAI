@@ -251,6 +251,16 @@ def main():
         "log_history": hist,
     }
     (outd / "manifest.json").write_text(json.dumps(manifest, indent=2))
+    # Emit curves with the manifest so every run is inspectable without a
+    # separate step: convergence, train-vs-eval gap, grad-norm stability and
+    # late-run loss variance are what decide rank / LR / batch changes.
+    try:
+        import subprocess, sys as _s
+        subprocess.run([_s.executable, "plot_training.py", "--sft-dir",
+                        str(Path(args.out_dir))], check=False)
+    except Exception as e:
+        print(f"[plot] skipped: {e}")
+
     print(f"\n[done] train_loss={res.training_loss:.4f} "
           f"eval_loss={ev.get('eval_loss'):.4f} wall={wall/60:.1f}min "
           f"peak={peak:.1f}GB -> {outd}")
