@@ -152,6 +152,10 @@ def main():
     ap.add_argument("--class-weight-contradiction", type=float, default=1.0,
                     help="loss multiplier on Contradiction examples (1.0 = off)")
     ap.add_argument("--variant", default="", help="suffix for the output dir")
+    ap.add_argument("--eval-steps", type=int, default=50)
+    ap.add_argument("--save-steps", type=int, default=100)
+    ap.add_argument("--save-total-limit", type=int, default=2,
+                    help="set high to keep a checkpoint sweep for metric-vs-loss analysis")
     args = ap.parse_args()
 
     random.seed(args.seed); np.random.seed(args.seed); torch.manual_seed(args.seed)
@@ -206,8 +210,9 @@ def main():
         gradient_accumulation_steps=args.grad_accum,
         num_train_epochs=args.epochs, learning_rate=args.lr,
         lr_scheduler_type="cosine", warmup_ratio=0.03,
-        bf16=True, logging_steps=10, eval_strategy="steps", eval_steps=50,
-        save_strategy="steps", save_steps=100, save_total_limit=2,
+        bf16=True, logging_steps=10, eval_strategy="steps", eval_steps=args.eval_steps,
+        save_strategy="steps", save_steps=args.save_steps,
+        save_total_limit=args.save_total_limit,
         report_to=[], gradient_checkpointing=True, remove_unused_columns=False,
     )
     use_w = (args.class_weight_contradiction != 1.0)
