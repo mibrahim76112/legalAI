@@ -14,10 +14,12 @@
 set -euo pipefail
 cd /project/6030214/ibrahim/legalAI
 MODEL=${MODEL:?}
+DATA=${DATA:-doc_sft_armb}
+VAR=${VAR:-armb}
 source setup_env.sh
 export HF_HOME=/scratch/ibi761/legalai/hf_home HF_HUB_OFFLINE=1 TOKENIZERS_PARALLELISM=false
 export SFT_DIR=/scratch/ibi761/legalai/sft_out
-python train_sft.py --model "$MODEL" --seed 42 --variant armb \
-       --train doc_sft_armb/train.jsonl --valid doc_sft_armb/valid.jsonl \
+python train_sft.py --model "$MODEL" --seed 42 --variant "$VAR" \
+       --train "$DATA/train.jsonl" --valid "$DATA/valid.jsonl" \
        --max-seq-len 8192
-echo "=== done $MODEL armb ==="
+echo "=== done $MODEL $VAR ==="

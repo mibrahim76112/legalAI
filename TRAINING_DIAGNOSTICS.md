@@ -32,6 +32,26 @@ loss variance = effective batch too small.
 - **batch size** — late-run loss CV 0.11 — stable
 
 
+## Qwen__Qwen3-14B__amatch
+
+![Qwen__Qwen3-14B__amatch](training_curves/loss_Qwen__Qwen3-14B__amatch.png)
+
+| | |
+|---|---|
+| LoRA | r=16 alpha=32 dropout=0.05 |
+| optim | lr=0.0001 cosine warmup=0.03 epochs=1.0 |
+| batch | 1 x 16 = 16 |
+| final | train 0.0429 / eval 0.0631 |
+| cost | 35 min, peak 49.14 GB |
+
+**Diagnosis**
+
+- **convergence** — STILL FALLING — undertrained, more epochs would help
+- **rank/epochs** — eval rose 27% off its minimum — OVERFITTING, fewer epochs or lower rank
+- **learning rate** — grad-norm stable (median 0.130, max 0.320)
+- **batch size** — late-run loss CV 0.03 — stable
+
+
 ## Qwen__Qwen3-14B__armb
 
 ![Qwen__Qwen3-14B__armb](training_curves/loss_Qwen__Qwen3-14B__armb.png)
@@ -72,6 +92,26 @@ loss variance = effective batch too small.
 - **batch size** — late-run loss CV 0.11 — stable
 
 
+## Qwen__Qwen3-4B__amatch
+
+![Qwen__Qwen3-4B__amatch](training_curves/loss_Qwen__Qwen3-4B__amatch.png)
+
+| | |
+|---|---|
+| LoRA | r=16 alpha=32 dropout=0.05 |
+| optim | lr=0.0001 cosine warmup=0.03 epochs=1.0 |
+| batch | 1 x 16 = 16 |
+| final | train 0.0525 / eval 0.0519 |
+| cost | 18 min, peak 25.23 GB |
+
+**Diagnosis**
+
+- **convergence** — STILL FALLING — undertrained, more epochs would help
+- **rank/epochs** — healthy train/eval gap
+- **learning rate** — grad-norm stable (median 0.207, max 0.679)
+- **batch size** — late-run loss CV 0.04 — stable
+
+
 ## Qwen__Qwen3-4B__armb
 
 ![Qwen__Qwen3-4B__armb](training_curves/loss_Qwen__Qwen3-4B__armb.png)
@@ -110,6 +150,26 @@ loss variance = effective batch too small.
 - **rank/epochs** — healthy train/eval gap
 - **learning rate** — grad-norm stable (median 0.167, max 0.782)
 - **batch size** — late-run loss CV 0.10 — stable
+
+
+## Qwen__Qwen3-8B__amatch
+
+![Qwen__Qwen3-8B__amatch](training_curves/loss_Qwen__Qwen3-8B__amatch.png)
+
+| | |
+|---|---|
+| LoRA | r=16 alpha=32 dropout=0.05 |
+| optim | lr=0.0001 cosine warmup=0.03 epochs=1.0 |
+| batch | 1 x 16 = 16 |
+| final | train 0.0524 / eval 0.0560 |
+| cost | 24 min, peak 34.64 GB |
+
+**Diagnosis**
+
+- **convergence** — STILL FALLING — undertrained, more epochs would help
+- **rank/epochs** — healthy train/eval gap
+- **learning rate** — grad-norm stable (median 0.188, max 0.585)
+- **batch size** — late-run loss CV 0.07 — stable
 
 
 ## Qwen__Qwen3-8B__armb
