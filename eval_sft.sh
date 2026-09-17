@@ -36,5 +36,6 @@ echo "base=$BASEDIR"; echo "adapter=$ADAPTER"
 python merge_lora.py --base "$BASEDIR" --adapter "$ADAPTER" --out "$MERGED"
 export RESULTS_DIR=/scratch/ibi761/legalai/doc_results_sft
 python doc_eval.py --model "$MERGED" --condition nothink --split "${SPLIT:-dev}" \
-       --max-new-tokens 1024 --tag "sft${VARIANT:+_$VARIANT}"
+       --data-dir "${DATA_DIR:-doc_sft}" --max-new-tokens "${MNT:-1024}" \
+       --tag "sft${VARIANT:+_$VARIANT}"
 echo "=== done ==="
