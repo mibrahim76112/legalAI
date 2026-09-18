@@ -158,3 +158,110 @@ def boot_ci(pred, gold, n=2000, seed=0):
                for i in [rng.randrange(N) for _ in range(N)]]))["macro_f1"]
                for _ in range(n))
     return v[int(.025 * n)], v[int(.975 * n)]
+
+
+# ---- soft evidence metrics ------------------------------------------------
+# Strict coverage (every gold span a contiguous substring) scores a near-miss
+# identically to retrieving unrelated text. The FN overlap analysis showed
+# median token overlap of 0.55-0.65 with p90 ~0.97, so a large share of "failures"
+# are boundary errors, not retrieval errors. ROUGE-L and token-overlap P/R/F1
+# quantify that; they are REPORTED ALONGSIDE strict, never instead of it, since
+# strict is what compares to ContractEval.
+def _lcs(a, b):
+    """Length of the longest common subsequence of two token lists."""
+    if not a or not b:
+        return 0
+    prev = [0] * (len(b) + 1)
+    for x in a:
+        cur = [0]
+        for j, y in enumerate(b):
+            cur.append(prev[j] + 1 if x == y else max(cur[j], prev[j + 1]))
+        prev = cur
+    return prev[-1]
+
+
+def rouge_l(gold_spans, pred_spans, beta=1.0):
+    """ROUGE-L P/R/F over concatenated, normalized evidence."""
+    g = norm(" ".join(gold_spans)).split()
+    p = norm(" ".join(pred_spans)).split()
+    if not g and not p:
+        return None
+    if not g or not p:
+        return {"p": 0.0, "r": 0.0, "f": 0.0}
+    l = _lcs(p, g)
+    P = l / len(p)
+    R = l / len(g)
+    if P + R == 0:
+        return {"p": 0.0, "r": 0.0, "f": 0.0}
+    b2 = beta * beta
+    return {"p": P, "r": R, "f": (1 + b2) * P * R / (b2 * P + R)}
+
+
+def token_overlap(gold_spans, pred_spans):
+    """Unordered token-set P/R/F1 -- ROUGE-L's order-insensitive companion."""
+    g = set(norm(" ".join(gold_spans)).split())
+    p = set(norm(" ".join(pred_spans)).split())
+    if not g and not p:
+        return None
+    if not g or not p:
+        return {"p": 0.0, "r": 0.0, "f": 0.0}
+    i = len(g & p)
+    P, R = i / len(p), i / len(g)
+    return {"p": P, "r": R, "f": 2 * P * R / (P + R) if P + R else 0.0}
+
+
+def soft_evidence_metrics(rows, gold_bearing_only=True):
+    """Mean ROUGE-L and token-overlap over examples. Restricted by default to
+    rows WITH gold evidence: on gold-empty rows the correct behaviour is to
+    return nothing, which these metrics cannot express."""
+    rl, to = [], []
+    for r in rows:
+        g, p = r["gold_evidence"], r["parsed_evidence"]
+        if gold_bearing_only and not g:
+            continue
+        a = rouge_l(g, p)
+        b = token_overlap(g, p)
+        if a:
+            rl.append(a)
+        if b:
+            to.append(b)
+    if not rl:
+        return {}
+    m = lambda xs, k: sum(x[k] for x in xs) / len(xs)
+    return {"rougeL_p": m(rl, "p"), "rougeL_r": m(rl, "r"), "rougeL_f": m(rl, "f"),
+            "tokovl_p": m(to, "p"), "tokovl_r": m(to, "r"), "tokovl_f": m(to, "f"),
+            "n_soft": len(rl)}
+
+
+def hallucination_metrics(rows, contracts):
+    """Fabricated-citation rate: predicted evidence text that does NOT occur in
+    the source contract.
+
+    This is distinct from a wrong citation. A model can quote the WRONG clause
+    (grounded but unhelpful) or INVENT text (ungrounded). For a legal reviewer
+    the second is far worse: a fabricated quote is indistinguishable from a real
+    one without checking the source, which is the work the tool is meant to save.
+
+    Matching uses the same doc_harness.norm as everything else, with edge
+    punctuation stripped -- a model adding a closing period to a quoted heading
+    is not fabricating.
+    """
+    n_span = n_hall = 0
+    ex_total = ex_hall = 0
+    for r in rows:
+        pred = r["parsed_evidence"]
+        if not pred:
+            continue
+        hay = norm(contracts.get(r["doc_id"], ""))
+        ex_total += 1
+        bad = 0
+        for s in pred:
+            n_span += 1
+            t = norm(s)
+            if t and t not in hay and t.strip(".,;:!?'\"-—’ ") not in hay:
+                n_hall += 1; bad += 1
+        ex_hall += (bad > 0)
+    return {"span_hallucination_rate": n_hall / n_span if n_span else 0.0,
+            "example_hallucination_rate": ex_hall / ex_total if ex_total else 0.0,
+            "n_spans": n_span, "n_hallucinated": n_hall,
+            "n_examples_with_evidence": ex_total}

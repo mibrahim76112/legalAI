@@ -192,6 +192,46 @@ loss variance = effective batch too small.
 - **batch size** — late-run loss CV 0.05 — stable
 
 
+## Qwen__Qwen3-8B__armb_r16
+
+![Qwen__Qwen3-8B__armb_r16](training_curves/loss_Qwen__Qwen3-8B__armb_r16.png)
+
+| | |
+|---|---|
+| LoRA | r=16 alpha=32 dropout=0.05 |
+| optim | lr=0.0001 cosine warmup=0.03 epochs=1.0 |
+| batch | 1 x 16 = 16 |
+| final | train 0.1282 / eval 0.1100 |
+| cost | 27 min, peak 34.64 GB |
+
+**Diagnosis**
+
+- **convergence** — FLAT at the end — converged or capacity-bound
+- **rank/epochs** — train ~= eval and both flat — UNDERFITTING is possible; try higher rank before more epochs
+- **learning rate** — grad-norm stable (median 0.167, max 0.239)
+- **batch size** — late-run loss CV 0.04 — stable
+
+
+## Qwen__Qwen3-8B__armb_r64
+
+![Qwen__Qwen3-8B__armb_r64](training_curves/loss_Qwen__Qwen3-8B__armb_r64.png)
+
+| | |
+|---|---|
+| LoRA | r=64 alpha=128 dropout=0.05 |
+| optim | lr=0.0001 cosine warmup=0.03 epochs=1.0 |
+| batch | 1 x 16 = 16 |
+| final | train 0.1119 / eval 0.0994 |
+| cost | 27 min, peak 36.79 GB |
+
+**Diagnosis**
+
+- **convergence** — FLAT at the end — converged or capacity-bound
+- **rank/epochs** — train ~= eval and both flat — UNDERFITTING is possible; try higher rank before more epochs
+- **learning rate** — grad-norm stable (median 0.174, max 0.262)
+- **batch size** — late-run loss CV 0.04 — stable
+
+
 ## google__gemma-4-12B-it
 
 ![google__gemma-4-12B-it](training_curves/loss_google__gemma-4-12B-it.png)

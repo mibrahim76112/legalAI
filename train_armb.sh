@@ -16,10 +16,13 @@ cd /project/6030214/ibrahim/legalAI
 MODEL=${MODEL:?}
 DATA=${DATA:-doc_sft_armb}
 VAR=${VAR:-armb}
+LR_R=${LORA_R:-16}
+EVS=${EVAL_STEPS:-50}
 source setup_env.sh
 export HF_HOME=/scratch/ibi761/legalai/hf_home HF_HUB_OFFLINE=1 TOKENIZERS_PARALLELISM=false
 export SFT_DIR=/scratch/ibi761/legalai/sft_out
 python train_sft.py --model "$MODEL" --seed 42 --variant "$VAR" \
        --train "$DATA/train.jsonl" --valid "$DATA/valid.jsonl" \
-       --max-seq-len 8192
+       --max-seq-len 8192 --lora-r "$LR_R" --lora-alpha "$((LR_R*2))" \
+       --eval-steps "$EVS"
 echo "=== done $MODEL $VAR ==="
