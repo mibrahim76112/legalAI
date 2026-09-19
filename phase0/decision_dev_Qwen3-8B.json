@@ -1,0 +1,24 @@
+{
+  "split": "dev_Qwen3-8B",
+  "pred_file": "/scratch/ibi761/legalai/doc_results_sft/raw____localscratch__ibi761.21892914.0__merged_Qwen_Qwen3-8B__nothink__dev__sft.jsonl",
+  "n_rows": 1037,
+  "n_failures": 282,
+  "taxonomy": {
+    "b_over_extraction": 75,
+    "a_missed": 36,
+    "d_partial": 127,
+    "e_wrong_span": 34,
+    "c_fabricated": 10
+  },
+  "ca_share": 0.16312056737588654,
+  "de_share_worst_quartile": 0.1099290780141844,
+  "worst_quartile": [
+    "nda-16",
+    "nda-18",
+    "nda-19",
+    "nda-20"
+  ],
+  "branch": "SKIP Phases 1 and 2",
+  "evidence_f1_strict": 0.7427007299270073,
+  "evidence_partial_credit": 0.7714938472674632
+}
