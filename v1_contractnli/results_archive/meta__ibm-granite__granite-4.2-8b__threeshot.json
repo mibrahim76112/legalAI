@@ -1,0 +1,13 @@
+{
+  "model": "ibm-granite/granite-4.2-8b",
+  "condition": "threeshot",
+  "system_prompt": "spec",
+  "n_examples": 978,
+  "max_new_tokens": 128,
+  "direct_answer_kwarg": "enable_thinking",
+  "mean_output_tokens": 10.35,
+  "wall_seconds": 42.2,
+  "host": "g3.nibi.sharcnet",
+  "gpu": "0",
+  "prompt_tokens_median": 644
+}

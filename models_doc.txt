@@ -1,6 +1,0 @@
-Qwen/Qwen3-14B
-Qwen/Qwen3-8B
-Qwen/Qwen3-4B
-ibm-granite/granite-4.2-8b
-meta-llama/Llama-3.1-8B-Instruct
-google/gemma-4-12B-it
