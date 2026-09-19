@@ -18,5 +18,6 @@ nvidia-smi --query-gpu=name,memory.total --format=csv
 source setup_env.sh
 export HF_HOME=/scratch/ibi761/legalai/hf_home HF_HUB_OFFLINE=1 TOKENIZERS_PARALLELISM=false
 python gen_reasoning.py --teacher "${TEACHER:-Qwen/Qwen3-32B}" \
-       --pass "${PHASE:?set PHASE}" --tp "${NGPU:-2}" ${LIMIT:+--limit $LIMIT}
+       --pass "${PHASE:?set PHASE}" --tp "${NGPU:-2}" ${LIMIT:+--limit $LIMIT} \
+       ${ALLROWS:+--all-rows} ${TAG:+--tag $TAG}
 echo "=== done pass ${PHASE} ==="

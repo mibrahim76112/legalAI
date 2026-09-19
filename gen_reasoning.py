@@ -139,6 +139,11 @@ def main():
     ap.add_argument("--tp", type=int, default=4)
     ap.add_argument("--gpu-mem-util", type=float, default=0.90)
     ap.add_argument("--limit", type=int, default=0)
+    ap.add_argument("--all-rows", action="store_true",
+                    help="pass 2 over EVERY row, not just pass-1 disagreements. "
+                         "This is the EVADE setup: generate a rationale FOR the "
+                         "gold label on all rows, then validate it separately.")
+    ap.add_argument("--tag", default="")
     args = ap.parse_args()
 
     from transformers import AutoTokenizer
@@ -147,11 +152,13 @@ def main():
     outd = Path(args.out_dir); outd.mkdir(parents=True, exist_ok=True)
     rows = load_train()
 
-    if args.phase == 2:
+    if args.phase == 2 and not args.all_rows:
         dis = {(d["doc_id"], d["hypothesis_id"])
                for d in map(json.loads, open(outd / "disagreements.jsonl", encoding="utf-8"))}
         rows = [r for r in rows if (r["doc_id"], r["hypothesis_id"]) in dis]
         print(f"[pass2] regenerating {len(rows)} disagreement rows, conditioned on gold")
+    elif args.phase == 2:
+        print(f"[pass2 --all-rows] conditioning on gold for ALL {len(rows)} rows (EVADE setup)")
     if args.limit:
         rows = rows[:args.limit]
 
@@ -178,7 +185,7 @@ def main():
     outs = llm.generate([TokensPrompt(prompt_token_ids=p) for p in prompts], sp)
     el = time.time() - t0
 
-    raw_path = outd / f"pass{args.phase}_raw.jsonl"
+    raw_path = outd / (f"pass{args.phase}_raw" + (f"_{args.tag}" if args.tag else "") + ".jsonl")
     agree = Counter(); per_class = defaultdict(Counter); disagreements = []
     with open(raw_path, "w", encoding="utf-8") as f:
         for r, o in zip(rows, outs):

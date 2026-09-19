@@ -28,7 +28,8 @@ from doc_harness import build_messages
 
 class DocSFT(Dataset):
     def __init__(self, path, tok, think_kwarg, max_seq_len, limit=0,
-                 oversample_contradiction=1, class_weight_contradiction=1.0):
+                 oversample_contradiction=1, class_weight_contradiction=1.0,
+                 reasoning_token_weight=None):
         self.rows = [json.loads(l) for l in open(path, encoding="utf-8")]
         if limit:
             self.rows = self.rows[:limit]
@@ -42,6 +43,17 @@ class DocSFT(Dataset):
                 continue
             self.n_trunc += ex["truncated"]
             ex["verdict"] = r["verdict"]
+            # token-level reasoning down-weighting (separate lever from the
+            # example-level class weighting below: this rebalances WITHIN a
+            # single target, which example weights cannot do)
+            if reasoning_token_weight is not None and reasoning_token_weight != 1.0:
+                from reasoning_weight import build_weighted_target
+                tgt = [m for m in r["messages"] if m["role"] == "assistant"][0]["content"]
+                tids, tw = build_weighted_target(tok, tgt, reasoning_token_weight)
+                n_prompt = ex["n_prompt"]
+                ex["input_ids"] = ex["input_ids"][:n_prompt] + tids
+                ex["labels"] = [IGNORE_INDEX]*n_prompt + list(tids)
+                ex["tok_w"] = [0.0]*n_prompt + tw
             # Per-example loss weight. Gemma's baseline SFT traded Contradiction
             # recall (0.716 -> 0.547) for precision; upweighting the minority
             # class is the loss-side lever on that trade.
@@ -77,7 +89,10 @@ def collate(batch, pad_id):
     return {"input_ids": torch.tensor(ids), "labels": torch.tensor(lab),
             "attention_mask": torch.tensor(att),
             "example_weight": torch.tensor([b.get("weight", 1.0) for b in batch],
-                                           dtype=torch.float)}
+                                           dtype=torch.float),
+            "tok_w": torch.tensor(
+                [b["tok_w"] + [0.0]*(n-len(b["tok_w"])) if "tok_w" in b
+                 else [1.0]*n for b in batch], dtype=torch.float)}
 
 
 def load_model(model_id, dtype=torch.bfloat16):
@@ -111,6 +126,7 @@ class WeightedTrainer(__import__("transformers").Trainer):
 
     def compute_loss(self, model, inputs, return_outputs=False, **kw):
         w = inputs.pop("example_weight", None)
+        tw = inputs.pop("tok_w", None)
         labels = inputs["labels"]
         out = model(**{k: v for k, v in inputs.items() if k != "labels"})
         logits = out.logits[:, :-1, :]
@@ -120,7 +136,11 @@ class WeightedTrainer(__import__("transformers").Trainer):
             logits.reshape(-1, logits.size(-1)),
             tgt.reshape(-1).clamp_min(0), reduction="none").view(tgt.shape)
         lp = lp * mask
-        per_ex = lp.sum(1) / mask.sum(1).clamp_min(1)
+        if tw is not None:
+            tw = tw[:, 1:].to(lp.device) * mask
+            per_ex = (lp * tw).sum(1) / tw.sum(1).clamp_min(1e-6)
+        else:
+            per_ex = lp.sum(1) / mask.sum(1).clamp_min(1)
         if w is not None:
             w = w.to(per_ex.device)
             loss = (per_ex * w).sum() / w.sum().clamp_min(1e-6)
@@ -154,6 +174,10 @@ def main():
     ap.add_argument("--variant", default="", help="suffix for the output dir")
     ap.add_argument("--eval-steps", type=int, default=50)
     ap.add_argument("--save-steps", type=int, default=100)
+    ap.add_argument("--reasoning-token-weight", type=float, default=None,
+                    help="down-weight reasoning tokens in the loss (1.0=off). "
+                         "Tests whether the reasoning target's ~68%% gradient "
+                         "share is what hurt Arm B.")
     ap.add_argument("--save-total-limit", type=int, default=2,
                     help="set high to keep a checkpoint sweep for metric-vs-loss analysis")
     args = ap.parse_args()
@@ -172,7 +196,8 @@ def main():
           f"-> training with thinking DISABLED (matches Phase 1/3 inference)")
 
     tr = DocSFT(args.train, tok, kw, args.max_seq_len, args.limit,
-                args.oversample_contradiction, args.class_weight_contradiction)
+                args.oversample_contradiction, args.class_weight_contradiction,
+                args.reasoning_token_weight)
     va = DocSFT(args.valid, tok, kw, args.max_seq_len, args.eval_n)
     print(f"[data] train={len(tr)} (truncated {tr.n_trunc}, dropped {tr.n_dropped}, "
           f"oversampled +{tr.n_oversampled}) valid={len(va)}")
@@ -215,7 +240,8 @@ def main():
         save_total_limit=args.save_total_limit,
         report_to=[], gradient_checkpointing=True, remove_unused_columns=False,
     )
-    use_w = (args.class_weight_contradiction != 1.0)
+    use_w = (args.class_weight_contradiction != 1.0
+             or (args.reasoning_token_weight not in (None, 1.0)))
     TrainerCls = WeightedTrainer if use_w else Trainer
     trainer = TrainerCls(model=model, args=targs, train_dataset=tr,
                          eval_dataset=va,
