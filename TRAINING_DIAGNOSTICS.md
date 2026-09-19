@@ -72,6 +72,26 @@ loss variance = effective batch too small.
 - **batch size** — late-run loss CV 0.06 — stable
 
 
+## Qwen__Qwen3-14B__evfirst
+
+![Qwen__Qwen3-14B__evfirst](training_curves/loss_Qwen__Qwen3-14B__evfirst.png)
+
+| | |
+|---|---|
+| LoRA | r=16 alpha=32 dropout=0.05 |
+| optim | lr=0.0001 cosine warmup=0.03 epochs=1.0 |
+| batch | 1 x 16 = 16 |
+| final | train 0.0347 / eval 0.0376 |
+| cost | 95 min, peak 49.19 GB |
+
+**Diagnosis**
+
+- **convergence** — RISING at the end — overfitting or LR too high
+- **rank/epochs** — healthy train/eval gap
+- **learning rate** — grad-norm stable (median 0.150, max 0.481)
+- **batch size** — late-run loss CV 0.10 — stable
+
+
 ## Qwen__Qwen3-4B
 
 ![Qwen__Qwen3-4B](training_curves/loss_Qwen__Qwen3-4B.png)
@@ -130,6 +150,26 @@ loss variance = effective batch too small.
 - **rank/epochs** — eval rose 11% off its minimum — OVERFITTING, fewer epochs or lower rank
 - **learning rate** — grad-norm stable (median 0.230, max 0.320)
 - **batch size** — late-run loss CV 0.04 — stable
+
+
+## Qwen__Qwen3-4B__evfirst
+
+![Qwen__Qwen3-4B__evfirst](training_curves/loss_Qwen__Qwen3-4B__evfirst.png)
+
+| | |
+|---|---|
+| LoRA | r=16 alpha=32 dropout=0.05 |
+| optim | lr=0.0001 cosine warmup=0.03 epochs=1.0 |
+| batch | 1 x 16 = 16 |
+| final | train 0.0411 / eval 0.0375 |
+| cost | 50 min, peak 25.23 GB |
+
+**Diagnosis**
+
+- **convergence** — RISING at the end — overfitting or LR too high
+- **rank/epochs** — healthy train/eval gap
+- **learning rate** — grad-norm stable (median 0.232, max 1.184)
+- **batch size** — late-run loss CV 0.10 — stable
 
 
 ## Qwen__Qwen3-8B
@@ -230,6 +270,26 @@ loss variance = effective batch too small.
 - **rank/epochs** — train ~= eval and both flat — UNDERFITTING is possible; try higher rank before more epochs
 - **learning rate** — grad-norm stable (median 0.174, max 0.262)
 - **batch size** — late-run loss CV 0.04 — stable
+
+
+## Qwen__Qwen3-8B__evfirst
+
+![Qwen__Qwen3-8B__evfirst](training_curves/loss_Qwen__Qwen3-8B__evfirst.png)
+
+| | |
+|---|---|
+| LoRA | r=16 alpha=32 dropout=0.05 |
+| optim | lr=0.0001 cosine warmup=0.03 epochs=1.0 |
+| batch | 1 x 16 = 16 |
+| final | train 0.0398 / eval 0.0362 |
+| cost | 64 min, peak 34.64 GB |
+
+**Diagnosis**
+
+- **convergence** — RISING at the end — overfitting or LR too high
+- **rank/epochs** — healthy train/eval gap
+- **learning rate** — grad-norm stable (median 0.178, max 0.723)
+- **batch size** — late-run loss CV 0.11 — stable
 
 
 ## google__gemma-4-12B-it

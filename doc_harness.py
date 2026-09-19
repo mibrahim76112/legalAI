@@ -20,9 +20,9 @@ def build_messages(text, hypothesis):
             {"role": "user", "content": USER_TMPL.format(text=text, hypothesis=hypothesis)}]
 
 
-# ---- normalization (exactly as specified: lowercase, collapse ws, strip) ----
-def norm(s):
-    return " ".join((s or "").lower().split())
+# ---- normalization ----------------------------------------------------------
+# Single shared definition; see text_norm.py for why it is not defined here.
+from text_norm import norm  # noqa: F401  (re-exported: many modules import it here)
 
 
 # ---- output cleaning ----------------------------------------------------

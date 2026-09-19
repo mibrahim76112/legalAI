@@ -39,8 +39,7 @@ SPLIT_FILE = {"train": "train", "dev": "valid", "test": "test"}
 DROP = {("622", "nda-10"), ("622", "nda-19"), ("162", "nda-19")}
 
 
-def norm(s):
-    return " ".join(s.lower().split())
+from text_norm import norm  # single shared definition (was a local, non-null-safe copy)
 
 
 def main():
