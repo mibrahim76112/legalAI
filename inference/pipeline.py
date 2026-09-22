@@ -9,7 +9,6 @@ Output matches webapp/lib/types.ts `Review`.
 """
 
 import sys
-import uuid
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -44,6 +43,9 @@ POSITION_STATUS = {
     "Contradiction": ("Needs attention", "red", "The contract appears to conflict with this position."),
     "NotMentioned": ("Not addressed", "amb", "The contract does not address this."),
 }
+# A not-addressed position has no clause text for the model to explain.
+SILENT_NOTE = "The contract is silent on this, so nothing in it protects you here."
+
 # Across windows a conflict anywhere outranks support anywhere, which
 # outranks silence: a clause only has to appear in one window to count.
 VERDICT_RANK = {"Contradiction": 0, "Entailment": 1, "NotMentioned": 2}
@@ -148,11 +150,14 @@ class Reviewer:
             res = [r for r in per_q[("nli", q)] if r[0]]
             verdict = min((r[0] for r in res), key=VERDICT_RANK.get, default="NotMentioned")
             ev = [e for v, evs in res if v == verdict for e in evs]
-            status, tone, note = POSITION_STATUS[verdict]
+            status, tone, assessment = POSITION_STATUS[verdict]
+            spans = located(ev)
+            silent = verdict == "NotMentioned"
             compliance.append({"id": f"p{i}", "kind": "position", "title": q, "status": status,
-                               "tone": tone, "evidence": located(ev), "note": note})
+                               "tone": tone, "evidence": spans, "assessment": assessment,
+                               "note": SILENT_NOTE if silent else None,
+                               "noteSource": "fixed" if silent else None})
 
-        found = []
         for i, c in enumerate(categories if "clauses" in tasks else []):
             res = per_q[("cuad", c)]
             present = any(r[0] for r in res)
@@ -160,20 +165,24 @@ class Reviewer:
             item = {"id": f"c{i}", "kind": "clause", "title": c,
                     "status": "Found" if present else "Not detected",
                     "tone": "grn" if present else "gry",
-                    "evidence": located(ev) if present else [], "note": None}
+                    "evidence": located(ev) if present else [], "note": None,
+                    "noteSource": None}
             clauses.append(item)
-            if present and item["evidence"]:
-                found.append(item)
 
-        for k, item in enumerate(found):
-            progress(stage="notes", done=k, total=len(found))
+        # Task 3 was trained on (clause category, clause text). Clause notes are
+        # in-distribution; position notes pass the position as the "category"
+        # and are outside training, hence "model-beta" and a label in the UI.
+        to_note = [(it, "model-beta") for it in compliance if it["evidence"]]
+        to_note += [(it, "model") for it in clauses if it["evidence"]]
+        for k, (item, source) in enumerate(to_note):
+            progress(stage="notes", done=k, total=len(to_note))
             clause = " ".join(s["text"] for s in item["evidence"])
             msgs = [{"role": "system", "content": TASK3_SYSTEM_TRAINED},
                     {"role": "user", "content": P.TASK3_USER.format(cat=item["title"], clause=clause)}]
             item["note"] = strip_wrappers(self.eng.generate(msgs).text).strip()
+            item["noteSource"] = source
 
         return {
-            "id": uuid.uuid4().hex[:10],
             "documentName": document_name,
             "representing": "Receiving Party" if "compliance" in tasks else "Counterparty",
             "counterparty": "Disclosing Party" if "compliance" in tasks else "—",
