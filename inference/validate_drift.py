@@ -22,6 +22,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 from doc_harness import parse_output, _find_json, strip_wrappers  # noqa: E402
 from text_norm import norm  # noqa: E402
 from engine import Engine  # noqa: E402
+from remote import RemoteEngine  # noqa: E402
 
 
 def parse_cuad(raw):
@@ -109,6 +110,9 @@ def main():
     ap.add_argument("--adapter", default=str(ROOT / "adapters" / "llama_3task_mlx"))
     # required: the file is appended to and resumed from, so two runs must not share it
     ap.add_argument("--out", required=True)
+    ap.add_argument("--backend", default="local", choices=["local", "remote"])
+    ap.add_argument("--endpoint", default=None, help="remote: base URL (default: .env LEGALAI_ENDPOINT)")
+    ap.add_argument("--parallel", type=int, default=8, help="remote: concurrent requests")
     ap.add_argument("--limit", type=int, default=None)
     ap.add_argument("--task", default=None, help="only run one task")
     args = ap.parse_args()
@@ -119,7 +123,8 @@ def main():
         rows = [r for r in rows if r["task"] == args.task]
     rows = rows[: args.limit]
 
-    eng = Engine(args.model, args.adapter)
+    eng = (RemoteEngine(endpoint=args.endpoint, parallel=args.parallel)
+           if args.backend == "remote" else Engine(args.model, args.adapter))
     out_path = Path(args.out)
     out_path.parent.mkdir(parents=True, exist_ok=True)
 

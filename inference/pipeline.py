@@ -9,6 +9,7 @@ Output matches webapp/lib/types.ts `Review`.
 """
 
 import sys
+from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -99,6 +100,16 @@ def _dedupe(texts):
 class Reviewer:
     def __init__(self, engine):
         self.eng = engine
+        # a local model answers one question at a time; a served one takes many
+        self.parallel = max(1, getattr(engine, "parallel", 1))
+
+    def _map(self, fn, items):
+        """-> [(item, fn(item))] in order, fanned out when the engine allows it."""
+        items = list(items)
+        if self.parallel == 1:
+            return [(it, fn(it)) for it in items]
+        with ThreadPoolExecutor(max_workers=self.parallel) as pool:
+            return list(zip(items, pool.map(fn, items)))
 
     def run(self, text, tasks=("compliance", "clauses"), document_name="Contract",
             positions=None, categories=None, progress=lambda **kw: None):
@@ -116,22 +127,21 @@ class Reviewer:
         total = len(wins) * len(qs)
         done, stats = 0, {"windows": len(wins), "unparsed": 0, "unlocated_quotes": 0}
 
+        def ask(chunk, kind, q):
+            if kind == "nli":
+                msgs = [{"role": "system", "content": P.TASK1_SYSTEM},
+                        {"role": "user", "content": P.TASK1_USER.format(text=chunk, question=q)}]
+                p = parse_output(self.eng.generate(msgs, reuse_prefix=True).text)
+                return p["verdict"], p["evidence"]
+            msgs = [{"role": "system", "content": P.TASK2_SYSTEM},
+                    {"role": "user", "content": P.TASK2_USER.format(text=chunk, category=q)}]
+            return parse_cuad(self.eng.generate(msgs, reuse_prefix=True).text)
+
         per_q = {q: [] for q in qs}  # (label, evidence) per window
         for w, (a, b) in enumerate(wins):
             chunk = text[a:b]
             self.eng.reset_cache()
-            for kind, q in qs:
-                if kind == "nli":
-                    msgs = [{"role": "system", "content": P.TASK1_SYSTEM},
-                            {"role": "user", "content": P.TASK1_USER.format(text=chunk, question=q)}]
-                    raw = self.eng.generate(msgs, reuse_prefix=True).text
-                    p = parse_output(raw)
-                    label, ev = p["verdict"], p["evidence"]
-                else:
-                    msgs = [{"role": "system", "content": P.TASK2_SYSTEM},
-                            {"role": "user", "content": P.TASK2_USER.format(text=chunk, category=q)}]
-                    raw = self.eng.generate(msgs, reuse_prefix=True).text
-                    label, ev = parse_cuad(raw)
+            for (kind, q), (label, ev) in self._map(lambda kq: ask(chunk, *kq), qs):
                 if label is None:
                     stats["unparsed"] += 1
                 per_q[(kind, q)].append((label, ev))
@@ -174,12 +184,16 @@ class Reviewer:
         # and are outside training, hence "model-beta" and a label in the UI.
         to_note = [(it, "model-beta") for it in compliance if it["evidence"]]
         to_note += [(it, "model") for it in clauses if it["evidence"]]
-        for k, (item, source) in enumerate(to_note):
-            progress(stage="notes", done=k, total=len(to_note))
+        def note_of(pair):
+            item, _ = pair
             clause = " ".join(s["text"] for s in item["evidence"])
             msgs = [{"role": "system", "content": TASK3_SYSTEM_TRAINED},
                     {"role": "user", "content": P.TASK3_USER.format(cat=item["title"], clause=clause)}]
-            item["note"] = strip_wrappers(self.eng.generate(msgs).text).strip()
+            return strip_wrappers(self.eng.generate(msgs).text).strip()
+
+        for k, ((item, source), note) in enumerate(self._map(note_of, to_note)):
+            progress(stage="notes", done=k, total=len(to_note))
+            item["note"] = note
             item["noteSource"] = source
 
         return {
