@@ -29,9 +29,13 @@ import store
 from engine import Engine
 from extract import extract_text
 from pipeline import Reviewer
+from remote import RemoteEngine, load_env
 
-MODEL = "mlx-community/Meta-Llama-3.1-8B-Instruct-4bit"
-ADAPTER = str(Path(__file__).resolve().parent.parent / "adapters" / "llama_3task_mlx")
+# local (MLX on this Mac) or remote (vLLM endpoint); see deploy/README.md
+BACKEND = load_env("LEGALAI_BACKEND", "local")
+MODEL = load_env("LEGALAI_LOCAL_MODEL", "mlx-community/Meta-Llama-3.1-8B-Instruct-4bit")
+ADAPTER = load_env("LEGALAI_LOCAL_ADAPTER",
+                   str(Path(__file__).resolve().parent.parent / "adapters" / "llama_3task_mlx"))
 PORT = 8765
 MAX_UPLOAD = 20 * 1024 * 1024
 TASKS = ("compliance", "clauses")
@@ -47,13 +51,14 @@ def reset_results(rec):
 
 def worker():
     try:
-        reviewer = Reviewer(Engine(MODEL, ADAPTER))
+        reviewer = Reviewer(RemoteEngine() if BACKEND == "remote" else Engine(MODEL, ADAPTER))
     except Exception as e:
         traceback.print_exc()
         state["model"] = f"failed: {e}"
         return
     state["model"] = "ready"
-    print(f"model ready on http://127.0.0.1:{PORT}", flush=True)
+    where = f"remote {reviewer.eng.model}" if BACKEND == "remote" else f"local {MODEL}"
+    print(f"model ready ({where}) on http://127.0.0.1:{PORT}", flush=True)
     while True:
         rid = work.get()
         rec = store.update(rid, lambda r: r.update(status="running"))
