@@ -13,7 +13,32 @@ def _pdf(data):
     pages = [p.extract_text() or "" for p in PdfReader(io.BytesIO(data)).pages]
     # pypdf emits tabs between words in many layouts; the model was trained on
     # ordinary spacing, so collapse runs of spaces and tabs within a line
-    return "\n".join(re.sub(r"[ \t]+", " ", pg) for pg in pages)
+    text = "\n".join(re.sub(r"[ \t]+", " ", pg) for pg in pages)
+    return _unwrap(text)
+
+
+_ENDS_SENTENCE = re.compile(r"[.;:!?][”’\"')]*$")
+_SECTION_START = re.compile(r"^(\d+(\.\d+)*\.?|§\s*\d+|[A-Z]\.|\([a-z0-9]{1,4}\))\s")
+_CONTINUES = re.compile(r"^[,;:)a-z]")
+
+
+def _unwrap(text):
+    """Rejoin the visual line wraps a PDF keeps, so sentences reach the model
+    whole: the model was trained on paragraph text, and a mid-sentence break
+    makes it quote one fragment per line."""
+    lines = [l.strip() for l in text.split("\n")]
+    out = []
+    for line in lines:
+        if out and line and out[-1]:
+            prev = out[-1]
+            heading = len(prev) < 60 and (_SECTION_START.match(prev) or prev.isupper())
+            joins = _CONTINUES.match(line) or not (
+                _ENDS_SENTENCE.search(prev) or heading or _SECTION_START.match(line))
+            if joins:
+                out[-1] = prev + ("" if line[0] in ",;:)" else " ") + line
+                continue
+        out.append(line)
+    return "\n".join(out)
 
 
 def _docx(data):
