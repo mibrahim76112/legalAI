@@ -1,0 +1,626 @@
+{
+ "meta": {
+  "model": "Llama-3.1-8B + LoRA (three-task)",
+  "split": "dev",
+  "flagPrecision": 0.67
+ },
+ "reviews": [
+  {
+   "id": "nda",
+   "documentName": "Confidentiality Agreement",
+   "representing": "Receiving Party",
+   "counterparty": "Disclosing Party",
+   "playbookName": "Standard playbook",
+   "documentText": "CONFIDENTIALITY AND NON-DISCLOSURE AGREEMENT\nTHIS CONFIDENTIALITY AND NON-DISCLOSURE AGREEMENT (this \u201cAgreement\u201d) is made and entered into as of this ____ day of , 2019, by and between , a (the \u201cReceiving Party\u201d), and Soneet Kapila of KapilaMukamal, LLP, as assignee (the \u201cAssignee\u201d) for the benefit of creditors of the Assignors (the \u201cDisclosing Party\u201d). The Receiving Party and the Disclosing Party are sometimes referred to below individually as a \u201cParty\u201d and collectively as the \u201cParties\u201d. Capitalized terms not otherwise defined in this Agreement shall have the same meaning ascribed to such terms in the Recitals below.\nRECITALS\nWHEREAS, on March 14, 2019, Laser Spine Institute, LLC, a Florida limited liability company, and the affiliated companies listed on Exhibit A attached to this Agreement (collectively, the \u201cAssignors\u201d) assigned and conveyed all of their assets (the \u201cAssigned Assets\u201d) to the Assignee;\nWHEREAS, on March 14, 2019, the Assignee filed a Petition Commencing Assignment for Benefit of Creditors in the Circuit Court of the Thirteenth Judicial Circuit in and for Hillsborough County, Florida Civil Division, styled In re: Laser Spine Institute, LLC, Assignor, to Soneet Kapila, Assignee, Case No. 2019-CA-2762, Division L;\nWHEREAS, the Receiving Party has requested that the Disclosing Party provide to the Receiving Party certain Confidential Information and Confidential Materials (as such terms are defined below) for the Receiving Party to review in order to evaluate a potential business opportunity between the Receiving Party and the Disclosing Party, including to prepare a proposal with respect to a potential sale involving the Assigned Assets (the \u201cPossible Transaction\u201d);\nWHEREAS, as a condition to furnishing the Confidential Information and the Confidential Materials to the Receiving Party and in order to protect the Confidential Information and the Confidential Materials, the Disclosing Party has required the Receiving Party to enter into this Agreement and abide by its terms; and\nWHEREAS, the Receiving Party, as a condition to receiving the Confidential Information and the Confidential Materials, has agreed to enter into this Agreement and agrees to keep such Confidential Information and Confidential Materials confidential in accordance with the terms and conditions of this Agreement.\nNOW, THEREFORE, in consideration of the mutual covenants contained herein and in consideration for the furnishing by the Disclosing Party of the Confidential Information and the Confidential Materials to the Receiving Party, and for other good and valuable consideration, the receipt and sufficiency of which are hereby acknowledged, the Parties, with the intent to be legally bound, agree as follows:\n1. Defined Terms.\n(a) \u201cConfidential Information\u201d shall include all information pertaining to the Assignors and their respective affiliates, employees, salespersons, independent contractors, agents, officers, directors, customers, suppliers, vendors, manufacturers, distributors, dealers, predecessors, successors and assigns disclosed by the Disclosing Party (or by a third party at the direction of the Disclosing Party) to the Receiving Party, regardless of the form or manner of disclosure (including, but not limited to, information learned by the Receiving Party from the Disclosing Party\u2019s employees, agents, officers, directors, professional advisors or other representatives or through inspection of the Assigned Assets or the books and records of the Assignors), and including, but not limited to: (i) information that relates to the Assignors\u2019 trade secrets, products, services, product specifications, data, inventions, ideas, techniques, know-how, past, current and planned research and development, current and planned methods and processes, client lists, current and anticipated client, service provider and consultant requirements, price lists, market studies, business strategy and plans, business opportunities, computer hardware, software and programs (including object codes and source codes), computer database technologies and systems, and distribution, marketing, financial, merchandising, customer, sales and/or salary information; (ii) all information concerning the Assignors\u2019 business and affairs, operations, finances, assets, liabilities, forecasts, historical financial statements, financial projections and budgets, historical and projected sales, capital spending, budgets, strategic plans, marketing and advertising plans, publications, agreements, the names and backgrounds of clients and consultants and other service providers, key personnel, personnel training, and techniques and materials; (iii) third party confidential information in the custody or care of the Disclosing Party to the extent the same is subject to a duty of confidentiality to such third party; (iv) all offering documents and materials (including offering memoranda, supplements thereto and similar documents); (v) all notes, analyses, compilations, statistics, studies, summaries, interpretations, and other material prepared by or for the Receiving Party which contain, are based on, or otherwise reflect, in whole or in part, any of the foregoing; and (vi) the existence and terms and conditions of this Agreement and the existence and content of the discussions between the Disclosing Party and the Receiving Party regarding a Possible Transaction. Information disclosed by the Disclosing Party to the Receiving Party need not be identified as \u201cconfidential\u201d to be deemed \u201cConfidential Information\u201d pursuant to this Agreement.\n(b) \u201cConfidential Materials\u201d shall mean all materials containing Confidential Information, including, without limitation, all writings and recordings, including the originals and all non-identical copies, whether different from the original by reason of any notation made on such copies or otherwise (including, without limitation, e-mails and attachments, correspondence, memoranda, notes, diaries, minutes, statistics, statements, tags, labels, invoices, brochures, periodicals, telegrams, receipts, returns, summaries, pamphlets, books, inter-office and intra-office communications, offers, notations of any sort of conversations, working papers, applications, permits, file wrappers, indices, telephone calls, meetings or printouts, teletypes, telefaxes, invoices, work sheets, and all drafts, alterations, modifications, changes and amendments of any of the foregoing), and graphic or aural representations of any kind (including, without limitation, photographs, charts, microfiche, microfilm, video tape, recordings, motion pictures, plans, drawings, and surveys), and all materials within the full scope of FED.R.CIV.P. 34 including, but not limited to, all electronic, mechanical, magnetic, or optical records or representations of any kind (including, without limitation, computer files and programs, tapes, cassettes, discs, recordings), metadata, and information stored on a computer, laptop, hand-held computer device, disk, CD, DVD, and any mechanical recording or production of any oral material.\n2. Trade Secrets. All trade secrets of the Assignors also shall be entitled to all of the protections and benefits of the Florida Uniform Trade Secrets Act (the \u201cTrade Secrets Act\u201d) and any other applicable laws. If any information that the Disclosing Party deems to be a trade secret of the Assignors is found by a court of competent jurisdiction not to be a trade secret, then such information nevertheless shall be considered Confidential Information for purposes of this Agreement. In the case of trade secrets, the Receiving Party waives any requirement that the Disclosing Party submit proof of the economic value of any trade secret or post a bond or other security. Additionally, the Receiving Party acknowledges that nothing in this Agreement (including Section 17 below) shall place a time limitation on the period of protection of such trade secret, it being agreed that the trade secrets of the Assignors shall enjoy perpetual protection against unauthorized disclosure or use, subject only to the provisions of the Trade Secrets Act and other applicable laws.\n3. Limitations. The term \u201cConfidential Information\u201d shall not include such portions of the Confidential Information that: (i) are already published or available to the public other than as a result of disclosure by the Receiving Party or any of its employees, officers, directors, members, managers, affiliates, agents, attorneys, accountants or other representatives or advisors (collectively, the \u201cRepresentatives\u201d); (ii) become available to the Receiving Party on a non-confidential basis from a source (other than the Disclosing Party or one of the Disclosing Party\u2019s employees, officers, directors, members, managers, affiliates, agents, attorneys, accountants or other representatives or advisors) that is not prohibited from disclosing such Confidential Information to the Receiving Party by a legal, contractual, or fiduciary obligation to the Disclosing Party or the Assignors; (iii) can be shown by written documentation to have been independently developed by the Receiving Party without use of or reliance upon any Confidential Information or Confidential Materials of the Disclosing Party; and/or (iv) was demonstrably within the actual possession of the Receiving Party or its Representatives prior to it being furnished by or on behalf of the Disclosing Party pursuant to this Agreement.\n4. Property of the Disclosing Party. Notwithstanding anything to the contrary contained in this Agreement, all of the Confidential Information and the Confidential Materials are and shall remain the property of the Disclosing Party. By disclosing information to the Receiving Party, the Disclosing Party does not grant any express or implied right or interest in the patents, copyrights, trademarks, trade secret information, or intellectual property rights of the Assignors. The Disclosing Party reserves the right to limit the Receiving Party\u2019s access to the premises, facilities, equipment, customers, vendors, data and other materials, information and personnel of the Assignors (including, without limitation, as provided in Section 9 below).\n5. Non-Disclosure. The Receiving Party: (i) shall treat the Confidential Information and the Confidential Materials as confidential in accordance with the terms and conditions of this Agreement; (ii) shall not use or disclose to any person the Confidential Information or the Confidential Materials for any purpose other than in connection with the consideration of a Possible Transaction, subject in all cases to the provisions of this Agreement; (iii) shall not copy or reproduce any of the Confidential Information or the Confidential Materials without the prior written consent of the Disclosing Party; (iv) shall reveal the Confidential Information and the Confidential Materials only to its Representatives who need to know the Confidential Information and the Confidential Materials in connection with a Possible Transaction, and who (A) are informed by the Receiving Party of the confidential and proprietary nature of the Confidential Information and the Confidential Materials, and (B) before receiving the Confidential Information or the Confidential Materials, agree to maintain their confidentiality in accordance with the terms and conditions of this Agreement; (v) except as provided in Section 7 below, shall not, without the Disclosing Party\u2019s prior written consent, disclose (A) to any other person, other than its Representatives, the fact that the Confidential Information or the Confidential Materials have been made available to the Receiving Party, (B) that discussions or negotiations are taking place concerning a Possible Transaction, or (C) any of the terms, conditions, or other facts with respect thereto; (vi) shall take all reasonable precautions necessary to safeguard the Confidential Information and the Confidential Materials from disclosure to any person or entity other than its Representatives, including taking reasonable security precautions at least as great as the precautions the Receiving Party takes to protect its own confidential information; and (vii) segregate all Confidential Information and Confidential Materials from the confidential information or confidential materials of others. At the request of the Disclosing Party, the Receiving Party shall require its Representatives to sign a copy of this Agreement. Regardless of whether the Receiving Party\u2019s Representatives sign a copy of this Agreement, the Receiving Party shall be responsible for any breach of this Agreement by its Representatives. The Receiving Party shall notify the Disclosing Party promptly upon discovery of any unauthorized use or disclosure of the Confidential Information or the Confidential Materials, or any other breach of this Agreement by the Receiving Party or any of its Representatives, and shall fully cooperate with the Disclosing Party to help the Disclosing Party regain possession of the Confidential Information or the Confidential Materials and prevent the unauthorized use of the Confidential Information or the Confidential Materials.\n6. Return of Confidential Information and Confidential Materials. The Receiving Party shall keep a written record of the Confidential Information and the Confidential Materials furnished to it and the location of such Confidential Information and Confidential Materials. At any time, at the Disclosing Party\u2019s request, all copies of the Confidential Information and the Confidential Materials shall be returned to the Disclosing Party within five (5) business days of such request; provided, however, that the Receiving Party shall be permitted to retain a list that contains general descriptions of the documents it has returned to the Disclosing Party to facilitate the resolution of any controversies after the Confidential Information and the Confidential Materials have been returned. To the extent that the Receiving Party utilizes any portion of the Confidential Information or the Confidential Materials to prepare its own analyses, compilations, studies, data, notes, interpretations or other documents (the \u201cNotes\u201d), at any time, at the Disclosing Party\u2019s request, the Receiving Party shall destroy the Notes and promptly thereafter provide the Disclosing Party with written certification of their destruction. The Receiving Party shall also, within ten (10) days of a written request by the Disclosing Party, certify in writing that it has satisfied its obligations under this Section 6 or explain why the Receiving Party has been unable to do so. All Confidential Information and Confidential Materials shall continue to be subject to the terms of this Agreement even after their return or destruction or the termination of this Agreement.\n7. Legal Compulsion to Disclose Confidential Information or Confidential Materials. In the event that the Receiving Party is issued any subpoena or other process requesting any of the Confidential Information or the Confidential Materials, the Receiving Party agrees that it will immediately furnish a copy of such subpoena or other process, via overnight delivery, to counsel to the Assignee, Edward J. Peterson, Esq. and Matthew B. Hale, Esq. of Stichter, Riedel, Blain & Postler, P.A., 110 East Madison Street, Suite 200, Tampa, Florida 33602, and to the Disclosing Party at the address set forth on Exhibit B attached to this Agreement. In the event that the Receiving Party is requested or becomes legally compelled (by deposition, interrogatory, request for documents, subpoena, civil investigative demand or similar process) to disclose any of the Confidential Information or the Confidential Materials, then the Receiving Party shall provide the Disclosing Party with prompt written notice of such request or requirement so that the Disclosing Party may seek a protective order or other appropriate remedy and/or waive compliance with the terms of this Agreement. In the event that such protective order or other remedy is not obtained, or that the Disclosing Party waives compliance with the provisions hereof, the Receiving Party agrees to furnish only that portion of the Confidential Information or the Confidential Materials which the Receiving Party determines in its reasonable discretion is required to be disclosed and the Receiving Party shall exercise reasonable efforts to obtain reliable assurance from the person to whom it furnishes the Confidential Information or the Confidential Materials that confidential treatment will be accorded to such Confidential Information or Confidential Materials. The Receiving Party also agrees that it will, to the extent authorized by law, reasonably cooperate with the Disclosing Party in opposing the production of the Confidential Information or the Confidential Materials; provided, however, in the event the Receiving Party incurs any cost or expense in providing such cooperation, the Disclosing Party shall promptly reimburse the Receiving Party for any such cost or expense upon the Receiving Party\u2019s tendering of a receipt therefor. If an opinion of independent counsel is required prior to compliance with a subpoena or court order, the Disclosing Party agrees to reimburse the Receiving Party for the associated costs.\n8. Attorney-Client Privilege. The Receiving Party agrees that the Disclosing Party is not waiving, and shall not be deemed to have waived, its attorney-client privilege with respect to any Confidential Information or Confidential Materials (including, without limitation, Confidential Information or Confidential Materials pertaining to pending or threatened litigation) which may be disclosed hereunder by the Disclosing Party and with respect to which the Disclosing Party has asserted, or is entitled to assert, its attorney-client privilege. The Receiving Party agrees that the Disclosing Party shall be entitled to require that such Confidential Information or Confidential Materials be disclosed only to certain specified Representatives and to the Receiving Party\u2019s legal counsel and that no further disclosure thereof be made.\n9. HIPAA Compliance. The Receiving Party agrees that it will not have access to any patient care information or records of the Assignors that are subject to the Health Insurance Portability and Accountability Act of 1996 (\u201cHIPAA\u201d), absent the execution of a separate agreement that addresses HIPAA requirements. Until the consummation of the Possible Transaction, the Receiving Party agrees that it shall not contact or otherwise communicate with any patients (past, present, or future) of the Assignors without obtaining the prior written consent of the Disclosing Party and allowing one or more Representatives of the Disclosing Party to be present at the time of any meetings with any such patients. To the extent confidential patient or other information protected by HIPAA is inadvertently disclosed to the Receiving Party, the Receiving Party shall hold such information in strictest confidence, shall notify the Disclosing Party of its receipt of such information, and shall promptly thereafter return such information to the Disclosing Party and destroy any and all copies thereof. This Section 9 shall survive the closing of the Possible Transaction and/or the termination of this Agreement.\n10. Remedies. The Receiving Party shall indemnify and hold the Disclosing Party harmless from any damages, losses, costs, or liabilities arising out of or resulting from any unauthorized use or disclosure by the Receiving Party or its Representatives of the Confidential Information or the Confidential Materials or other breach of this Agreement by the Receiving Party or its Representatives, including, but not limited to, reasonable attorneys\u2019 fees, court costs and other litigation expenses incurred in connection with the enforcement of this Agreement. Given the nature of the Confidential Information and the Confidential Materials and the damage that would result to the Disclosing Party if information contained therein were disclosed to any third party, money damages would not be a sufficient remedy for any breach of this Agreement by the Receiving Party or its Representatives. Therefore, in addition to all other remedies, the Disclosing Party shall be entitled to specific performance and injunctive or other equitable relief as a remedy for any such breach or threatened breach, and the Receiving Party and its Representatives waive any requirement for the securing or posting of any bond in connection with such remedy.\n11. No Representations or Warranties. The Receiving Party acknowledges and agrees that neither the Disclosing Party nor any of its employees, officers, directors, members, managers, affiliates, agents, attorneys, accountants or other representatives or advisors (i) has made or will make any representation or warranty, expressed or implied, as to the accuracy or completeness of the Confidential Information or the Confidential Materials or the relevance of the Confidential Information or the Confidential Materials to the Receiving Party\u2019s determination whether to enter into a Possible Transaction or the terms on which the Receiving Party might be prepared to do so or (ii) shall have any liability whatsoever to the Receiving Party or its Representatives relating to or resulting from the use of or reliance upon the Confidential Information or the Confidential Materials or any errors therein or omissions therefrom, other than as may be set forth in a definitive agreement (a \u201cDefinitive Agreement\u201d) between the Parties with respect to a Possible Transaction. Only those representations and warranties contained in a Definitive Agreement between the Parties with respect to a Possible Transaction shall have any legal effect. The Disclosing Party shall not be liable to the Receiving Party for amounts representing loss of profits, loss of business or indirect, consequential or punitive damages of the Receiving Party in connection with the provision or use of the Confidential Information or the Confidential Materials.\n12. Transaction Process. Each of the Parties acknowledges and agrees that the other Party shall have the right to reject or accept any potential proposal or offer with respect to a Possible Transaction, for any reason whatsoever, in its sole discretion. Furthermore, neither the discussions between the Parties concerning a Possible Transaction nor the disclosure of the Confidential Information or the Confidential Materials hereunder shall be interpreted or construed to limit or restrict the right of the Disclosing Party to furnish or disclose the Confidential Information or the Confidential Materials to others for any purpose it deems appropriate, including, but not limited to, the pursuit or consideration of a possible transaction with such other person or entity. The Parties further agree that unless and until a Definitive Agreement between the Parties with respect to a Possible Transaction has been executed and delivered, neither Party will be under any legal obligation of any kind whatsoever with respect to such Possible Transaction (including, without limitation, any obligation to negotiate in good faith toward a binding contract) by reason of this Agreement, the transmission of any Confidential Information or Confidential Materials, any written or oral expression with respect to a Possible Transaction or for any other reason. Each Party reserves the right at any time to terminate its consideration of a Possible Transaction.\n13. Governing Law and Venue. The internal laws of the State of Florida, without regard to principles of conflicts of laws, shall govern the validity and interpretation of this Agreement, and the performance by the Parties of their respective duties and obligations hereunder. The Parties irrevocably and unconditionally consent to submit to the exclusive jurisdiction of the courts of the State of Florida and of the United States of America located in the State of Florida, County of Hillsborough, for any actions, suits or proceedings arising out of or related to this Agreement. The Parties shall not commence any action, suit or proceeding relating to this Agreement except in such courts. The Parties agree that they may be served with process and receive notices at their respective addresses set forth on Exhibit B attached to this Agreement. The Parties irrevocably and unconditionally waive any objection to the laying of venue in any of the aforementioned courts and shall not plead or claim in any such court that an action, suit or proceeding brought in such court has been brought in an inconvenient forum.\n14. Notice and Service of Process. All service of process, notices, consents, requests, claims, demands, instructions or other communications to be given hereunder by the Parties shall be in writing. All such service of process, notices, consents, requests, claims, demands, instructions or other communications may be given personally, by registered or certified mail (with proof of receipt, postage and expenses prepaid, return receipt requested), express package service, facsimile transmission, or electronic mail transmission. All such notices shall be deemed to be received as follows: (i) if delivered personally, when received, (ii) if mailed, three (3) days after being mailed, (iii) if sent by express package service, when signed for, (iv) if sent by facsimile transmission, when the fax has transmitted over the telephone lines, as evidenced by a fax confirmation report generated by the transmitting machine (provided that a copy of such notice is also sent via U.S. mail, postage prepaid), and (v) if sent by electronic mail transmission, two (2) days after being sent. All notices shall be sent to the Parties at their respective addresses set forth on Exhibit B attached to this Agreement. The Receiving Party acknowledges and agrees that all (a) requests for Confidential Information or Confidential Materials, (b) communications regarding the Possible Transaction, (c) requests for facility tours or meetings, and (d) discussions or questions regarding procedures, shall be submitted or directed to Soneet Kapila of the Disclosing Party, unless otherwise directed in writing by Soneet Kapila.\n15. Entire Agreement. This Agreement constitutes the complete and exclusive statement of the terms and conditions between the Parties covering the subject matter hereof, supersedes all prior agreements and understandings concerning such subject matter, whether oral or written, and cannot be amended except by a written agreement executed by an authorized representative of each Party.\n16. Waiver of Breach. No waiver of any provision of this Agreement shall be valid or binding unless the same is waived in writing by the Party against whom such waiver is to be enforced. No valid waiver of any provision of this Agreement at any time shall be deemed a waiver of any other provision of this Agreement at such time or will be deemed a valid waiver of such provision at any other time. No failure or delay by any Party in exercising any right, power, or privilege under this Agreement shall operate as waiver thereof, nor shall any single or partial exercise thereof preclude any other or further exercise of any right, power or privilege hereunder.\n17. Term. Unless otherwise set forth in this Agreement, this Agreement shall terminate on the earlier to occur of: (i) the consummation of a Possible Transaction pursuant to a Definitive Agreement, and (ii) two (2) years from the date that the Parties terminate their discussions and consideration of a Possible Transaction; provided, however, that all Confidential Information and Confidential Materials shall continue to be subject to the terms of this Agreement after the termination of this Agreement.\n18. Severability. If any provision of this Agreement, or the application of any provision of this Agreement to any person or circumstance, is held to be invalid, illegal or unenforceable, or inconsistent with any present or future law, ruling, rule, policy or regulation of any court or governmental or regulatory authority having jurisdiction over the subject matter hereof, then the validity, legality, and enforceability of the remaining provisions of this Agreement shall not in any way be affected or impaired thereby and such provision shall be deemed to be rescinded or modified in accordance with such law, ruling, rule, policy or regulation, and the remainder of this Agreement, and the application of such provision to persons or circumstances other than those to which it shall be held inconsistent, shall not be affected thereby.\n19. Binding Nature; Assignment. This Agreement shall be binding upon and inure to the benefit of the Parties and their respective successors, permitted assigns and legal representatives. Neither this Agreement, nor any right hereunder, may be assigned by either Party without the prior written consent of the other Party.\n20. Counterparts. This Agreement may be executed by the Parties in separate counterparts, each of which when so executed and delivered shall be an original, but all such counterparts shall together constitute one and the same instrument. Each counterpart may consist of a number of copies hereof each signed by less than all, but together signed by all of the Parties. A facsimile signature shall be considered the same as an original signature for purposes of execution of this Agreement.\n21. Publicity. No publicity, release or announcement concerning this Agreement or the transactions contemplated hereby shall be made by either Party without advance written approval thereof by the other Party. The Receiving Party will not use or permit the use of the Disclosing Party\u2019s or any Assignor\u2019s name, logos, trademarks or other identifying data, or otherwise discuss or make reference to the Disclosing Party or the Assignors, in any notices to third parties, any promotional or marketing material or in any press release or other public announcement or advertisement, however characterized, without the Disclosing Party\u2019s prior written consent.\n22. Drafting. No provision of this Agreement shall be interpreted for or against either Party on the basis that such Party was the draftsman of such provision, both Parties having participated equally in the drafting hereof, and no presumption or burden of proof shall arise favoring or disfavoring any Party by virtue of the authorship of any of the provisions of this Agreement.\nIN WITNESS WHEREOF, the Parties have executed this Agreement as of the day and year first above written.\n\u201cRECEIVING PARTY\u201d\nBy:\nName:\nTitle\n\u201cDISCLOSING PARTY\u201d\nSoneet Kapila, as Assignee in the Assignment for the Benefit of Creditor Proceedings of the Assignors listed on Exhibit A attached to this Agreement\nEXHIBIT A\nCase No. Assignor\n2019-CA-2764 CLM Aviation, LLC\n2019-CA-2765 LSI HoldCo, LLC\n2019-CA-2766 LSI Management Company, LLC\n2019-CA-2767 Laser Spine Surgery Center of Arizona, LLC\n2019-CA-2768 Laser Spine Surgery Center of Cincinnati, LLC\n2019-CA-2769 Laser Spine Surgery Center of Cleveland, LLC\n2019-CA-2770 Laser Spine Surgical Center, LLC\n2019-CA-2771 Laser Spine Surgery Center of Pennsylvania, LLC\n2019-CA-2772 Laser Spine Surgery Center of St. Louis, LLC\n2019-CA-2773 Laser Spine Surgery Center of Warwick, LLC\n2019-CA-2774 Medical Care Management Services, LLC\n2019-CA-2775 Spine DME Solutions, LLC\n2019-CA-2776 Total Spine Care, LLC\n2019-CA-2777 Laser Spine Institute Consulting, LLC\n2019-CA-2780 Laser Spine Surgery Center of Oklahoma, LLC\nEXHIBIT B\nFOR THE RECEIVING PARTY:\nTelephone No:\nFacsimile No.:\nEmail:\nNotices sent to the Receiving Party under this Agreement to be sent with a copy to:\nTelephone No:\nFacsimile No.:\nEmail:\nFOR THE DISCLOSING PARTY:\nSoneet Kapila, Assignee\nKapilaMukamal, LLP\n1000 South Federal Highway, Suite 200\nFort Lauderdale, Florida 33316\nTelephone No: 954/712-3201\nFacsimile No.: 954/761-1033\nEmail: skapila@kapilamukamal.com\nNotices sent to the Disclosing Party under this Agreement to be sent with a copy to:\nEdward J. Peterson, Esq.\nMatthew B. Hale, Esq.\nStichter, Riedel, Blain & Postler, P.A.\n110 East Madison Street, Suite 200\nTampa, Florida 33602\nTelephone No.: 813/229-0144\nFacsimile No.: 813/229-1811",
+   "compliance": [
+    {
+     "id": "p0",
+     "kind": "position",
+     "title": "Agreement shall not grant Receiving Party any right to Confidential Information.",
+     "status": "Meets standard",
+     "tone": "grn",
+     "evidence": [
+      {
+       "text": "Notwithstanding anything to the contrary contained in this Agreement, all of the Confidential Information and the Confidential Materials are and shall remain the property of the Disclosing Party.",
+       "start": 9506,
+       "end": 9701
+      },
+      {
+       "text": "By disclosing information to the Receiving Party, the Disclosing Party does not grant any express or implied right or interest in the patents, copyrights, trademarks, trade secret information, or intellectual property rights of the Assignors.",
+       "start": 9702,
+       "end": 9944
+      }
+     ],
+     "note": "The contract supports this position.",
+     "correct": true
+    },
+    {
+     "id": "p1",
+     "kind": "position",
+     "title": "All Confidential Information shall be expressly identified by the Disclosing Party.",
+     "status": "Needs attention",
+     "tone": "red",
+     "evidence": [
+      {
+       "text": "Information disclosed by the Disclosing Party to the Receiving Party need not be identified as \u201cconfidential\u201d to be deemed \u201cConfidential Information\u201d pursuant to this Agreement.",
+       "start": 5403,
+       "end": 5580
+      }
+     ],
+     "note": "The contract appears to conflict with this position.",
+     "correct": true
+    },
+    {
+     "id": "p2",
+     "kind": "position",
+     "title": "Confidential Information may include verbally conveyed information.",
+     "status": "Not addressed",
+     "tone": "amb",
+     "evidence": [],
+     "note": "The contract does not address this.",
+     "correct": false
+    },
+    {
+     "id": "p3",
+     "kind": "position",
+     "title": "Confidential Information shall only include technical information.",
+     "status": "Needs attention",
+     "tone": "red",
+     "evidence": [
+      {
+       "text": "(a) \u201cConfidential Information\u201d shall include all information pertaining to the Assignors and their respective affiliates, employees, salespersons, independent contractors, agents, officers, directors, customers, suppliers, vendors, manufacturers, distributors, dealers, predecessors, successors and assigns disclosed by the Disclosing Party (or by a third party at the direction of the Disclosing Party) to the Receiving Party, regardless of the form or manner of disclosure (including, but not limited to, information learned by the Receiving Party from the Disclosing Party\u2019s employees, agents, officers, directors, professional advisors or other representatives or through inspection of the Assigned Assets or the books and records of the Assignors), and including, but not limited to:",
+       "start": 2760,
+       "end": 3548
+      },
+      {
+       "text": "(i) information that relates to the Assignors\u2019 trade secrets, products, services, product specifications, data, inventions, ideas, techniques, know-how, past, current and planned research and development, current and planned methods and processes, client lists, current and anticipated client, service provider and consultant requirements, price lists, market studies, business strategy and plans, business opportunities, computer hardware, software and programs (including object codes and source codes), computer database technologies and systems, and distribution, marketing, financial, merchandising, customer, sales and/or salary information;",
+       "start": 3549,
+       "end": 4196
+      },
+      {
+       "text": "(ii) all information concerning the Assignors\u2019 business and affairs, operations, finances, assets, liabilities, forecasts, historical financial statements, financial projections and budgets, historical and projected sales, capital spending, budgets, strategic plans, marketing and advertising plans, publications, agreements, the names and backgrounds of clients and consultants and other service providers, key personnel, personnel training, and techniques and materials;",
+       "start": 4197,
+       "end": 4669
+      }
+     ],
+     "note": "The contract appears to conflict with this position.",
+     "correct": true
+    },
+    {
+     "id": "p4",
+     "kind": "position",
+     "title": "Receiving Party may acquire information similar to Confidential Information from a third party.",
+     "status": "Meets standard",
+     "tone": "grn",
+     "evidence": [
+      {
+       "text": "The term \u201cConfidential Information\u201d shall not include such portions of the Confidential Information that:",
+       "start": 8182,
+       "end": 8287
+      },
+      {
+       "text": "(ii) become available to the Receiving Party on a non-confidential basis from a source (other than the Disclosing Party or one of the Disclosing Party\u2019s employees, officers, directors, members, managers, affiliates, agents, attorneys, accountants or other representatives or advisors) that is not prohibited from disclosing such Confidential Information to the Receiving Party by a legal, contractual, or fiduciary obligation to the Disclosing Party or the Assignors;",
+       "start": 8585,
+       "end": 9052
+      }
+     ],
+     "note": "The contract supports this position.",
+     "correct": true
+    },
+    {
+     "id": "p5",
+     "kind": "position",
+     "title": "Receiving Party may create a copy of some Confidential Information in some circumstances.",
+     "status": "Needs attention",
+     "tone": "red",
+     "evidence": [
+      {
+       "text": "The Receiving Party:",
+       "start": 10236,
+       "end": 10256
+      },
+      {
+       "text": "(iii) shall not copy or reproduce any of the Confidential Information or the Confidential Materials without the prior written consent of the Disclosing Party;",
+       "start": 10665,
+       "end": 10823
+      }
+     ],
+     "note": "The contract appears to conflict with this position.",
+     "correct": true
+    },
+    {
+     "id": "p6",
+     "kind": "position",
+     "title": "Receiving Party may independently develop information similar to Confidential Information.",
+     "status": "Meets standard",
+     "tone": "grn",
+     "evidence": [
+      {
+       "text": "The term \u201cConfidential Information\u201d shall not include such portions of the Confidential Information that:",
+       "start": 8182,
+       "end": 8287
+      },
+      {
+       "text": "(iii) can be shown by written documentation to have been independently developed by the Receiving Party without use of or reliance upon any Confidential Information or Confidential Materials of the Disclosing Party; and/or",
+       "start": 9053,
+       "end": 9275
+      }
+     ],
+     "note": "The contract supports this position.",
+     "correct": true
+    },
+    {
+     "id": "p7",
+     "kind": "position",
+     "title": "Receiving Party may retain some Confidential Information even after the return or destruction of Confidential Information.",
+     "status": "Meets standard",
+     "tone": "grn",
+     "evidence": [
+      {
+       "text": "At any time, at the Disclosing Party\u2019s request, all copies of the Confidential Information and the Confidential Materials shall be returned to the Disclosing Party within five (5) business days of such request; provided, however, that the Receiving Party shall be permitted to retain a list that contains general descriptions of the documents it has returned to the Disclosing Party to facilitate the resolution of any controversies after the Confidential Information and the Confidential Materials have been returned.",
+       "start": 13470,
+       "end": 13988
+      }
+     ],
+     "note": "The contract supports this position.",
+     "correct": false
+    },
+    {
+     "id": "p8",
+     "kind": "position",
+     "title": "Receiving Party may share some Confidential Information with some of Receiving Party's employees.",
+     "status": "Meets standard",
+     "tone": "grn",
+     "evidence": [
+      {
+       "text": "The Receiving Party:",
+       "start": 10236,
+       "end": 10256
+      },
+      {
+       "text": "(iv) shall reveal the Confidential Information and the Confidential Materials only to its Representatives who need to know the Confidential Information and the Confidential Materials in connection with a Possible Transaction, and who",
+       "start": 10824,
+       "end": 11057
+      },
+      {
+       "text": "(A) are informed by the Receiving Party of the confidential and proprietary nature of the Confidential Information and the Confidential Materials, and",
+       "start": 11058,
+       "end": 11208
+      },
+      {
+       "text": "(B) before receiving the Confidential Information or the Confidential Materials, agree to maintain their confidentiality in accordance with the terms and conditions of this Agreement;",
+       "start": 11209,
+       "end": 11392
+      }
+     ],
+     "note": "The contract supports this position.",
+     "correct": true
+    },
+    {
+     "id": "p9",
+     "kind": "position",
+     "title": "Receiving Party may share some Confidential Information with some third-parties (including consultants, agents and professional advisors).",
+     "status": "Meets standard",
+     "tone": "grn",
+     "evidence": [
+      {
+       "text": "(a) \u201cConfidential Information\u201d shall include all information pertaining to the Assignors and their respective affiliates, employees, salespersons, independent contractors, agents, officers, directors, customers, suppliers, vendors, manufacturers, distributors, dealers, predecessors, successors and assigns disclosed by the Disclosing Party (or by a third party at the direction of the Disclosing Party) to the Receiving Party, regardless of the form or manner of disclosure (including, but not limited to, information learned by the Receiving Party from the Disclosing Party\u2019s employees, agents, officers, directors, professional advisors or other representatives or through inspection of the Assigned Assets or the books and records of the Assignors), and including, but not limited to:",
+       "start": 2760,
+       "end": 3548
+      },
+      {
+       "text": "(iv) all offering documents and materials (including offering memoranda, supplements thereto and similar documents);",
+       "start": 4844,
+       "end": 4960
+      },
+      {
+       "text": "(v) all notes, analyses, compilations, statistics, studies, summaries, interpretations, and other material prepared by or for the Receiving Party which contain, are based on, or otherwise reflect, in whole or in part, any of the foregoing; and",
+       "start": 4961,
+       "end": 5204
+      },
+      {
+       "text": "(vi) the existence and terms and conditions of this Agreement and the existence and content of the discussions between the Disclosing Party and the Receiving Party regarding a Possible Transaction.",
+       "start": 5205,
+       "end": 5402
+      },
+      {
+       "text": "The Receiving Party:",
+       "start": 10236,
+       "end": 10256
+      },
+      {
+       "text": "(iv) shall reveal the Confidential Information and the Confidential Materials only to its Representatives who need to know the Confidential Information and the Confidential Materials in connection with a Possible Transaction, and who",
+       "start": 10824,
+       "end": 11057
+      },
+      {
+       "text": "(A) are informed by the Receiving Party of the confidential and proprietary nature of the Confidential Information and the Confidential Materials, and",
+       "start": 11058,
+       "end": 11208
+      },
+      {
+       "text": "(B) before receiving the Confidential Information or the Confidential Materials, agree to maintain their confidentiality in accordance with the terms and conditions of this Agreement;",
+       "start": 11209,
+       "end": 11392
+      }
+     ],
+     "note": "The contract supports this position.",
+     "correct": true
+    },
+    {
+     "id": "p10",
+     "kind": "position",
+     "title": "Receiving Party shall destroy or return some Confidential Information upon the termination of Agreement.",
+     "status": "Not addressed",
+     "tone": "amb",
+     "evidence": [],
+     "note": "The contract does not address this.",
+     "correct": true
+    },
+    {
+     "id": "p11",
+     "kind": "position",
+     "title": "Receiving Party shall not disclose the fact that Agreement was agreed or negotiated.",
+     "status": "Meets standard",
+     "tone": "grn",
+     "evidence": [
+      {
+       "text": "(v) except as provided in Section 7 below, shall not, without the Disclosing Party\u2019s prior written consent, disclose",
+       "start": 11393,
+       "end": 11509
+      },
+      {
+       "text": "(A) to any other person, other than its Representatives, the fact that the Confidential Information or the Confidential Materials have been made available to the Receiving Party,",
+       "start": 11510,
+       "end": 11688
+      },
+      {
+       "text": "(B) that discussions or negotiations are taking place concerning a Possible Transaction, or",
+       "start": 11689,
+       "end": 11780
+      },
+      {
+       "text": "(C) any of the terms, conditions, or other facts with respect thereto;",
+       "start": 11781,
+       "end": 11851
+      }
+     ],
+     "note": "The contract supports this position.",
+     "correct": true
+    },
+    {
+     "id": "p12",
+     "kind": "position",
+     "title": "Receiving Party shall not reverse engineer any objects which embody Disclosing Party's Confidential Information.",
+     "status": "Not addressed",
+     "tone": "amb",
+     "evidence": [],
+     "note": "The contract does not address this.",
+     "correct": true
+    },
+    {
+     "id": "p13",
+     "kind": "position",
+     "title": "Receiving Party shall not solicit some of Disclosing Party's representatives.",
+     "status": "Not addressed",
+     "tone": "amb",
+     "evidence": [],
+     "note": "The contract does not address this.",
+     "correct": true
+    },
+    {
+     "id": "p14",
+     "kind": "position",
+     "title": "Receiving Party shall not use any Confidential Information for any purpose other than the purposes stated in Agreement.",
+     "status": "Meets standard",
+     "tone": "grn",
+     "evidence": [
+      {
+       "text": "The Receiving Party:",
+       "start": 10236,
+       "end": 10256
+      },
+      {
+       "text": "(ii) shall not use or disclose to any person the Confidential Information or the Confidential Materials for any purpose other than in connection with the consideration of a Possible Transaction, subject in all cases to the provisions of this Agreement;",
+       "start": 10412,
+       "end": 10664
+      }
+     ],
+     "note": "The contract supports this position.",
+     "correct": true
+    },
+    {
+     "id": "p15",
+     "kind": "position",
+     "title": "Receiving Party shall notify Disclosing Party in case Receiving Party is required by law, regulation or judicial process to disclose any Confidential Information.",
+     "status": "Meets standard",
+     "tone": "grn",
+     "evidence": [
+      {
+       "text": "In the event that the Receiving Party is requested or becomes legally compelled (by deposition, interrogatory, request for documents, subpoena, civil investigative demand or similar process) to disclose any of the Confidential Information or the Confidential Materials, then the Receiving Party shall provide the Disclosing Party with prompt written notice of such request or requirement so that the Disclosing Party may seek a protective order or other appropriate remedy and/or waive compliance with the terms of this Agreement.",
+       "start": 15492,
+       "end": 16022
+      }
+     ],
+     "note": "The contract supports this position.",
+     "correct": true
+    },
+    {
+     "id": "p16",
+     "kind": "position",
+     "title": "Some obligations of Agreement may survive termination of Agreement.",
+     "status": "Meets standard",
+     "tone": "grn",
+     "evidence": [
+      {
+       "text": "All Confidential Information and Confidential Materials shall continue to be subject to the terms of this Agreement even after their return or destruction or the termination of this Agreement.",
+       "start": 14658,
+       "end": 14850
+      },
+      {
+       "text": "Unless otherwise set forth in this Agreement, this Agreement shall terminate on the earlier to occur of:",
+       "start": 27385,
+       "end": 27489
+      },
+      {
+       "text": "(i) the consummation of a Possible Transaction pursuant to a Definitive Agreement, and",
+       "start": 27490,
+       "end": 27576
+      },
+      {
+       "text": "(ii) two (2) years from the date that the Parties terminate their discussions and consideration of a Possible Transaction; provided, however, that all Confidential Information and Confidential Materials shall continue to be subject to the terms of this Agreement after the termination of this Agreement.",
+       "start": 27577,
+       "end": 27880
+      }
+     ],
+     "note": "The contract supports this position.",
+     "correct": true
+    }
+   ],
+   "clauses": []
+  },
+  {
+   "id": "commercial",
+   "documentName": "Services Agreement",
+   "representing": "Counterparty",
+   "counterparty": "\u2014",
+   "playbookName": "Standard playbook",
+   "documentText": "Exhibit 10.5\n\nDISTRIBUTOR AGREEMENT\n\nThis Agreement is entered into as of January 21, 2005 (the \"Effective Date\") by and among VendingData Corporation, a Nevada corporation (\"Vendor\"), and Technical Casino Supplies Ltd, an English company (\"Distributor\").\n\nRECITALS\n\nWHEREAS, Vendor is the owner of patents, patents pending, trademarks, and other related intellectual property involving a full range of shuffling machine products for the casino industry (collectively, the \"Products\" and, individually, the \"Product\");\n\nWHEREAS, Distributor is in the business of distributing products to the casino industry throughout the world and is a subsidiary of Victoria Holdings Ltd; and\n\nWHEREAS, Vendor desires to grant to Distributor an exclusive right to market, sell, rent, lease, service and maintain the Products subject to the terms and conditions as set forth herein.\n\nNOW, THEREFORE, in consideration of the several and mutual promises, agreements, covenants, understandings, undertakings, representations and warranties hereinafter set forth the receipt and sufficiency of which is hereby acknowledged, the parties to this Agreement agree that the aforementioned recitals are true and correct and by this reference incorporated herein as if fully set forth and the parties further covenant and agree as follows:\n\n1. TERM\n\nAs provided for in this Section 1, the term of this Agreement shall be for a period of five (5) years, beginning on the Effective Date (the \"Initial Term\"); provided, however, the Initial Term shall be subject to automatic successive renewal terms of three (3) years each (the \"Renewal Terms\" and together with the Initial Term, the \"Term\").\n\n1.1. Termination. This Agreement may be terminated subject to the following clauses:\n\n  1.1.1. By either Vendor or Distributor, upon written notice of termination of this Agreement no later than ninety (90) calendar days prior to the expiration of the relevant Term, then in effect;\n\n  1.1.2. By Vendor and Distributor, at any time, upon the mutual written agreement of Vendor and Distributor;\n\n  1.1.3. By either Vendor or Distributor, following a material or continuing breach of this Agreement (in the case of a breach which is capable of remedy) by the other party and the breaching party's failure to cure such breach within ninety (90) days of receiving written notice of such breach, where a breach shall be considered capable of remedy if the party in breach can comply with the provision in question in all respects other than as to the time of the performance (provided that the time of performance is not of the essence); or\n\n\n\n\n\n  1.1.4. Subject to Section 1.6, by Vendor (or successor to Vendor), upon written notice to Distributor of a change of control of Vendor and the election by Vendor (or successor to Vendor) to terminate this Agreement, where a \"change of control\" shall mean a change in ownership of the Vendor such that an unaffiliated third party acquires a majority of the voting power of Vendor;\n\n  1.1.5. Subject to Section 1.6, with respect to any shuffler line, by Vendor, upon written notice to Distributor of the transfer of ownership of the relevant shuffler line (i.e,, the PokerOne\u2122 Shuffler, the Random Plus\u2122 Shuffler, the Continuous Plus\u2122 Shuffler and other future line of shuffler products offered by Vendor) to an unaffiliated third party and the election by the unaffiliated third party to terminate this Agreement with respect to the relevant shuffler line.\n\n1.2. No Responsibility. Upon termination of this Agreement in accordance with the terms of this Section 1, the terminating party shall not be responsible for any costs or damages incurred by the other party resulting from the termination, subject to Section 1.6 of this Agreement.\n\n1.3. Distributor Credit. Except when this Agreement is terminated due to the uncured breach of Distributor, Distributor shall have within one (1) month of termination of this Agreement the right to return the Products purchased by Distributor to Vendor provided that the Products are unopened upon receipt by Vendor. Distributor will receive a credit for the full price paid by Distributor for the Products. Under such circumstances, Vendor shall have the right to market and sell such returns to other customers that may be interested in acquiring the goods referred to herein.\n\n1.4. Delivery upon Termination. In the event of termination for whatever reason, Vendor and Distributor agree to complete the delivery of each order of the Product received by Distributor and each unfulfilled order for the Product prior to the termination date.\n\n1.5. Effect. In the event of the termination of this Agreement for any reason whatsoever, the exclusive distribution right and license granted to Distributor pursuant to this Agreement shall automatically revert to Vendor as Vendor's sole property.\n\n1.6. Monthly Compensation. In the event that this Agreement is terminated pursuant to either Section 1.1.4 or 1.1.5 of this Agreement, this shall not of itself be deemed a breach hereof but Distributor shall have the right to receive monthly compensation from Vendor, or successor to the Vendor, representing the amount of profit to Distributor lost as a result of the termination (the \"Monthly Compensation\").\n\n  1.6.1. Calculation. The amount of the Monthly Compensation shall be determined by taking average gross profit related to the relevant Products for each of the monthly periods completed since the beginning of this Agreement, where \"gross profit\" shall mean the difference between the revenue generated by Distributor during the relevant period less any commissions paid by Distributor to third parties and less the Price paid by Distributor to Vendor for the relevant Products (exclusive of any taxes, charges, fees or impositions related to sales or delivery).\n\n  1.6.2. Payment. The Monthly Compensation shall be paid for the remaining monthly periods remaining in the Term, as if the termination of this Agreement had not occurred, or twenty four (24) calendar months, which ever period is less, where payment shall be made no later than thirty (30) calendar days after the end of the relevant monthly period.\n\n-2-\n\n\n\n\n\n  1.6.3. Reservation of Rights. For the avoidance of doubt, Distributor's right to compensation shall be without prejudice to its rights in respect of any breach by Vendor of this Agreement.\n\n2. GRANT OF DISTRIBUTION RIGHTS; LICENSE\n\nIn consideration for the purchase of the Products by Distributor from Vendor, Vendor grants Distributor the exclusive right to market, sell, rent, lease, service and maintain the Products and all improvements thereon within the Territory (as defined herein) according to the terms and conditions as set forth herein. As part of the exclusive distribution right granted in this Section 2, Vendor hereby grants Distributor the non- exclusive, non-transferable right to use and display Vendor's trademarks, logos, Product photographs and images, Product advertising and promotional copy, including but not limited to the materials contained in Vendor's website, in connection with the promotion, advertising and distribution of the Products.\n\n2.1. Definition of \"Territory.\" For the purposes of this Agreement, the \"Territory\" shall mean all countries and territories throughout the world with the exception of the United States of America, the Caribbean and cruise ships based from ports within the United States of America or the Caribbean.\n\n2.2. Limitations. Notwithstanding any other provision of this Agreement, the Distributor specifically agrees that any and all marks, logos, images and copy related to the Products are solely the property of Vendor. Distributor agrees not to use in any manner whatsoever the marks, logos, images and copy of Vendor following the expiration or termination of this Agreement, except as may be needed to sell any Products remaining in Distributor's inventory.\n\n2.3. Design and Specification. In its sole discretion and without any liability to Distributor, Vendor shall have final decision-making power with respect to, from time to time, alter the design or construction of any Products, add new and additional Products and discontinue any Products; provided, however, in the event of any such action on Vendor's part, Vendor shall give reasonable notice to Distributor.\n\n2.4. Prosecution of the Patent Applications. Vendor shall retain full and complete control over the prosecution of any patent applications and any related disclaimer proceedings.\n\n2.5. Ownership of Future Inventions and Improvements. Any and all future inventions and improvements related to the Products licensed pursuant to this Agreement shall be the property of Vendor.\n\n2.6. Commission to Vendor For Sales Lead to Distributor. Subject to the mutual agreement of Vendor and Distributor, in the event that Vendor provides a new sales lead to Distributor that results in the sale of the Products, Distributor shall pay to Vendor a commission equal to twenty-five percent (25%) of the gross profit for the Products, where gross profit shall mean the difference between the price paid by the customer (where Distributor will determine the customer price for the Products on a case by case basis) and the price paid by Distributor for the Products. Sales leads for rental contracts provided by Vendor to Distributor will be dealt with on a case by case basis by mutual agreement between Vendor and Distributor. Any repeat orders will be dealt with on a case by case basis by mutual agreement between Vendor and Distributor.\n\n-3-\n\n\n\n\n\n  2.6.1. Payment. Distributor hereby agrees to provide to Vendor payment of the commission no later than thirty (30) calendar days after the receipt of full payment from the customer.\n\n3. OBLIGATIONS OF DISTRIBUTOR\n\nIn exchange for the exclusive distribution right and license provided in Section 2 of this Agreement, Distributor hereby agrees during the Term to use its best commercial efforts to promote, advertise and distribute the Products throughout the Territory, including, without limitation, the following:\n\n3.1. Distributor will purchase the Products from Vendor in accordance with the parameters set forth in Sections 5 and 6 of this Agreement;\n\n3.2. Distributor will be responsible for all marketing, selling and servicing efforts for the Products within the Territory;\n\n3.3. Distributor shall, in the event of any actual or alleged infringement of the Products comes to the attention of Distributor, promptly notify Vendor, in writing, of the actual or alleged infringement;\n\n3.4. Distributor shall not obtain, purchase, receive or source any other card shuffling machine from any third party or other source under any circumstance other than from Vendor with the exception of all Shuffle Master, Inc. shuffling machines which are held in stock at the Effective Date which Distributor is free to sell, rent purchase or lease until all of the said stock has been depleted.\n\n3.5. Distributor shall not sell or otherwise transfer any of the rights granted pursuant to this Agreement to any third party without the prior written consent of Vendor; provided, however, Distributor may enter into distribution arrangements with regional distributors within the Territory in its efforts to promote, advertise and distribute the Products in accordance with this Agreement;\n\n3.6. Distributor shall provide written updates to Vendor at the end of each calendar quarter of any distribution arrangements entered into by Distributor as permitted by Section 3.5 of this Agreement, where said notice shall contain the name and location of the regional distributor, and a brief statement on the experience and history of the regional distributor;\n\n3.7. Distributor shall not make any modifications to the Products without prior written consent of Vendor;\n\n3.8. Distributor shall provide to Vendor: (1) monthly sales figures no later than fifteen (15) calendar days after the end of the relevant monthly period that provides information with respect to sales for each Product; and (2) a non binding three (3) month forecast on a quarterly basis;\n\n3.9. Distributor shall demonstrate the Products at the following international gaming exhibitions, ICE (London), G2E (Las Vegas), SAGSE (Buenos Aires), EELEX (Moscow) and AGE (Sydney), or any successors or equivalents to the aforementioned exhibitions. Distributor may also demonstrate the products at other gaming exhibitions where Distributor decides to exhibit, subject to there being a good business case to do so; and\n\n3.10. Distributor shall be responsible for the retention, use and actions of any third parties used to distribute the Products, including any claims, liabilities or other damages associated with such third parties.\n\n-4-\n\n\n\n\n\n4. OBLIGATIONS OF VENDOR\n\nIn exchange for the marketing and selling of the Products provided in Section 3, Vendor hereby agrees:\n\n4.1. To provide Distributor with the appropriate product brochures, and two (2) fully working and fit for purpose samples of each model of shuffling machine free of charge;\n\n4.2. To prominently display and advertise that Distributor is the sole and exclusive distributor of Vendor for the Products in the Territory;\n\n4.3. Subject to Section 2.6 of this Agreement, not to market, distribute, sell or supply the Products covered by this Agreement to any individual or entity in the Territory directly in response to a request from that person or entity without the prior written consent of Distributor;\n\n4.4. Subject to Section 4.5 of this Agreement, for a period of twenty-four (24) months after the Effective Date, not to develop, manufacture, market, distribute, sell or supply anywhere in the world to any individual or entity a gaming chip-sorting machine for use in a casino; and\n\n4.5. Notwithstanding Section 4.4 of this Agreement, use its best commercial efforts to enter into a separate agreement with Distributor for the manufacture of a gaming chip-sorting machine or the manufacture of components of a gaming chip-sorting machine for use by the casino industry, where a condition of the agreement will be that Vendor will not compete with Distributor in any way in relation to the manufacture, supply, sale and distribution of gaming chip-sorting machines. It is understood that if Vendor and Distributor fail to reach an agreement then the twenty-four (24) month restriction detailed in Section 4.4 above will remain in force..\n\nThe obligation detailed under Section 4.4 above will cease immediately if Distributor fails to complete its obligations under Section 5.1 below, where such failure is not a result of any default by Vendor, or if Distributor fails to provide payment for the Products within one hundred and eighty (180) days after the delivery of the same.\n\n5. PURCHASE; SHIPPING\n\n5.1. Purchase. In exchange for the exclusive distribution right and license granted to Distributor pursuant to this Agreement, during the Term, Distributor hereby agrees to purchase the Products from Vendor, where such Products are fit for purpose and ready for sale in the Territory, as determined by Distributor, as follows:\n\n  5.1.1. As of the Effective Date, one hundred (100) units of the PokerOne\u2122 Shuffler at a price of Four Thousand Nine Hundred Dollars ($4,950.00 U.S.) per unit, where Vendor shall ship the units no later than the end of January 2005;\n\n  5.1.2. Upon the delivery of two (2) units of the Random Plus\u2122 Shuffler to Distributor and the expiration of a review period ending thirty (30) calendar days after the receipt of delivery by Distributor,, where such review by Distributor determines that the Random Plus\u2122 Shuffler is fit for purpose and ready for commercial sale in the Territory, one hundred (100) units of the Random Plus\u2122 Shuffler at a price of Four Thousand Nine Hundred Fifty Dollars ($4,950.00 U.S.) per unit, where Vendor shall ship the units no later than 30 days after the review period;\n\n-5-\n\n\n\n\n\n  5.1.3. Upon the receipt of any necessary approvals or approval waivers and the expiration of a review period ending thirty (30) calendar days after the receipt of delivery by Distributor of two (2) units of the Continuous Plus\u2122 Shuffler, where such review by Distributor determines that the Continuous Plus\u2122 Shuffler is fit for purpose and ready for commercial sale in the Territory, one hundred (100) units of the Continuous Plus\u2122 Shuffler at a price of Five Thousand Nine Hundred Fifty Dollars ($5,950.00 U.S.);\n\n  5.1.4. Within thirty (30) days of the one (1) year anniversary of the Effective Date, an additional two hundred (200) units of the Products comprising any mix of the shuffler products offered by Vendor; and\n\n  5.1.5. Any additional number of units of the Products as may be submitted by Distributor to Vendor pursuant to a Purchase Order (as defined herein).\n\n5.2. Purchase Order. Unless otherwise provided for in this Agreement, all orders for the purchase of the Products shall be made through the submission of a purchase order (a \"Purchase Order\"), where such Purchase Order shall set forth: (1) the relevant monthly period to which the Purchase Order relates; (2) the Products to be ordered; (3) the quantity of the Products ordered; (4) the relevant price for the Products ordered; (5) the requested shipping date and destination of the Products ordered; (6) the Purchase Order number; and (7) the name and authorized signature of Distributor.\n\n5.3. Shipping. Unless otherwise provided for in this Agreement, upon the acceptance of a Purchase Order by Vendor, Vendor shall, in the normal course of business, package, crate and insure the Products at its cost (including any applicable export duties and export taxes) and deliver the Products to Distributor F.O.B. Zhongshan City, China. Vendor will advise Distributor immediately of any delay but will use all reasonable means to dispatch the Products within four (4) weeks of an order being received. Vendor shall as soon as practicable inform Distributor of the delivery date for each quantity of Products shipped to Distributor or to an address nominated by Distributor.\n\n5.4. Partial Shipments; Pro Rata Allocation. Vendor reserves the right to supply against a Purchase Order by making partial shipments of the Products. In the event that Vendor is forced to allocate the distribution of the Products due to limited supply, Distributor shall be treated no less favorably than any other distributor and shall receive its pro rata allocation of the Products.\n\n5.5. Failure to Purchase. If Distributor fails to purchase or complete the purchase of the Products (or the payment thereof) in the quantities and the times specified in Section 5.1 of this Agreement, Vendor shall have the right to convert this Agreement from an exclusive grant of distribution rights to a non-exclusive grant of distribution rights by providing written notice to Distributor within fourteen (14) days of any date by which Distributor was obliged to purchase the specified quantity of Products as set in Section 5.1 of this Agreement. Upon providing notice to Distributor pursuant to this Section 5.5, Distributor shall no longer be required to purchase balance of the Products required to be purchased pursuant to Section 5.1 of this Agreement. Distributor shall not be liable for any losses or damages incurred by Vendor as a result of Distributor's failure to meet its obligations under Section 5.1 of this Agreement.\n\n6. PRICE; PAYMENT\n\n6.1. Price Changes. The prices stated in Section 5.1 of this Agreement are subject to change. For any price change to take effect ninety (90) days notice must be given in order for the price change to apply; provided, however, the proposed price change must also apply to the Products for sale by Vendor outside the Territory. In the event that there is a price change required by Vendor that does not fall within the ninety (90) day notice period, both parties agree to discuss the nature of the increase in order to reach a mutually acceptable understanding. All the aforementioned price changes will not exceed, on a percentage term basis, any increase in the US retail selling price.\n\n-6-\n\n\n\n\n\n6.2. Payment. Distributor agrees that all payments to Vendor for the Products shall be made by wire transfer in United States Dollars (U.S.$); provided, further,\n\n  6.2.1. For all Products to be delivered by Vendor directly to Distributor, the Price shall be paid by Distributor to Vendor within the earlier of: (1) one hundred eighty (180) calendar days from the date of delivery; or (2) thirty (30) calendar days after the sale or rental of the relevant Products by Distributor; and\n\n  6.2.2. For all Products to be delivered by Vendor directly to a third party purchaser of Distributor (as instructed pursuant to the relevant Purchase Order), the Price shall be paid by Distributor to Vendor within forty-five (45) days of Distributor's sale of the Products to the third party purchaser.\n\n6.3. Notice of Discount Structure and Promotions. Vendor and Distributor each agree to provide the other party with written notice of its intent to offer a discount structure, rebate program or other promotion with respect to the sale of the Products, including the relevant time frame applicable to such discount structure, rebate program or promotion.\n\n7. MARKETING MATERIALS\n\n7.1. Development of Marketing Materials. Vendor and Distributor hereby agree to share marketing materials that are developed by either party for the Products covered by this Agreement, including, without limitation, any information, marketing or promotional materials for the Products, where, upon request, such marketing materials shall be delivered to the other party in hard copy and digital form, if available. Upon receipt of such marketing materials, the party may, in its sole discretion, elect to reject, use or modify such marketing materials.\n\n7.2. Prior Approval of Product Claims. Distributor hereby agrees to obtain the prior written consent of Vendor prior to the use of any product claims with respect to the Products in its marketing materials.\n\n7.3. Cost Sharing. With respect to cost-intensive promotional materials, such as video productions, infomercials and website development and maintenance, Vendor and Distributor hereby agree to share equally in the cost and expenses related to the development and preparation of such promotional materials; provided, however, any and all expenditures related to the development and preparation of such promotional materials shall be approved in advance by Vendor and Distributor.\n\n8. PRODUCT RETURNS\n\n8.1. Procedure. Distributor may return Products to Vendor for credit or full reimbursement, as the case may be, only pursuant to this Section 8.\n\n8.2 Updated Products. Distributor may return to Vendor for credit against future purchases any Products for which a new version or upgrade has been produced and offered for sale; provided, however, the new version or upgrade must be of a material nature whereby the existing Products held by Distributor are considered obsolete. All Products must be returned undamaged, and all shipping charges\n\n-7-\n\n\n\n\n\nshall be paid by Distributor. This clause does not apply to any Products that have been in Distributor's inventory for more that one hundred and eighty (180) calendar days.\n\n8.3. Damaged Products. Promptly upon the receipt of a shipment of Products, Distributor shall inspect the Products for damage or shortage. Within ten (10) calendar days of receipt of the shipment, Distributor shall notify Vendor of any damage or shortage. As soon as commercially practical after receipt of notice, Vendor shall make complete any shipment in short supply. Any Products damaged in shipment shall be returned to Vendor along with documentation of the damage within thirty (30) calendar days of receipt by Distributor, and Vendor will reimburse Distributor for the costs of freight reasonably incurred by Distributor in returning the Products to Vendor. If Vendor finds any Products returned for damage to not be damaged, Distributor shall be subject to a restocking fee equal to fifteen percent (15%) original purchase price of the non-damaged Products.\n\n8.4. Defective Products. Distributor may, no later than one hundred and twenty (120) calendar days after a Product is sold by Distributor to a customer, return to Vendor, at Distributor's expense, any Product received by Distributor from Vendor during the 120-day period prior to such return, which Distributor or its customer believes to be defective. In the event that such Product is defective, i.e., the failure of a Product to operate in accordance with its published specifications, Vendor shall:\n\n  8.4.1. Reimburse Distributor for the costs of freight reasonably incurred by Distributor in returning the Product to Vendor; and\n\n  8.4.2. Issue Distributor a credit against future purchases in an amount equal to the purchase price paid by Distributor for the Product or, as requested by Distributor, full reimbursement for the defective Products.\n\n9. PRODUCT TESTING AND RESULTS\n\nWhereas Vendor has organized and received the results from product testing with respect to the Products, Vendor hereby agrees to make available to Distributor the results of such product testing and grants to Distributor the right to use such results in its promotional materials; provided, however, Distributor may only use such results if Distributor complies with the applicable terms of use as provided by the institution, organization or other person that organized and conducted the relevant product testing. Conversely, in the event that Distributor organizes and receives the results from product testing with respect to the Products, Distributor hereby agrees to make available to Vendor the results of such product testing and grants to Vendor the right to use such results in its promotional materials.\n\n10. REPRESENTATIONS AND WARRANTIES OF VENDOR\n\nVendor represents and warrants to Distributor as follows:\n\n10.1. Existence. Vendor is a corporation duly organized, validly existing and in good standing under the laws of the State of Nevada.\n\n10.2. Authorization; Binding Agreement. This Agreement constitutes valid and legally binding obligations of Vendor, enforceable in accordance with its terms, except, in each case, as such enforceability may be limited by applicable bankruptcy, insolvency, reorganization, moratorium, or other laws relating to or affecting the enforcement of creditors' rights generally in effect from time to time and by general principles of equity. Vendor has full corporate power and authority to enter into this Agreement.\n\n-8-\n\n\n\n\n\n10.3. Product Warranty. Vendor warrants to Distributor that the Products shall perform without manufacturing failure and are fit for purpose. Distributor, in cooperation with Vendor will remedy any defect in the Product in accordance with Section 8.\n\n10.4. Spare Products and Parts. Vendor will provide an initial supply of spare Products and parts as Distributor may reasonably required in accordance with Sections 8 and 10.3 to permit Distributor to offer a six-month warranty on the Products to customers and to enable Distributor to provide a warranty service to customers. The initial spare Products and parts to be provided pursuant to this Section 10.4 shall be at no additional charge to the Distributor; provided, however, any additional Products and parts unrelated to this Section 10.4 shall be purchased by Distributor.\n\n10.5. Litigation. Other than as disclosed in Vendor's filings made with the United States Securities and Exchange Commission, including without limitation the legal proceedings involving Shuffle Master, Inc., Vendor is not aware of any action, arbitration, suit, proceeding or investigation pending, or to the knowledge of Vendor, threatened against Vendor, that would have a material adverse effect on its ability to perform the terms of this Agreement.\n\n11. REPRESENTATIONS AND WARRANTIES OF DISTRIBUTOR\n\nDistributor represents and warrants to Vendor as follows:\n\n11.1. Existence. Distributor is a company duly organized, validly existing and in good standing under the laws of England.\n\n11.2. Authorization; Binding Agreement. This Agreement constitutes valid and legally binding obligations of Distributor, enforceable in accordance with its terms, except, in each case, as such enforceability may be limited by applicable bankruptcy, insolvency, reorganization, moratorium, or other laws relating to or affecting the enforcement of creditors' rights generally in effect from time to time and by general principles of equity. Distributor has full corporate power and authority to enter into this Agreement.\n\n11.3. Litigation. Other than the legal proceedings involving Shuffle Master Inc, Distributor is not aware of any action, arbitration, suit, proceeding or investigation pending, or to the knowledge of Distributor, threatened against Distributor that would have a material adverse effect on its ability to perform the terms of this Agreement.\n\n12. LIMITATION OF WARRANTIES\n\nVendor warrants that all Products are new and that, to its knowledge, all Vendor-supplied promotional materials comply in all respects with all applicable laws, rules and regulations. Although Vendor intends to provide a six-month limited warranty to the end user, Distributor shall make no warranties or representations with respect to the Products on behalf of Vendor. Distributor shall defend, indemnify and hold Vendor harmless from any and all claims, damages, costs or expenses, including attorney fees, incurred by Vendor in relation to any violation by Distributor of the foregoing sentence.\n\n13. INDEMNIFICATIONS\n\nEach party shall indemnify and hold harmless the other party, its affiliated companies, and its employees, officers, directors, attorneys, and agents and each of them, against any and all claims, liabilities, damages and costs, including reasonable attorneys' fees and settlement amounts, that the foregoing, or any of them, may incur by reason of any material breach of this Agreement.\n\n-9-\n\n\n\n\n\nVendor shall indemnify and hold harmless Distributor, its affiliated companies, and its employees, officers, directors, attorneys, and agents and each of them, against any and all claims, liabilities, damages and costs, including reasonable attorneys' fees and settlement amounts, incurred by any claims of product liability, or any claims arising from any actual or alleged infringement of any patent, copyright, trademark or other intellectual property right by a Product supplied by Vendor pursuant to this Agreement.\n\nEach party's responsibilities under this Section 13 shall survive termination of this Agreement.\n\n14. COVENANT TO PROTECT CONFIDENTIAL INFORMATION\n\n14.1. Definition. \"Confidential Information\" means any proprietary, non-public information relating to Vendor and the Products, including, without limitation, any and all strategic or business plans, customer lists and information relating to customers, marketing plans and strategies, unique software and databases, lists of material providers of services and products, terms and provisions of existing contracts and agreements, details of negotiations with current partners and business associates, details of business opportunities or projects, information relating to financial statements, employees, manufacturing and servicing methods, equipment, programs, strategies, analyses, profit margins, or other proprietary, non- public information used by Vendor; provided, however, that Confidential Information shall not include any information that: (1) was publicly known and made generally available after disclosure by Vendor; (2) becomes publicly known and made generally available through no wrongful action or inaction of Distributor; (3) is already in the possession of Distributor at the time of disclosure, without confidentiality restrictions, as shown by Distributor's file and records immediately prior to the time of disclosure; (4) is obtained by Distributor without breach of Distributor's obligations of confidentiality; or (5) is independently developed by Distributor without use of or reference to the Confidential Information, as shown by documents and other competent evidence in Distributor's possession.\n\n14.2. Non-Use and Non-Disclosure. Distributor shall not, during the Term or anytime thereafter, without the express prior written consent of Vendor, use, divulge, publish or otherwise disclose to any other person any Confidential Information regarding Vendor, except as provided for in this Agreement or if required to do so pursuant to the order of a court having jurisdiction over the subject matter or a summons, subpoena or order in the nature thereof of any legislative body (including any committee thereof and any litigation or dispute resolution method against Vendor related to or arising out of this Agreement) or any governmental or administrative agency. In the event that Distributor or its directors, officers, employees, consultants or agents are requested or required by legal process to disclose any of the Confidential Information, Distributor shall give prompt notice so that Vendor may seek a protective order or other appropriate relief. In the event that such protective order is not obtained, Distributor shall disclose only that portion of the Confidential Information which its counsel advises that it is legally required to disclose.\n\n14.3. Maintenance of Confidentiality. Distributor agrees that it shall take all commercially reasonable measures to protect the secrecy of and avoid disclosure and unauthorized use of the Confidential Information. Without limiting the foregoing, Distributor shall take at least those measures that it takes to protect its own most highly confidential information and shall ensure that its employees who have access to Confidential Information have signed a non-use and non-disclosure agreement in content similar to the provisions hereof, prior to any disclosure of Confidential Information to such employees. Distributor shall not make any copies of the Confidential Information unless the same is previously approved in writing by Vendor.\n\n-10-\n\n\n\n\n\n14.4. Return of Materials. All documents and other tangible objects containing or representing Confidential Information which have been disclosed by Vendor to Distributor, and all copies thereof which are in the possession of Distributor, shall be and remain the property of Vendor and shall be promptly returned to Vendor upon Vendor's written request.\n\n14.5. Non-Solicitation by Distributor. Distributor agrees that, without the prior written consent of the Vendor, for a period beginning from the date of this Agreement and ending three (3) years after the termination of this Agreement, neither Distributor nor any of its affiliates or representatives will: (1) employ or solicit to employ any of the employees of Vendor; or (2) encourage of the employees of the Vendor or its subsidiaries to leave the employment of Vendor; provided, however, this Section shall not apply to any such employee who has been terminated by or left the employment of Vendor prior to the Effective Date or, if employed by Vendor as of the Effective Date, any employee who has not been employed by Vendor for at least one (1) year after the end of such employment.\n\n14.6. Non-Solicitation by Vendor. Vendor agrees that, without the prior written consent of the Distributor, for a period beginning from the date of this Agreement and ending three (3) years after the termination of this Agreement, neither Vendor nor any of its affiliates or representatives will: (1) employ or solicit to employ any of the employees of Distributor; or (2) encourage of the employees of the Distributor or its subsidiaries to leave the employment of Distributor; provided, however, this Section shall not apply to any such employee who has been terminated by or left the employment of Distributor prior to the Effective Date or, if employed by Distributor as of the Effective Date, any employee who has not been employed by Distributor for at least one (1) year after the end of such employment.\n\n14.7. Remedies. Each party agrees that any violation of this Section 14 may cause irreparable injury to the other party, entitling the other party to seek injunctive relief in addition to all legal remedies. Nothing herein contained is intended to waive or diminish any rights the other party may have at law or in equity at any time to protect and defend its legitimate property interests (including its business relationship with third parties), the foregoing provisions being intended to be in addition to and not in derogation or limitation of any other rights the other party may have at law or equity.\n\n15. OUTSIDE EVENTS\n\n15.1. Delay or Non-Performance. No party shall be liable to the other for delay in performance, or the non-performance, of any of its obligations under this Agreement to the extent that such delay or non-performance is due to any cause beyond the party's control, provided that:\n\n  15.1.1. the party affected shall forthwith notify the other parties thereof; and:\n\n  15.1.2. if the circumstances in question prevail for a continuous period in excess of two (2) calendar months, the parties shall enter into bona fide discussions with a view to alleviating the effects thereof or to agreeing upon such alternative arrangements as may be fair and reasonable in all the circumstances.\n\n15.2 Vendor Supply Limitation. Vendor shall not be responsible or liable for any loss, damage, detention or delay caused by fire, strike, civil or military authority, governmental restrictions or controls, insurrection or riot, railroad, act of terrorism, marine or air embargoes, lockout, tempest, accident, breakdown of machinery, yield problems, delay in delivery of materials by other parties, or any cause which is unavoidable or beyond its reasonable control, nor, in any event, for consequential damages.\n\n-11-\n\n\n\n\n\n16. LIMITATION OF LIABILITY\n\nNeither party shall be liable to the other for lost profits or indirect, special consequential or punitive damages of any kind arising in connection with the manufacture, sale and distribution of the products, even if such party has been advised of the possibility of such damages.\n\n17. FURTHER ASSURANCES\n\nThe parties further covenant and agree to do, execute and deliver, or cause to be done, executed and delivered, and covenant and agree to use their best efforts to cause their successors and assigns to do, execute and deliver, or cause to be done, executed and delivered, all such further acts, transfers and assurances, for implementing the intention of the parties under this Agreement, as the parties reasonably shall request. The parties agree to execute any additional instruments or agreements necessary to affect the intent of this Agreement.\n\n18. RELATIONSHIP OF THE PARTIES\n\nThis Agreement shall not create any joint venture or partnership between the parties. Nothing contained in this Agreement shall confer upon either party any proprietary interest in, or subject a party to any liability for or in respect of the business, assets, profits, losses or obligations of the other. Nothing herein contained shall be read or construed so as to make the parties a partnership, nor shall anything contained herein be read or construed in any way to restrict the freedom of either party to conduct any business or activity whatsoever without any accountability to the other party. Neither party shall be considered to be an agent or representative of the other party or have any authority or power to act for or undertake any obligation on behalf of the other party except as expressly authorized by the other party in writing. Any such unauthorized representation or action shall be considered a breach of this Agreement.\n\n19. ENTIRE AGREEMENT\n\nThis Agreement constitutes the entire agreement between the Parties and supersedes any prior communications, representations or agreements of any kind, whether oral or written; provided, however, notwithstanding this Agreement, that certain Distribution Agreement by and between Vendor and TCS Aces Pty Limited dated September 19, 2004 shall remain in full force and effect.\n\n20. COUNTERPARTS\n\nThis Agreement may be executed in counterparts, each of which when so executed and delivered shall be deemed an original, but all such counterparts together shall constitute but one and the same instrument.\n\n21. MODIFICATION\n\nThis Agreement may not be modified or rescinded except by express written agreement signed by both of the Parties.\n\n22. CONFLICTS\n\nIf any term included in an invoice, purchase order, packing slip, or bill of lading contradicts or is otherwise at odds with any provision of this Agreement, the provisions of this Agreement shall prevail.\n\n-12-\n\n\n\n\n\n23. JURISDICTION\n\nDisputes under this Agreement shall be resolved through arbitration in Ontario, Canada by a single arbitrator to be appointed by agreement of the parties, or in default, by the President of the Law Society/Bar of Canada. The laws of Ontario, Canada shall govern the conduct of the arbitration and any appeal from the decision of the arbitrator.\n\n24. WAIVER\n\nNeither the inspection by Distributor, nor any payment for or acceptance of all or any part of the Products specified in this Agreement, nor any extension of time, nor any possession taken by Distributor or Distributor's employees, shall operate as a waiver of any provision of this Agreement, or any power in this Agreement reserved to Distributor, or any rights or damages provided for in this Agreement, nor shall any waiver of any breach in this Agreement be held to be a waiver of any other or subsequent breach.\n\n25. ASSIGNMENT OR DELEGATION\n\nNo assignment by either Party of any rights, including rights to money due or to become due under this Agreement, or delegation of any duties under this Agreement or under any purchase orders subject to this Agreement, shall be binding on the nonassigning Party unless and until a written consent has been obtained from the nonassigning Party.\n\n26. SEVERABILITY\n\nAny term or provision of this Agreement that is invalid or unenforceable in any jurisdiction shall be ineffective only to the extent of such invalidity or unenforceability and only as to such jurisdiction without rendering invalid or unenforceable the remaining terms and provisions of this Agreement or affecting the validity or enforceability of any of these terms or provisions in any other jurisdiction.\n\n27. GOVERNING LAW\n\nThis Agreement shall be governed by, construed in accordance with the laws of Ontario, Canada.\n\n-13-\n\n\n\n\n\n28. NOTICES\n\nAny notice, request, instruction, or other document required by the terms of this Agreement, or deemed by any of the parties hereto to be desirable, to be given to any other party hereto shall be in writing and shall be given by personal delivery, overnight delivery, facsimile (with confirmation of transmission) or mailed by registered or certified mail, postage prepaid, with return receipt requested, to the addresses of the Parties as follows:\n\nIf to Distributor: Technical Casino Supplies Ltd Unit 9, Mulberry Business Centre, Quebec May, Rotherhithe, London, SE167LE Telephone: _____-_____-_____ Facsimile: _____-_____-_____ Attn: _____________   With a copy to: _________________ _________________ _________________ Telephone: _____-_____-_____ Facsimile: _____-_____-_____ Attn: ______________, Esq.   If to Vendor: VendingData Corporation 6830 Spencer Street Las Vegas, Nevada 89119 Telephone: 702.733.7195 Facsimile: 702.733.7197 Attn: Steven J. Blad, President and CEO   With a copy to: Kummer Kaempfer Bonner & Renshaw 3800 Howard Hughes Parkway, Seventh Floor Las Vegas, Nevada 89109 Telephone: 702.792.7000 Facsimile: 702.796.7181 Attn: Michael J. Bonner, Esq.\n\n-14-\n\n\n\n\n\nThe persons and addresses set forth above may be changed from time to time by a notice sent as aforesaid. If notice is given by personal delivery or overnight delivery in accordance with the provisions of this Section, said notice shall be conclusively deemed given at the time of such delivery provided a receipt is obtained from the recipient. If notice is given by mail in accordance with the provisions of this Section, such notice shall be conclusively deemed given upon receipt and delivery or refusal.\n\nThe Parties acknowledge that they have read this Agreement, understand it, and agree to be bound by its terms.\n\n  VENDOR:\n\n  VENDINGDATA CORPORATION, a Nevada corporation\n\n  By: /s/ Steven J. Blad\n\n  Its: Steven J. Blad CEO\n\n  DISTRIBUTOR:\n\n  TECHNICAL CASINO SUPPLIES LTD, an English company\n\n  By: /s/ David K. Heap\n\n  Its: David K. Heap Chief Executive Officer\n\n-15-",
+   "compliance": [],
+   "clauses": [
+    {
+     "id": "c0",
+     "kind": "clause",
+     "title": "Anti-Assignment",
+     "status": "Found",
+     "tone": "grn",
+     "evidence": [
+      {
+       "text": "No assignment by either Party of any rights, including rights to money due or to become due under this Agreement, or delegation of any duties under this Agreement or under any purchase orders subject to this Agreement, shall be binding on the nonassigning Party unless and until a written consent has been obtained from the nonassigning Party.",
+       "start": 41726,
+       "end": 42069
+      },
+      {
+       "text": "Distributor shall not sell or otherwise transfer any of the rights granted pursuant to this Agreement to any third party without the prior written consent of Vendor; provided, however, Distributor may enter into distribution arrangements with regional distributors within the Territory in its efforts to promote, advertise and distribute the Products in accordance with this Agreement;",
+       "start": 10947,
+       "end": 11332
+      }
+     ],
+     "note": "If you are the Distributor, this clause prevents you from transferring your rights under the agreement to another party without the Vendor's written approval, except for permitted arrangements with regional distributors within the Territory."
+    },
+    {
+     "id": "c1",
+     "kind": "clause",
+     "title": "Audit Rights",
+     "status": "Not detected",
+     "tone": "gry",
+     "evidence": [],
+     "note": null
+    },
+    {
+     "id": "c2",
+     "kind": "clause",
+     "title": "Cap On Liability",
+     "status": "Found",
+     "tone": "grn",
+     "evidence": [
+      {
+       "text": "Neither party shall be liable to the other for lost profits or indirect, special consequential or punitive damages of any kind arising in connection with the manufacture, sale and distribution of the products, even if such party has been advised of the possibility of such damages.",
+       "start": 37976,
+       "end": 38257
+      }
+     ],
+     "note": "If the Distributor fails to meet its obligations under Section 5.1, it won't be responsible for any of Vendor's resulting losses or damages, and neither side can claim lost profits or indirect damages no matter how serious the issue."
+    },
+    {
+     "id": "c3",
+     "kind": "clause",
+     "title": "Change Of Control",
+     "status": "Found",
+     "tone": "grn",
+     "evidence": [
+      {
+       "text": "Subject to Section 1.6, by Vendor (or successor to Vendor), upon written notice to Distributor of a change of control of Vendor and the election by Vendor (or successor to Vendor) to terminate this Agreement, where a \"change of control\" shall mean a change in ownership of the Vendor such that an unaffiliated third party acquires a majority of the voting power of Vendor;",
+       "start": 2617,
+       "end": 2989
+      }
+     ],
+     "note": "If the Vendor is acquired by an outside party that gains majority control, they can end the agreement by giving written notice to the Distributor."
+    },
+    {
+     "id": "c4",
+     "kind": "clause",
+     "title": "Covenant Not To Sue",
+     "status": "Not detected",
+     "tone": "gry",
+     "evidence": [],
+     "note": null
+    },
+    {
+     "id": "c5",
+     "kind": "clause",
+     "title": "Exclusivity",
+     "status": "Found",
+     "tone": "grn",
+     "evidence": [
+      {
+       "text": "In consideration for the purchase of the Products by Distributor from Vendor, Vendor grants Distributor the exclusive right to market, sell, rent, lease, service and maintain the Products and all improvements thereon within the Territory (as defined herein) according to the terms and conditions as set forth herein.",
+       "start": 6412,
+       "end": 6728
+      }
+     ],
+     "note": "This clause obligates you to buy specific quantities of different shuffling machines from the Vendor and not to source similar products from others, in exchange for exclusive rights to distribute those products in the Territory."
+    },
+    {
+     "id": "c6",
+     "kind": "clause",
+     "title": "Insurance",
+     "status": "Not detected",
+     "tone": "gry",
+     "evidence": [],
+     "note": null
+    },
+    {
+     "id": "c7",
+     "kind": "clause",
+     "title": "Ip Ownership Assignment",
+     "status": "Not detected",
+     "tone": "gry",
+     "evidence": [],
+     "note": null
+    },
+    {
+     "id": "c8",
+     "kind": "clause",
+     "title": "License Grant",
+     "status": "Found",
+     "tone": "grn",
+     "evidence": [
+      {
+       "text": "As part of the exclusive distribution right granted in this Section 2, Vendor hereby grants Distributor the non- exclusive, non-transferable right to use and display Vendor's trademarks, logos, Product photographs and images, Product advertising and promotional copy, including but not limited to the materials contained in Vendor's website, in connection with the promotion, advertising and distribution of the Products.",
+       "start": 6729,
+       "end": 7150
+      },
+      {
+       "text": "In consideration for the purchase of the Products by Distributor from Vendor, Vendor grants Distributor the exclusive right to market, sell, rent, lease, service and maintain the Products and all improvements thereon within the Territory (as defined herein) according to the terms and conditions as set forth herein.",
+       "start": 6412,
+       "end": 6728
+      }
+     ],
+     "note": "If you stop using the products or the agreement ends for any reason, you lose the right to use the vendor's branding and promotional materials, and those rights go back to the vendor immediately."
+    },
+    {
+     "id": "c9",
+     "kind": "clause",
+     "title": "Minimum Commitment",
+     "status": "Not detected",
+     "tone": "gry",
+     "evidence": [],
+     "note": null
+    },
+    {
+     "id": "c10",
+     "kind": "clause",
+     "title": "Non-Compete",
+     "status": "Not detected",
+     "tone": "gry",
+     "evidence": [],
+     "note": "If you try to create or sell gaming chip-sorting machines for casinos worldwide during the 24 months after the agreement starts, this clause will prevent you from doing so."
+    },
+    {
+     "id": "c11",
+     "kind": "clause",
+     "title": "Non-Transferable License",
+     "status": "Found",
+     "tone": "grn",
+     "evidence": [
+      {
+       "text": "As part of the exclusive distribution right granted in this Section 2, Vendor hereby grants Distributor the non- exclusive, non-transferable right to use and display Vendor's trademarks, logos, Product photographs and images, Product advertising and promotional copy, including but not limited to the materials contained in Vendor's website, in connection with the promotion, advertising and distribution of the Products.",
+       "start": 6729,
+       "end": 7150
+      }
+     ],
+     "note": "This clause allows the Distributor to use Vendor's branding materials for promoting the Products but prevents them from sharing or passing on that right to another party if the Vendor-Distributor relationship ends."
+    },
+    {
+     "id": "c12",
+     "kind": "clause",
+     "title": "Notice Period To Terminate Renewal",
+     "status": "Not detected",
+     "tone": "gry",
+     "evidence": [],
+     "note": "Either party can end the agreement by giving written notice at least 90 days before the current term ends."
+    },
+    {
+     "id": "c13",
+     "kind": "clause",
+     "title": "Post-Termination Services",
+     "status": "Found",
+     "tone": "grn",
+     "evidence": [
+      {
+       "text": "In the event of termination for whatever reason, Vendor and Distributor agree to complete the delivery of each order of the Product received by Distributor and each unfulfilled order for the Product prior to the termination date.",
+       "start": 4361,
+       "end": 4590
+      }
+     ],
+     "note": "If the agreement ends under specific termination sections, you can claim monthly payments for lost profit for up to 24 months, but you must stop using the vendor\u2019s branding except to sell leftover products."
+    },
+    {
+     "id": "c14",
+     "kind": "clause",
+     "title": "Renewal Term",
+     "status": "Found",
+     "tone": "grn",
+     "evidence": [
+      {
+       "text": "As provided for in this Section 1, the term of this Agreement shall be for a period of five (5) years, beginning on the Effective Date (the \"Initial Term\"); provided, however, the Initial Term shall be subject to automatic successive renewal terms of three (3) years each (the \"Renewal Terms\" and together with the Initial Term, the \"Term\").",
+       "start": 1324,
+       "end": 1665
+      }
+     ],
+     "note": "If you don't actively end the agreement before it ends, your commitment to it will automatically extend for three-year periods after the initial five years."
+    },
+    {
+     "id": "c15",
+     "kind": "clause",
+     "title": "Revenue/Profit Sharing",
+     "status": "Found",
+     "tone": "grn",
+     "evidence": [
+      {
+       "text": "Subject to the mutual agreement of Vendor and Distributor, in the event that Vendor provides a new sales lead to Distributor that results in the sale of the Products, Distributor shall pay to Vendor a commission equal to twenty-five percent (25%) of the gross profit for the Products, where gross profit shall mean the difference between the price paid by the customer (where Distributor will determine the customer price for the Products on a case by case basis) and the price paid by Distributor for the Products.",
+       "start": 8754,
+       "end": 9269
+      }
+     ],
+     "note": "If you, as the Distributor, make a sale based on a lead provided by the Vendor, you must pay them 25% of the profit from that sale, which is calculated as the difference between the customer price you set and the cost you paid for the product."
+    },
+    {
+     "id": "c16",
+     "kind": "clause",
+     "title": "Termination For Convenience",
+     "status": "Found",
+     "tone": "grn",
+     "evidence": [
+      {
+       "text": "By Vendor and Distributor, at any time, upon the mutual written agreement of Vendor and Distributor;",
+       "start": 1960,
+       "end": 2060
+      }
+     ],
+     "note": "Either party can end the agreement by giving written notice at least 90 days before the current term ends."
+    },
+    {
+     "id": "c17",
+     "kind": "clause",
+     "title": "Uncapped Liability",
+     "status": "Not detected",
+     "tone": "gry",
+     "evidence": [],
+     "note": null
+    }
+   ]
+  }
+ ]
+}
