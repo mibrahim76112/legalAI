@@ -107,7 +107,8 @@ def main():
     ap.add_argument("--data", default=str(ROOT / "macbundle" / "validation_60.jsonl"))
     ap.add_argument("--model", default="mlx-community/Meta-Llama-3.1-8B-Instruct-4bit")
     ap.add_argument("--adapter", default=str(ROOT / "adapters" / "llama_3task_mlx"))
-    ap.add_argument("--out", default=str(ROOT / "results" / "drift_4bit.jsonl"))
+    # required: the file is appended to and resumed from, so two runs must not share it
+    ap.add_argument("--out", required=True)
     ap.add_argument("--limit", type=int, default=None)
     ap.add_argument("--task", default=None, help="only run one task")
     args = ap.parse_args()
