@@ -35,7 +35,11 @@ export default function Doc({ text, marks, current, onMark }: {
   }, [marks]);
 
   useEffect(() => {
-    ref.current?.scrollIntoView({ behavior: "smooth", block: "center" });
+    // on first paint the scroll container has no layout yet, so a scroll here
+    // is a no-op; wait one frame before scrolling the passage into view
+    const id = requestAnimationFrame(() =>
+      ref.current?.scrollIntoView({ behavior: "smooth", block: "center" }));
+    return () => cancelAnimationFrame(id);
   }, [current]);
 
   let firstOfCurrent = true;

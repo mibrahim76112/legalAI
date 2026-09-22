@@ -1,0 +1,78 @@
+# 0 risknote       942 tok    8.4s  local=None cluster=None
+# 1 cuad         13749 tok   99.3s  local=True cluster=True
+# 2 cuad         11387 tok   73.7s  local=False cluster=False
+# 3 cuad          1160 tok    7.2s  local=False cluster=False
+# 4 contractnli   1468 tok   12.2s  local=Contradiction cluster=Contradiction
+# 5 cuad          1263 tok    7.6s  local=False cluster=False
+# 6 cuad          4801 tok   32.0s  local=True cluster=False
+# 7 risknote       221 tok    4.6s  local=None cluster=None
+# 8 cuad          4298 tok   28.0s  local=False cluster=False
+# 9 risknote       169 tok    3.1s  local=None cluster=None
+#10 contractnli   3393 tok   22.4s  local=NotMentioned cluster=NotMentioned
+#11 contractnli   3439 tok   29.5s  local=Contradiction cluster=Contradiction
+#12 cuad          8246 tok   61.4s  local=True cluster=True
+#13 risknote       236 tok    3.7s  local=None cluster=None
+#14 cuad         13940 tok  111.2s  local=False cluster=False
+#15 cuad          9113 tok   71.9s  local=True cluster=True
+#16 cuad         15360 tok  132.8s  local=False cluster=False
+#17 cuad         15360 tok  158.2s  local=True cluster=True
+#18 contractnli   2961 tok   22.9s  local=NotMentioned cluster=NotMentioned
+#19 cuad          6533 tok   70.3s  local=False cluster=False
+#20 risknote       109 tok    2.8s  local=None cluster=None
+#21 risknote       311 tok    6.2s  local=None cluster=None
+#22 contractnli   1098 tok   11.9s  local=Contradiction cluster=Contradiction
+#23 contractnli   4459 tok   50.4s  local=Contradiction cluster=Contradiction
+#24 risknote      1818 tok   19.5s  local=None cluster=None
+#25 contractnli   1483 tok   13.9s  local=NotMentioned cluster=NotMentioned
+#26 risknote       323 tok    6.6s  local=None cluster=None
+#27 cuad         15360 tok  140.6s  local=False cluster=False
+#28 cuad         15360 tok  166.3s  local=True cluster=True
+#29 contractnli   2607 tok   34.8s  local=Entailment cluster=Entailment
+#30 contractnli   2610 tok   34.6s  local=Entailment cluster=Entailment
+#31 risknote       196 tok    4.2s  local=None cluster=None
+#32 cuad           923 tok   11.2s  local=False cluster=False
+#33 cuad         15360 tok  157.5s  local=False cluster=True
+#34 contractnli   3439 tok   43.3s  local=Entailment cluster=Entailment
+#35 cuad         15360 tok  149.7s  local=False cluster=False
+#36 contractnli   1100 tok   12.7s  local=Entailment cluster=Entailment
+#37 risknote       164 tok    3.4s  local=None cluster=None
+#38 contractnli   1729 tok   15.6s  local=Contradiction cluster=Contradiction
+#39 cuad         14503 tok  151.2s  local=True cluster=True
+#40 risknote       126 tok    2.8s  local=None cluster=None
+#41 cuad          1266 tok   11.2s  local=False cluster=False
+#42 cuad          6004 tok   51.0s  local=False cluster=False
+#43 contractnli   2635 tok   27.7s  local=Entailment cluster=Entailment
+#44 contractnli   2300 tok   21.0s  local=Contradiction cluster=NotMentioned
+#45 cuad           634 tok    5.6s  local=False cluster=False
+#46 contractnli   2823 tok   32.3s  local=Contradiction cluster=Contradiction
+#47 cuad          4794 tok   38.6s  local=False cluster=False
+#48 contractnli   2686 tok   22.4s  local=NotMentioned cluster=NotMentioned
+#49 contractnli   1512 tok   19.3s  local=Entailment cluster=Entailment
+#50 contractnli   2412 tok   21.7s  local=NotMentioned cluster=NotMentioned
+#51 contractnli   6395 tok   56.3s  local=Entailment cluster=Entailment
+#52 contractnli   1737 tok   17.3s  local=Entailment cluster=Entailment
+#53 contractnli   2107 tok   16.5s  local=NotMentioned cluster=NotMentioned
+#54 cuad         15360 tok  158.4s  local=False cluster=False
+#55 risknote       106 tok    2.9s  local=None cluster=None
+#56 cuad         15360 tok  160.0s  local=True cluster=True
+#57 contractnli   1211 tok   10.7s  local=NotMentioned cluster=NotMentioned
+#58 contractnli   2279 tok   19.6s  local=NotMentioned cluster=NotMentioned
+#59 contractnli   1093 tok   13.5s  local=Entailment cluster=Entailment
+
+=== agreement with cluster bf16 (quantization drift) ===
+contractnli  n=24  identical output 22/24  label 23/24  evidence 22/24
+cuad         n=24  identical output 19/24  label 22/24  evidence 19/24
+risknote     n=12  identical output 0/12  mean token Jaccard 0.60
+
+=== vs gold, 60-row smoke only (NOT project results) ===
+contractnli  cluster acc 0.833  macro-F1 0.826
+contractnli  local   acc 0.875  macro-F1 0.872
+cuad         cluster acc 0.833  macro-F1 0.829
+cuad         local   acc 0.833  macro-F1 0.829
+
+label flips:
+  # 6 cuad        gold=True cluster=False local=True trunc=False
+  #33 cuad        gold=True cluster=True local=False trunc=True
+  #44 contractnli gold=Contradiction cluster=NotMentioned local=Contradiction trunc=False
+
+parse failures (local): Counter()

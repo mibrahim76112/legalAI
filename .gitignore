@@ -1,5 +1,6 @@
 *.env
 venv/
+venv-mlx/
 
 __pycache__/
 *.pyc
@@ -14,3 +15,16 @@ __pycache__/
 contract_nli/
 flat_data/
 sft_data/
+adapters/
+
+.DS_Store
+._*
+__MACOSX/
+
+*.zip
+*.safetensors
+results/*.preds.jsonl
+
+./*.jsonl
+# cluster bundles: large, and the code inside is tracked unpacked
+*.tar.gz
