@@ -1,46 +1,72 @@
 "use client";
 
-import { useEffect, useRef } from "react";
-import type { Span, Tone } from "@/lib/types";
+import { useEffect, useMemo, useRef } from "react";
+import { blocks } from "@/lib/structure";
+import type { Tone } from "@/lib/types";
 
-export default function Doc({ text, spans, tone, cur, title }:
-  { text: string; spans: Span[]; tone: Tone; cur: number; title: string | null }) {
+export interface Mark {
+  key: string;        // unique per highlighted passage
+  start: number;
+  end: number;
+  tone: Tone;
+  itemId?: string;
+  label?: string;     // tooltip
+}
+
+/**
+ * The contract as a reading document: headings and paragraphs from
+ * lib/structure, with passages highlighted by their character offsets into
+ * the original text. `current` scrolls its mark into view.
+ */
+export default function Doc({ text, marks, current, onMark }: {
+  text: string; marks: Mark[]; current?: string | null; onMark?: (m: Mark) => void;
+}) {
   const ref = useRef<HTMLElement | null>(null);
+  const bs = useMemo(() => blocks(text), [text]);
+
+  // overlapping marks can't nest in the DOM; keep the earliest of each overlap
+  const kept = useMemo(() => {
+    const out: Mark[] = [];
+    let last = -1;
+    for (const m of [...marks].sort((a, b) => a.start - b.start || b.end - a.end)) {
+      if (m.start >= last) { out.push(m); last = m.end; }
+    }
+    return out;
+  }, [marks]);
+
   useEffect(() => {
     ref.current?.scrollIntoView({ behavior: "smooth", block: "center" });
-  }, [cur, spans]);
+  }, [current]);
 
-  const ord = spans.map((s, i) => ({ ...s, i })).sort((a, b) => a.start - b.start);
-  const keep: typeof ord = [];
-  let last = -1;
-  for (const s of ord) if (s.start >= last) { keep.push(s); last = s.end; }
-
-  const out: React.ReactNode[] = [];
-  let p = 0;
-  keep.forEach((s) => {
-    if (s.start > p) out.push(text.slice(p, s.start));
-    const on = s.i === cur;
-    out.push(
-      <mark key={s.start} className={`m-${tone}${on ? " cur" : ""}`}
-            ref={on ? (e) => { ref.current = e; } : undefined}>
-        {text.slice(s.start, s.end)}
-      </mark>
-    );
-    p = s.end;
-  });
-  if (p < text.length) out.push(text.slice(p));
+  let firstOfCurrent = true;
+  const render = (b: { start: number; end: number }) => {
+    const out: React.ReactNode[] = [];
+    let p = b.start;
+    for (const m of kept) {
+      if (m.end <= b.start || m.start >= b.end) continue;
+      const s = Math.max(m.start, b.start), e = Math.min(m.end, b.end);
+      if (s > p) out.push(text.slice(p, s));
+      const on = m.key === current;
+      const attach = on && firstOfCurrent;
+      if (attach) firstOfCurrent = false;
+      out.push(
+        <mark key={`${m.key}@${s}`} className={`m-${m.tone}${on ? " cur" : ""}${onMark ? " click" : ""}`}
+              title={m.label} onClick={onMark ? () => onMark(m) : undefined}
+              ref={attach ? (el) => { ref.current = el; } : undefined}>
+          {text.slice(s, e)}
+        </mark>
+      );
+      p = e;
+    }
+    if (p < b.end) out.push(text.slice(p, b.end));
+    return out;
+  };
 
   return (
-    <>
-      <div className="dh">
-        <span style={{ fontWeight: 560, color: "var(--tx)" }}>Document</span>
-        {title ? (
-          <span>· {spans.length} passage{spans.length > 1 ? "s" : ""} highlighted</span>
-        ) : (
-          <span>· select a finding to highlight it</span>
-        )}
-      </div>
-      <div className="doc">{out}</div>
-    </>
+    <article className="doc">
+      {bs.map((b) => b.kind === "heading"
+        ? <h3 key={b.start}>{render(b)}</h3>
+        : <p key={b.start}>{render(b)}</p>)}
+    </article>
   );
 }
