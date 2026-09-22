@@ -3,18 +3,44 @@
 import { useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import Shell from "@/components/Shell";
-import { reviews } from "@/lib/data";
 
 export default function New() {
   const router = useRouter();
   const fileRef = useRef<HTMLInputElement>(null);
   const pbRef = useRef<HTMLInputElement>(null);
-  const [file, setFile] = useState<string | null>(null);
+  const [file, setFile] = useState<File | null>(null);
   const [pbFile, setPbFile] = useState<string | null>(null);
   const [drag, setDrag] = useState(false);
   const [side, setSide] = useState("Our side");
   const [playbook, setPlaybook] = useState("standard");
   const [depth, setDepth] = useState("standard");
+  const [checks, setChecks] = useState<string[]>(["compliance"]);
+  const [busy, setBusy] = useState(false);
+  const [err, setErr] = useState<string | null>(null);
+
+  async function analyze() {
+    if (!file) return;
+    setBusy(true); setErr(null);
+    try {
+      const ex = await fetch("/api/extract", {
+        method: "POST", body: file,
+        headers: { "X-Filename": encodeURIComponent(file.name) },
+      });
+      const exj = await ex.json().catch(() => ({ error: "Model service is not running" }));
+      if (!ex.ok) throw new Error(exj.error || "Could not read the file");
+      const rv = await fetch("/api/reviews", {
+        method: "POST", headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ text: exj.text, tasks: checks,
+                               documentName: file.name.replace(/\.[^.]+$/, "") }),
+      });
+      const rvj = await rv.json().catch(() => ({ error: "Model service is not running" }));
+      if (!rv.ok) throw new Error(rvj.error || "Could not start the review");
+      router.push(`/reviews/live?job=${rvj.id}`);
+    } catch (e) {
+      setErr(e instanceof Error ? e.message : String(e));
+      setBusy(false);
+    }
+  }
 
   return (
     <Shell>
@@ -29,7 +55,7 @@ export default function New() {
             <div className="picked">
               <span className="fico">▤</span>
               <span>
-                <b style={{ fontWeight: 560 }}>{file}</b>
+                <b style={{ fontWeight: 560 }}>{file.name}</b>
                 <div style={{ color: "var(--tx3)", fontSize: 12 }}>Ready to analyze</div>
               </span>
               <button className="x" onClick={() => setFile(null)}>✕</button>
@@ -42,7 +68,7 @@ export default function New() {
                  onDrop={(e) => {
                    e.preventDefault(); setDrag(false);
                    const f = e.dataTransfer.files?.[0];
-                   if (f) setFile(f.name);
+                   if (f) setFile(f);
                  }}>
               <div className="ic">⬆</div>
               <div className="t">Drop a contract here or browse</div>
@@ -50,7 +76,7 @@ export default function New() {
             </div>
           )}
           <input ref={fileRef} type="file" hidden accept=".pdf,.docx,.doc,.txt"
-                 onChange={(e) => { const f = e.target.files?.[0]; if (f) setFile(f.name); }} />
+                 onChange={(e) => { const f = e.target.files?.[0]; if (f) setFile(f); }} />
         </div>
 
         <div className="field">
@@ -80,6 +106,22 @@ export default function New() {
         </div>
 
         <div className="field">
+          <label>Checks</label>
+          <div className="h">
+            Playbook positions are written for NDAs; clause categories for commercial agreements.
+            Each check adds roughly a minute on a short contract.
+          </div>
+          <div className="opts">
+            {([["compliance", "Playbook positions"], ["clauses", "Clause inventory"]] as const)
+              .map(([k, l]) => (
+                <button key={k} className={`opt${checks.includes(k) ? " on" : ""}`}
+                        onClick={() => setChecks((c) =>
+                          c.includes(k) ? c.filter((x) => x !== k) : [...c, k])}>{l}</button>
+              ))}
+          </div>
+        </div>
+
+        <div className="field">
           <label>Acting for</label>
           <div className="opts">
             {["Our side", "Counterparty"].map((s) => (
@@ -101,9 +143,10 @@ export default function New() {
           </div>
         </div>
 
-        <button className="btn pri big" disabled={!file}
-                onClick={() => router.push(`/reviews/${reviews[0].id}/processing`)}>
-          Analyze contract
+        {err && <p style={{ color: "var(--red)", marginBottom: 12 }}>{err}</p>}
+        <button className="btn pri big" disabled={!file || !checks.length || busy}
+                onClick={analyze}>
+          {busy ? "Starting…" : "Analyze contract"}
         </button>
       </div>
     </Shell>

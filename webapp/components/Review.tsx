@@ -9,8 +9,10 @@ import type { Item, Review, Tone } from "@/lib/types";
 type Dec = "ok" | "flag" | "skip" | null;
 const RANK: Record<Tone, number> = { red: 0, amb: 1, grn: 2, gry: 3 };
 
-export default function ReviewView({ review, flagPrecision }:
-  { review: Review; flagPrecision: number }) {
+export default function ReviewView({ review, flagPrecision, exportHref }:
+  { review: Review; flagPrecision: number; exportHref?: string | null }) {
+  // live reviews exist only in the model service's memory, so no export page
+  const exp = exportHref === undefined ? `/reviews/${review.id}/export` : exportHref;
   const both = review.compliance.length > 0 && review.clauses.length > 0;
   const [tab, setTab] = useState<"compliance" | "clauses">(
     review.compliance.length ? "compliance" : "clauses"
@@ -63,7 +65,7 @@ export default function ReviewView({ review, flagPrecision }:
           <span className="muted" style={{ fontSize: 12.5 }}>
             {reviewed}/{all.length} reviewed
           </span>
-          <Link href={`/reviews/${review.id}/export`} className="btn">Export</Link>
+          {exp && <Link href={exp} className="btn">Export</Link>}
         </div>
       </div>
 
