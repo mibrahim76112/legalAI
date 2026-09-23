@@ -39,7 +39,5 @@ results/*smoke*.jsonl
 webapp/.data/
 *.env.local
 
-# editor/agent tool files
+# editor/tooling files
 AGENTS.md
-CLAUDE.md
-.claude/
