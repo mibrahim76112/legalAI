@@ -19,11 +19,19 @@ Settings → Environment Variables, for Production and Preview:
 | name | value |
 |---|---|
 | `LEGALAI_ENDPOINT` | `https://<id>.endpoints.huggingface.cloud/v1` |
-| `HF_TOKEN` | a **read**-scoped HF token; it only calls the endpoint |
+| `HF_TOKEN` | a token allowed to CALL the endpoint — see below |
 | `APP_PASSWORD` | the shared password for the demo |
 
-Use a read-only token. The app never writes to the Hub, and a leaked write
-token is a bigger problem than a leaked read one.
+**The token must be able to invoke an Inference Endpoint.** A classic token
+with the Read role can. A fine-grained token cannot unless "Make calls to
+Inference Endpoints" is ticked; without it every request comes back
+
+    403 ... missing permissions: inference.endpoints.infer.write
+
+and the review fails. Beyond that permission the app needs nothing: it never
+writes to the Hub, so do not give it write access.
+
+Environment variable changes only take effect on a new deployment.
 
 ## 3. Storage
 
