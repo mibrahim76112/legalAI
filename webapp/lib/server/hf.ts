@@ -21,28 +21,42 @@ function config() {
   return { base: base.endsWith("/v1") ? base : `${base}/v1`, token };
 }
 
+const RETRY_STATUS = new Set([408, 409, 425, 429, 500, 502, 503, 504]);
+const RETRIES = 3;
+
+const wait = (ms: number) => new Promise((r) => setTimeout(r, ms));
+
 async function call<T>(path: string, body?: unknown, root = false): Promise<T> {
   const { base, token } = config();
   const url = root ? base.replace(/\/v1$/, "") : base;
-  let r: Response;
-  try {
-    r = await fetch(url + path, {
-      method: body === undefined ? "GET" : "POST",
-      headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json" },
-      body: body === undefined ? undefined : JSON.stringify(body),
-    });
-  } catch (e) {
-    throw new Error("Cannot reach the review service. Please try again.");
+  let lastStatus = 0;
+  for (let attempt = 0; attempt < RETRIES; attempt++) {
+    let r: Response;
+    try {
+      r = await fetch(url + path, {
+        method: body === undefined ? "GET" : "POST",
+        headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json" },
+        body: body === undefined ? undefined : JSON.stringify(body),
+      });
+    } catch (e) {
+      console.error(`endpoint unreachable: ${(e as Error).message}`);
+      if (attempt === RETRIES - 1) throw new Error("Cannot reach the review service. Please try again.");
+      await wait(1500 * (attempt + 1));
+      continue;
+    }
+    if (r.ok) return (await r.json()) as T;
+
+    lastStatus = r.status;
+    // detail to the server log, a plain sentence to the screen
+    console.error(`endpoint ${r.status} on ${path}: ${(await r.text()).slice(0, 500)}`);
+    if (!RETRY_STATUS.has(r.status) || attempt === RETRIES - 1) break;
+    // a scaled-to-zero endpoint needs longer than a busy one
+    await wait((r.status === 503 || r.status === 502 ? 6000 : 1500) * (attempt + 1));
   }
-  if (r.status === 503 || r.status === 502) {
+  if (lastStatus === 503 || lastStatus === 502) {
     throw new Error("The review service is starting up. Please try again in a minute.");
   }
-  if (!r.ok) {
-    // full detail to the server log, a plain sentence to the screen
-    console.error(`endpoint ${r.status}: ${(await r.text()).slice(0, 500)}`);
-    throw new Error("The review service could not complete that request.");
-  }
-  return (await r.json()) as T;
+  throw new Error("The review service could not complete that request.");
 }
 
 let modelName: Promise<string> | null = null;
