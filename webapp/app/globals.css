@@ -324,3 +324,26 @@ select,input[type=text]{width:100%;padding:10px 12px;border:1px solid var(--line
 .login h1{font-size:19px}
 .login input{width:100%;padding:10px 12px;border:1px solid var(--line);
   border-radius:var(--r2);font:inherit}
+
+/* ============ print: the report as a PDF ============ */
+.printhead{display:none}
+@media print{
+  @page{margin:18mm 16mm}
+  html,body{background:#fff}
+  .rail,.tabs,.rhead,.next,.err{display:none!important}
+  .app,.main,.rbody{display:block;min-height:0}
+  .body-pad{padding:0}
+  .wide{max-width:none}
+  .printhead{display:block;border-bottom:1.5px solid #101319;padding-bottom:10px;margin-bottom:18px}
+  .printhead h1{font-size:20px;margin:0 0 5px}
+  .printhead div{font-size:11.5px;color:#5b6270}
+  .md{border:0;box-shadow:none;padding:0;max-width:none;font-size:11.5pt;line-height:1.5}
+  .md .mdh1{display:none}            /* the printed head already names the document */
+  .md h3{font-size:13.5pt;margin:20px 0 7px;page-break-after:avoid}
+  .md h4{font-size:11.5pt;margin:13px 0 4px;page-break-after:avoid}
+  .md p,.md li{font-size:11pt}
+  .md blockquote{background:#f6f7f9;border-left:2.5px solid #98a0ae;color:#23272f;
+    page-break-inside:avoid;margin:0 0 8px}
+  .md table{page-break-inside:avoid}
+  .md h4+p{page-break-after:avoid}
+}
