@@ -32,7 +32,7 @@ const FILTERS: { k: Filter; label: string; match: (i: Item) => boolean }[] = [
   { k: "undecided", label: "Undecided", match: (i) => !i.decision },
 ];
 
-function Body({ review, decide }: FrameProps) {
+function Body({ review, decide, explain }: FrameProps) {
   const router = useRouter();
   const all = useMemo(() => triageOrder(review), [review]);
   const params = useSearchParams();
@@ -50,9 +50,21 @@ function Body({ review, decide }: FrameProps) {
   const [comment, setComment] = useState(it.comment ?? "");
   const [err, setErr] = useState<string | null>(null);
   const [saved, setSaved] = useState(false);
+  const [writing, setWriting] = useState(false);
   const box = useRef<HTMLTextAreaElement>(null);
 
-  useEffect(() => { setEv(0); setComment(it.comment ?? ""); setErr(null); setSaved(false); }, [it.id]); // eslint-disable-line react-hooks/exhaustive-deps
+  useEffect(() => { setEv(0); setComment(it.comment ?? ""); setErr(null); setSaved(false); setWriting(false); }, [it.id]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  const writeNote = async () => {
+    setWriting(true); setErr(null);
+    try {
+      await explain(it);
+    } catch (e) {
+      setErr(e instanceof Error ? e.message : String(e));
+    } finally {
+      setWriting(false);
+    }
+  };
 
   const q = (item: string, f: Filter = filter) =>
     `/reviews/${review.id}/triage?item=${item}${f === "all" ? "" : `&filter=${f}`}`;
@@ -140,11 +152,21 @@ function Body({ review, decide }: FrameProps) {
             {it.decision && <span className="dec">{DECISION_LABEL[it.decision]}</span>}
           </div>
 
-          {it.note && (
+          <div className="lab">Why it matters</div>
+          {it.note ? (
             <>
-              <div className="lab">Why it matters</div>
               <p className="p">{it.note}</p>
+              {it.evidence.length > 0 && (
+                <button className="btn sm" style={{ marginTop: 8 }} disabled={writing}
+                        onClick={writeNote}>{writing ? "Writing…" : "Rewrite"}</button>
+              )}
             </>
+          ) : it.evidence.length > 0 ? (
+            <button className="btn" disabled={writing} onClick={writeNote}>
+              {writing ? "Writing…" : "Explain this finding"}
+            </button>
+          ) : (
+            <p className="muted">Nothing quoted from the document, so there is nothing to explain.</p>
           )}
           {it.assessment && <p className="muted" style={{ marginTop: 6 }}>{it.assessment}</p>}
           <div className="lab">Supporting language</div>

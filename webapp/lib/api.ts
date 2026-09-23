@@ -47,6 +47,8 @@ export const api = {
   remove: (id: string) => call<object>(`/reviews/${id}`, { method: "DELETE" }),
   // the work runs inside this request; the page polls GET meanwhile
   run: (id: string) => call<{ status?: string }>(`/reviews/${id}/run`, { method: "POST" }),
+  note: (id: string, item: string) =>
+    call<{ note: string }>(`/reviews/${id}/items/${item}/note`, { method: "POST" }),
   login: (password: string) => call<{ ok: boolean }>("/login", json("POST", { password })),
 };
 
@@ -96,5 +98,15 @@ export function useReview(id: string) {
     }
   }, [id]);
 
-  return { review, error, reload, decide };
+  const explain = useCallback(async (item: Item) => {
+    const { note } = await api.note(id, item.id);
+    const source = item.kind === "clause" ? "model" : "model-beta";
+    setReview((r) => r && ({
+      ...r,
+      compliance: r.compliance.map((i) => i.id === item.id ? { ...i, note, noteSource: source } : i),
+      clauses: r.clauses.map((i) => i.id === item.id ? { ...i, note, noteSource: source } : i),
+    }));
+  }, [id]);
+
+  return { review, error, reload, decide, explain };
 }
