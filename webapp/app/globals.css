@@ -318,3 +318,11 @@ select,input[type=text]{width:100%;padding:10px 12px;border:1px solid var(--line
 .mdt td{padding:6px 16px 6px 0;border-bottom:1px solid var(--line2)}
 .del{color:var(--tx3);font-size:13px;padding:4px 8px;border-radius:6px}
 .del:hover{background:var(--redbg);color:var(--red)}
+
+/* ============ login ============ */
+.login{min-height:100vh;display:grid;place-items:center;padding:24px}
+.login .card{padding:26px 28px;width:100%;max-width:360px;display:flex;
+  flex-direction:column;gap:12px}
+.login h1{font-size:19px}
+.login input{width:100%;padding:10px 12px;border:1px solid var(--line);
+  border-radius:var(--r2);font:inherit}

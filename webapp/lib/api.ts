@@ -11,6 +11,10 @@ async function call<T>(path: string, init?: RequestInit): Promise<T> {
   } catch {
     throw new Error("Can't reach the model service. Is inference/server.py running?");
   }
+  if (r.status === 401 && typeof window !== "undefined") {
+    window.location.href = `/login?next=${encodeURIComponent(window.location.pathname)}`;
+    throw new Error("Not signed in");
+  }
   const j = await r.json().catch(() => null);
   if (!r.ok || j === null) {
     throw new Error(j?.error || (r.status >= 500
@@ -36,7 +40,9 @@ export const api = {
   decide: (id: string, item: string, decision: Decision, comment: string | null) =>
     call<ReviewSummary>(`/reviews/${id}/items/${item}`, json("PUT", { decision, comment })),
   remove: (id: string) => call<object>(`/reviews/${id}`, { method: "DELETE" }),
-  rerun: (id: string) => call<{ id: string }>(`/reviews/${id}/rerun`, { method: "POST" }),
+  // the work runs inside this request; the page polls GET meanwhile
+  run: (id: string) => call<{ status?: string }>(`/reviews/${id}/run`, { method: "POST" }),
+  login: (password: string) => call<{ ok: boolean }>("/login", json("POST", { password })),
 };
 
 const POLL_MS = 1500;
