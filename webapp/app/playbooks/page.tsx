@@ -1,9 +1,9 @@
 import Link from "next/link";
 import Shell from "@/components/Shell";
-import { reviews } from "@/lib/data";
+import { PLAYBOOK_POSITIONS } from "@/lib/server/prompts";
 
 export default function Playbooks() {
-  const n = reviews.reduce((m, r) => Math.max(m, r.compliance.length), 0);
+  const n = PLAYBOOK_POSITIONS.length;
   return (
     <Shell>
       <div className="phead">

@@ -61,7 +61,7 @@ function Body({ r }: { r: Review }) {
           <div className="list">{found.map((it) => <IssueRow key={it.id} r={r} it={it} />)}</div>
           {missing.length > 0 && (
             <p className="muted" style={{ marginTop: 10 }}>
-              Not detected: {missing.map((m) => m.title).join(", ")}. The model may miss a clause, so &ldquo;not detected&rdquo; is not proof of absence.
+              Not detected: {missing.map((m) => m.title).join(", ")}.
             </p>
           )}
         </section>

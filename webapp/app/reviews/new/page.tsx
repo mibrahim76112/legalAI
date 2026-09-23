@@ -6,14 +6,14 @@ import Shell from "@/components/Shell";
 import Stepper from "@/components/Stepper";
 import Doc from "@/components/Doc";
 import { api } from "@/lib/api";
-import { reviews } from "@/lib/data";
+import { CLAUSE_CATEGORIES, PLAYBOOK_POSITIONS } from "@/lib/server/prompts";
 import type { Task } from "@/lib/types";
 
 const STEPS = ["Upload", "Check the text", "Choose checks", "Analyze"];
 // same budget as inference/pipeline.py: a window holds ~14,960 tokens
 const WINDOW_TOKENS = 14960;
-const POSITIONS = reviews.find((r) => r.compliance.length)?.compliance.map((i) => i.title) ?? [];
-const CATEGORIES = reviews.find((r) => r.clauses.length)?.clauses.map((i) => i.title) ?? [];
+const POSITIONS = PLAYBOOK_POSITIONS;
+const CATEGORIES = CLAUSE_CATEGORIES;
 
 export default function New() {
   const router = useRouter();
@@ -90,15 +90,15 @@ export default function New() {
 
         {service && service !== "ready" && (
           <p className="warn" style={{ marginBottom: 18 }}>
-            {service === "loading" ? "The model is still loading; you can upload now and it will be ready shortly."
-              : `Model service: ${service}`}
+            {service === "loading" ? "Preparing the service; you can upload a contract now."
+              : "The review service is unavailable right now."}
           </p>
         )}
 
         {step === 0 && (
           <div className="field">
             <label>Contract</label>
-            <div className="h">PDF, DOCX or TXT. The file stays on this Mac.</div>
+            <div className="h">PDF, DOCX or TXT.</div>
             <div className={`up${drag ? " on" : ""}`} onClick={() => !busy && fileRef.current?.click()}
                  onDragOver={(e) => { e.preventDefault(); setDrag(true); }}
                  onDragLeave={() => setDrag(false)}
@@ -106,7 +106,7 @@ export default function New() {
                                   const f = e.dataTransfer.files?.[0]; if (f) pick(f); }}>
               <div className="ic">⬆</div>
               <div className="t">{busy ? "Reading the file…" : "Drop a contract here or browse"}</div>
-              <div className="s">{file?.name ?? "Scanned PDFs need OCR first"}</div>
+              <div className="s">{file?.name ?? "PDF, DOCX or TXT"}</div>
             </div>
             <input ref={fileRef} type="file" hidden accept=".pdf,.docx,.txt"
                    onChange={(e) => { const f = e.target.files?.[0]; if (f) pick(f); }} />
@@ -122,7 +122,7 @@ export default function New() {
             </div>
             <div className="card prev"><Doc text={text} marks={[]} /></div>
             <p className="muted" style={{ marginTop: 10 }}>
-              Missing or garbled text means the PDF is scanned or unusual; the model only sees what is shown here.
+              Only the text shown here is reviewed.
             </p>
             <div className="wnav">
               <button className="btn" onClick={() => { setStep(0); setFile(null); setText(""); }}>Back</button>
@@ -139,7 +139,7 @@ export default function New() {
             </div>
             <div className="field">
               <label>Checks</label>
-              <div className="h">Suggested from the text; change if the guess is wrong.</div>
+              <div className="h">Selected from the document; adjust if needed.</div>
               <div className="picks">
                 <Pick on={tasks.includes("compliance")} title="Playbook positions"
                       sub={`${POSITIONS.length} NDA positions · is each one met, contradicted or missing?`}
@@ -170,10 +170,10 @@ export default function New() {
               <Row k="Checks" v={tasks.map((t) => t === "compliance"
                 ? `${POSITIONS.length} playbook positions` : `${CATEGORIES.length} clause types`).join(" + ")} />
               <Row k="Passes" v={stats.windows === 1 ? "one" : `${stats.windows} overlapping parts`} />
-              <Row k="Roughly" v={`${estimate} minute${estimate > 1 ? "s" : ""} on this Mac`} />
+              <Row k="Roughly" v={`${estimate} minute${estimate > 1 ? "s" : ""}`} />
             </div>
             <p className="muted" style={{ marginTop: 10 }}>
-              You can leave the page once it starts; the review is saved when it finishes.
+              The review is saved automatically when it finishes.
             </p>
             <div className="wnav">
               <button className="btn" onClick={() => setStep(2)}>Back</button>

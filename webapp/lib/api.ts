@@ -9,7 +9,7 @@ async function call<T>(path: string, init?: RequestInit): Promise<T> {
   try {
     r = await fetch(`/api${path}`, init);
   } catch {
-    throw new Error("Can't reach the model service. Is inference/server.py running?");
+    throw new Error("Can't reach the review service. Please try again.");
   }
   if (r.status === 401 && typeof window !== "undefined") {
     window.location.href = `/login?next=${encodeURIComponent(window.location.pathname)}`;
@@ -18,7 +18,7 @@ async function call<T>(path: string, init?: RequestInit): Promise<T> {
   const j = await r.json().catch(() => null);
   if (!r.ok || j === null) {
     throw new Error(j?.error || (r.status >= 500
-      ? "The model service is not running. Start inference/server.py."
+      ? "The review service is unavailable right now. Please try again."
       : `Request failed (${r.status})`));
   }
   return j as T;

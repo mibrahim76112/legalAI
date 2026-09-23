@@ -286,8 +286,6 @@ select,input[type=text]{width:100%;padding:10px 12px;border:1px solid var(--line
 .tcard{flex:1;overflow-y:auto;padding:16px 18px 30px}
 .tcard .kind{font-size:10.5px;font-weight:650;letter-spacing:.07em;text-transform:uppercase;color:var(--tx3)}
 .tcard .ttl{margin-top:6px;font-size:16.5px;line-height:1.4}
-.beta{margin-left:7px;background:var(--acc2);color:var(--acc);border-radius:99px;
-  padding:1px 7px;font-size:9.5px;letter-spacing:.04em;cursor:help}
 .acts kbd{font:inherit;font-size:10.5px;opacity:.5;margin-left:4px}
 .acts button.on-ok{background:var(--grn);border-color:var(--grn)}
 .acts button.on-flag{background:var(--amb);border-color:var(--amb)}
