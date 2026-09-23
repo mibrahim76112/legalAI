@@ -18,6 +18,9 @@ export async function POST(req: Request) {
   const body = await req.json().catch(() => ({}));
   const text = String(body.text ?? "").trim();
   const tasks = TASKS.filter((t) => (body.tasks ?? []).includes(t));
+  const positions = Array.isArray(body.positions)
+    ? body.positions.filter((p: unknown) => typeof p === "string" && p.trim()).slice(0, 60)
+    : null;
   if (!text || !tasks.length) {
     return NextResponse.json({ error: "text and at least one check are required" }, { status: 400 });
   }
@@ -25,7 +28,9 @@ export async function POST(req: Request) {
   const rec: Review = {
     id: newId(), status: "queued", createdAt: now, updatedAt: now, tasks, sample: false,
     documentName: String(body.documentName || "Contract"), documentText: text,
-    representing: null, counterparty: null, playbookName: null,
+    positions: positions?.length ? positions : null,
+    representing: null, counterparty: null,
+    playbookName: positions?.length ? String(body.playbookName || "Uploaded playbook") : "Standard playbook",
     compliance: [], clauses: [], stats: null,
   };
   await save(rec);
