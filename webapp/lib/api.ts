@@ -35,8 +35,13 @@ export const api = {
   extract: (file: File) => call<{ text: string }>("/extract", {
     method: "POST", body: file, headers: { "X-Filename": encodeURIComponent(file.name) },
   }),
-  submit: (text: string, tasks: Task[], documentName: string) =>
-    call<{ id: string }>("/reviews", json("POST", { text, tasks, documentName })),
+  playbook: (file: File) => call<{ name: string; positions: string[] }>("/playbook", {
+    method: "POST", body: file, headers: { "X-Filename": encodeURIComponent(file.name) },
+  }),
+  submit: (text: string, tasks: Task[], documentName: string,
+           positions?: string[], playbookName?: string) =>
+    call<{ id: string }>("/reviews", json("POST",
+      { text, tasks, documentName, positions, playbookName })),
   decide: (id: string, item: string, decision: Decision, comment: string | null) =>
     call<ReviewSummary>(`/reviews/${id}/items/${item}`, json("PUT", { decision, comment })),
   remove: (id: string) => call<object>(`/reviews/${id}`, { method: "DELETE" }),

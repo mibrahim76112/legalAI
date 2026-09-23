@@ -43,6 +43,7 @@ export interface Review {
   counterparty: string | null;
   playbookName: string | null;
   documentText: string;
+  positions?: string[] | null;   // null = the standard playbook
   compliance: Item[];
   clauses: Item[];
   stats?: { windows: number; unparsed: number; unlocated_quotes: number } | null;
