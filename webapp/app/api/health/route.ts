@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { authorized } from "@/lib/server/auth";
 import { health } from "@/lib/server/hf";
+import { storageKind } from "@/lib/server/store";
 
 export const dynamic = "force-dynamic";
 
@@ -8,8 +9,8 @@ export async function GET() {
   if (!(await authorized())) return NextResponse.json({ error: "unauthorized" }, { status: 401 });
   try {
     const { model } = await health();
-    return NextResponse.json({ model: "ready", served: model, queued: 0 });
+    return NextResponse.json({ model: "ready", served: model, storage: storageKind(), queued: 0 });
   } catch (e) {
-    return NextResponse.json({ model: `failed: ${(e as Error).message}` });
+    return NextResponse.json({ model: `failed: ${(e as Error).message}`, storage: storageKind() });
   }
 }
