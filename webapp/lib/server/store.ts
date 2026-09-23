@@ -7,12 +7,18 @@
  */
 
 import { promises as fs } from "fs";
+import os from "os";
 import path from "path";
 import type { Decision, Progress, Review, ReviewSummary } from "../types";
 
 const PREFIX = "review:";
 const INDEX = "reviews";
-const DIR = path.join(process.cwd(), ".data", "reviews");
+// Without Redis, fall back to files. On a serverless host only the temp
+// directory is writable and it does not survive between requests, so this is
+// a development convenience, not storage: /api/health reports which is in use.
+const ROOT = process.env.VERCEL ? path.join(os.tmpdir(), "contract-review")
+                                : path.join(process.cwd(), ".data");
+const DIR = path.join(ROOT, "reviews");
 const ID_OK = /^[A-Za-z0-9_-]{1,64}$/;
 
 function redis() {
@@ -126,7 +132,7 @@ export async function list(): Promise<ReviewSummary[]> {
  * could overwrite the finished result, which is exactly what happened.
  */
 const PROG = "progress:";
-const PROG_DIR = path.join(process.cwd(), ".data", "progress");
+const PROG_DIR = path.join(ROOT, "progress");
 const PROG_TTL = 600;
 
 export async function setProgress(id: string, p: Progress | null): Promise<void> {
@@ -156,6 +162,8 @@ export async function getProgress(id: string): Promise<Progress | null> {
 
 /** A run dies with its serverless invocation; nothing resumes it. */
 export const STALE_SECONDS = 180;
+
+export const storageKind = () => (redis() ? "database" : "ephemeral");
 
 export function markStale(r: Review): Review {
   if ((r.status === "running" || r.status === "queued") &&
