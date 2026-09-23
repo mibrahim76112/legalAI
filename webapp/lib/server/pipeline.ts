@@ -144,7 +144,6 @@ export interface RunResult {
   stats: { windows: number; unparsed: number; unlocated_quotes: number };
   representing: string;
   counterparty: string;
-  playbookName: string;
 }
 
 export async function runReview(text: string, { tasks, positions, onProgress }: RunOptions): Promise<RunResult> {
@@ -221,7 +220,6 @@ export async function runReview(text: string, { tasks, positions, onProgress }: 
     compliance, clauses, stats,
     representing: tasks.includes("compliance") ? "Receiving Party" : "Counterparty",
     counterparty: tasks.includes("compliance") ? "Disclosing Party" : "—",
-    playbookName: positions?.length ? "Uploaded playbook" : "Standard playbook",
   };
 }
 
