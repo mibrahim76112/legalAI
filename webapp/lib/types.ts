@@ -34,6 +34,7 @@ export interface Review {
   id: string;
   status: Status;
   createdAt: number;
+  updatedAt?: number;
   tasks: Task[];
   sample?: boolean;
   error?: string | null;
@@ -53,6 +54,7 @@ export interface ReviewSummary {
   documentName: string;
   status: Status;
   createdAt: number;
+  updatedAt?: number;
   tasks: Task[];
   sample: boolean;
   representing: string | null;

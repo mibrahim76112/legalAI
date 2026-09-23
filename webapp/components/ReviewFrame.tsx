@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useParams, usePathname, useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Shell from "./Shell";
 import { Badge } from "./Badge";
 import { api, useReview } from "@/lib/api";
@@ -31,6 +31,16 @@ export default function ReviewFrame({ children, full }: {
   const { id } = useParams<{ id: string }>();
   const path = usePathname();
   const { review, error, reload, decide } = useReview(id);
+  const started = useRef(false);
+
+  // a queued review has no worker behind it: this page starts the run, and the
+  // request stays open for its duration while useReview polls for progress
+  useEffect(() => {
+    if (review?.status !== "queued" || started.current) return;
+    started.current = true;
+    api.run(id).catch(() => null).finally(reload);
+  }, [review?.status, id, reload]);
+
   const c = review && review.status === "done" ? counts(review) : null;
 
   return (
@@ -99,8 +109,8 @@ function Running({ review }: { review: Review }) {
       <div className="card" style={{ padding: "18px 22px" }}>
         <h2>Analyzing</h2>
         <p className="muted" style={{ margin: "4px 0 10px" }}>
-          {review.status === "queued" ? "Waiting for the model (it may still be loading, or another review is running)."
-            : "You can leave this page; the review keeps running and is saved when it finishes."}
+          {review.status === "queued" ? "Starting: waking the model if it has scaled to zero."
+            : "Keep this tab open: the review runs in this request and is saved when it finishes."}
         </p>
         {stages.map((s, k) => (
           <div key={s.k} className={`stg ${k < cur ? "done" : k === cur && review.status === "running" ? "now" : ""}`}>
@@ -122,15 +132,18 @@ function Running({ review }: { review: Review }) {
 function Failed({ review, onRerun }: { review: Review; onRerun: () => void }) {
   const router = useRouter();
   const [err, setErr] = useState<string | null>(null);
+  const [busy, setBusy] = useState(false);
   const interrupted = review.status === "interrupted";
   return (
     <Notice title={interrupted ? "This review was interrupted" : "This review failed"}
             body={interrupted ? "The model server stopped before it finished. Nothing was lost except progress; run it again to finish."
               : review.error || "Unknown error"}>
       <div style={{ display: "flex", gap: 8, marginTop: 14 }}>
-        <button className="btn pri" onClick={async () => {
-          try { await api.rerun(review.id); onRerun(); } catch (e) { setErr(String(e)); }
-        }}>Run again</button>
+        <button className="btn pri" disabled={busy} onClick={async () => {
+          setBusy(true); setErr(null);
+          try { await api.run(review.id); } catch (e) { setErr(String(e)); }
+          setBusy(false); onRerun();
+        }}>{busy ? "Running…" : "Run again"}</button>
         <button className="btn" onClick={async () => {
           await api.remove(review.id).catch(() => null); router.push("/reviews");
         }}>Delete</button>

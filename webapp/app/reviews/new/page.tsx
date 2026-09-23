@@ -71,6 +71,7 @@ export default function New() {
     setBusy(true); setErr(null);
     try {
       const { id } = await api.submit(text, tasks, name.trim() || "Contract");
+      // the review page starts the run and shows progress
       router.push(`/reviews/${id}`);
     } catch (e) {
       setErr(e instanceof Error ? e.message : String(e));
