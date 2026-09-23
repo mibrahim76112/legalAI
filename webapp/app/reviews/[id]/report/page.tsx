@@ -2,7 +2,6 @@
 
 import { useMemo, useState } from "react";
 import ReviewFrame, { type FrameProps } from "@/components/ReviewFrame";
-import { meta } from "@/lib/data";
 import { download, reviewToMarkdown, slug } from "@/lib/report";
 import { contractToMarkdown } from "@/lib/structure";
 import { counts } from "@/lib/review";
@@ -12,7 +11,7 @@ export default function Report() {
 }
 
 function Body({ review }: FrameProps) {
-  const md = useMemo(() => reviewToMarkdown(review, meta.flagPrecision), [review]);
+  const md = useMemo(() => reviewToMarkdown(review), [review]);
   const [copied, setCopied] = useState(false);
   const c = counts(review);
   const name = slug(review.documentName);

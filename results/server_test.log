@@ -1,21 +1,0 @@
-/Users/mibrahim/Code/legalAI/venv-mlx/lib/python3.9/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
-  warnings.warn(
-Fetching 6 files:   0%|          | 0/6 [00:00<?, ?it/s]Fetching 6 files: 100%|██████████| 6/6 [00:00<00:00, 3313.47it/s]
-model ready on http://127.0.0.1:8765
-127.0.0.1 - - [22/Sep/2026 16:00:08] "PUT /api/reviews/ae1f356331/items/p3 HTTP/1.1" 200 -
-127.0.0.1 - - [22/Sep/2026 16:19:43] "PUT /api/reviews/1f4ce2a75b/items/p1 HTTP/1.1" 200 -
-127.0.0.1 - - [22/Sep/2026 16:22:12] "POST /api/extract HTTP/1.1" 200 -
-127.0.0.1 - - [22/Sep/2026 16:22:52] "POST /api/reviews HTTP/1.1" 200 -
-127.0.0.1 - - [22/Sep/2026 16:26:15] "POST /api/extract HTTP/1.1" 200 -
-127.0.0.1 - - [22/Sep/2026 16:26:21] "POST /api/reviews HTTP/1.1" 200 -
-127.0.0.1 - - [22/Sep/2026 16:27:40] "PUT /api/reviews/commercial/items/c14 HTTP/1.1" 200 -
-127.0.0.1 - - [22/Sep/2026 16:28:24] "PUT /api/reviews/commercial/items/c16 HTTP/1.1" 200 -
-127.0.0.1 - - [22/Sep/2026 16:28:26] "PUT /api/reviews/commercial/items/c16 HTTP/1.1" 200 -
-127.0.0.1 - - [22/Sep/2026 16:28:30] "PUT /api/reviews/commercial/items/c1 HTTP/1.1" 200 -
-127.0.0.1 - - [22/Sep/2026 16:28:31] "PUT /api/reviews/commercial/items/c4 HTTP/1.1" 200 -
-127.0.0.1 - - [22/Sep/2026 16:28:31] "PUT /api/reviews/commercial/items/c6 HTTP/1.1" 200 -
-127.0.0.1 - - [22/Sep/2026 16:28:31] "PUT /api/reviews/commercial/items/c7 HTTP/1.1" 200 -
-127.0.0.1 - - [22/Sep/2026 16:28:31] "PUT /api/reviews/commercial/items/c9 HTTP/1.1" 200 -
-127.0.0.1 - - [22/Sep/2026 16:28:32] "PUT /api/reviews/commercial/items/c10 HTTP/1.1" 200 -
-127.0.0.1 - - [22/Sep/2026 16:28:33] "PUT /api/reviews/commercial/items/c12 HTTP/1.1" 200 -
-127.0.0.1 - - [22/Sep/2026 16:28:34] "PUT /api/reviews/commercial/items/c17 HTTP/1.1" 200 -

@@ -16,7 +16,7 @@ function config() {
   const base = (process.env.LEGALAI_ENDPOINT || "").replace(/\/$/, "");
   const token = process.env.HF_TOKEN || "";
   if (!base || !token) {
-    throw new Error("Model endpoint not configured: set LEGALAI_ENDPOINT and HF_TOKEN.");
+    throw new Error("The review service is not configured.");
   }
   return { base: base.endsWith("/v1") ? base : `${base}/v1`, token };
 }
@@ -32,13 +32,15 @@ async function call<T>(path: string, body?: unknown, root = false): Promise<T> {
       body: body === undefined ? undefined : JSON.stringify(body),
     });
   } catch (e) {
-    throw new Error(`Cannot reach the model endpoint: ${(e as Error).message}`);
+    throw new Error("Cannot reach the review service. Please try again.");
   }
   if (r.status === 503 || r.status === 502) {
-    throw new Error("The endpoint is waking up (it scales to zero). Try again in a minute.");
+    throw new Error("The review service is starting up. Please try again in a minute.");
   }
   if (!r.ok) {
-    throw new Error(`Endpoint ${r.status}: ${(await r.text()).slice(0, 300)}`);
+    // full detail to the server log, a plain sentence to the screen
+    console.error(`endpoint ${r.status}: ${(await r.text()).slice(0, 500)}`);
+    throw new Error("The review service could not complete that request.");
   }
   return (await r.json()) as T;
 }
@@ -52,8 +54,8 @@ export function loraModel(): Promise<string> {
       const ids = data.map((m) => m.id);
       const lora = ids.find((i) => !i.includes("/"));
       if (!lora) {
-        throw new Error(`No LoRA adapter is served here, only ${ids.join(", ")}. ` +
-          "Start vLLM with --enable-lora --lora-modules <name>=<repo>.");
+        console.error(`no LoRA module served; /v1/models has: ${ids.join(", ")}`);
+        throw new Error("The review service is not configured correctly.");
       }
       return lora;
     }).catch((e) => { modelName = null; throw e; });

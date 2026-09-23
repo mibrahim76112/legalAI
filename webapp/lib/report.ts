@@ -6,17 +6,14 @@ const quote = (s: string) => s.replace(/\s+/g, " ").trim();
 function itemMd(it: Item): string[] {
   const out = [`### ${it.title}`, "", `**${it.status}**` +
     (it.decision ? ` · Reviewer: **${DECISION_LABEL[it.decision]}**` : " · Not yet reviewed"), ""];
-  if (it.note) {
-    const beta = it.noteSource === "model-beta" ? " _(beta: model note on a playbook position)_" : "";
-    out.push(`**Why it matters:** ${it.note}${beta}`, "");
-  }
+  if (it.note) out.push(`**Why it matters:** ${it.note}`, "");
   if (it.comment) out.push(`**Reviewer comment:** ${it.comment}`, "");
   for (const e of it.evidence) out.push(`> ${quote(e.text)}`, "");
   return out;
 }
 
 /** The review as a Markdown report, grouped by severity. */
-export function reviewToMarkdown(r: Review, flagPrecision: number): string {
+export function reviewToMarkdown(r: Review): string {
   const c = counts(r);
   const when = new Date(r.createdAt * 1000).toLocaleString();
   const items = triageOrder(r);
@@ -39,8 +36,6 @@ export function reviewToMarkdown(r: Review, flagPrecision: number): string {
     ] : []),
     ...(r.tasks.includes("clauses") ? [`| Clauses found | ${c.found} |`, `| Clauses not detected | ${c.missing} |`] : []),
     "",
-    `> Findings are model output and need a lawyer's review. About ${Math.round((1 - flagPrecision) * 100)}% ` +
-      "of \"Needs attention\" flags were wrong on the development set.", "",
     ...group("Needs attention", (i) => i.kind === "position" && i.tone === "red"),
     ...group("Not addressed", (i) => i.kind === "position" && i.tone === "amb"),
     ...group("Meets standard", (i) => i.kind === "position" && i.tone === "grn"),

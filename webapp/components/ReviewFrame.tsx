@@ -51,7 +51,7 @@ export default function ReviewFrame({ children, full }: {
           <h1 className="ell">{review?.documentName ?? "Loading…"}</h1>
           <div className="sub">
             {review?.representing && <>Acting for {review.representing} · </>}
-            {review?.sample ? "Sample from the cluster evaluation" : review && new Date(review.createdAt * 1000).toLocaleString()}
+            {review?.sample ? "Sample review" : review && new Date(review.createdAt * 1000).toLocaleString()}
           </div>
         </div>
         <span className="grow" />
@@ -109,8 +109,8 @@ function Running({ review }: { review: Review }) {
       <div className="card" style={{ padding: "18px 22px" }}>
         <h2>Analyzing</h2>
         <p className="muted" style={{ margin: "4px 0 10px" }}>
-          {review.status === "queued" ? "Starting: waking the model if it has scaled to zero."
-            : "Keep this tab open: the review runs in this request and is saved when it finishes."}
+          {review.status === "queued" ? "Starting the review…"
+            : "Keep this tab open while the review runs. It is saved automatically when it finishes."}
         </p>
         {stages.map((s, k) => (
           <div key={s.k} className={`stg ${k < cur ? "done" : k === cur && review.status === "running" ? "now" : ""}`}>
@@ -136,8 +136,8 @@ function Failed({ review, onRerun }: { review: Review; onRerun: () => void }) {
   const interrupted = review.status === "interrupted";
   return (
     <Notice title={interrupted ? "This review was interrupted" : "This review failed"}
-            body={interrupted ? "The model server stopped before it finished. Nothing was lost except progress; run it again to finish."
-              : review.error || "Unknown error"}>
+            body={interrupted ? "This review did not finish. Run it again to complete it."
+              : review.error || "Something went wrong. Please try again."}>
       <div style={{ display: "flex", gap: 8, marginTop: 14 }}>
         <button className="btn pri" disabled={busy} onClick={async () => {
           setBusy(true); setErr(null);

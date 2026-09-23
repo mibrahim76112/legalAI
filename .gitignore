@@ -28,3 +28,18 @@ results/*.preds.jsonl
 ./*.jsonl
 # cluster bundles: large, and the code inside is tracked unpacked
 *.tar.gz
+# run logs and scratch results (keep the archived drift/eval JSON, not the noise)
+*.log
+results/*.log
+results/try*.jsonl
+results/*smoke*.jsonl
+
+# local review store and env
+.data/
+webapp/.data/
+*.env.local
+
+# editor/agent tool files
+AGENTS.md
+CLAUDE.md
+.claude/

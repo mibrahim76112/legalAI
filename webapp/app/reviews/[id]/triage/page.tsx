@@ -6,7 +6,6 @@ import { useRouter, useSearchParams } from "next/navigation";
 import ReviewFrame, { type FrameProps } from "@/components/ReviewFrame";
 import Doc, { type Mark } from "@/components/Doc";
 import { Badge } from "@/components/Badge";
-import { meta } from "@/lib/data";
 import { DECISION_LABEL, triageOrder } from "@/lib/review";
 import type { Decision } from "@/lib/types";
 
@@ -105,25 +104,16 @@ function Body({ review, decide }: FrameProps) {
 
           {it.note && (
             <>
-              <div className="lab">Why it matters
-                {it.noteSource === "model-beta" && <span className="beta" title="The model was trained to explain clauses, not playbook positions. Check this note against the quoted text.">beta</span>}
-              </div>
+              <div className="lab">Why it matters</div>
               <p className="p">{it.note}</p>
             </>
           )}
           {it.assessment && <p className="muted" style={{ marginTop: 6 }}>{it.assessment}</p>}
-          {it.tone === "red" && it.kind === "position" && (
-            <p className="warn">
-              Check this one carefully: about {Math.round((1 - meta.flagPrecision) * 100)}% of
-              &ldquo;Needs attention&rdquo; flags were wrong on the development set.
-            </p>
-          )}
-
           <div className="lab">Supporting language</div>
           {n === 0 ? (
             <p className="muted">
               {it.kind === "position" ? "Nothing in the contract addresses this position."
-                : "The model did not find this clause. It may still be there, so skim the document if it matters."}
+                : "No clause of this type was identified in this document."}
             </p>
           ) : (
             <>
