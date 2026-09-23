@@ -7,7 +7,7 @@ import ReviewFrame, { type FrameProps } from "@/components/ReviewFrame";
 import Doc, { type Mark } from "@/components/Doc";
 import { Badge } from "@/components/Badge";
 import { DECISION_LABEL, triageOrder } from "@/lib/review";
-import type { Decision } from "@/lib/types";
+import type { Decision, Item, Tone } from "@/lib/types";
 
 export default function Triage() {
   return (
@@ -21,10 +21,29 @@ const ACTIONS: [Exclude<Decision, null>, string, string][] = [
   ["ok", "Accept", "A"], ["flag", "Flag for follow-up", "F"], ["skip", "Dismiss", "D"],
 ];
 
+type Filter = "all" | Tone | "undecided";
+
+const FILTERS: { k: Filter; label: string; match: (i: Item) => boolean }[] = [
+  { k: "all", label: "All", match: () => true },
+  { k: "red", label: "Needs attention", match: (i) => i.tone === "red" },
+  { k: "amb", label: "Not addressed", match: (i) => i.tone === "amb" },
+  { k: "grn", label: "Meets standard", match: (i) => i.tone === "grn" },
+  { k: "gry", label: "Not detected", match: (i) => i.tone === "gry" },
+  { k: "undecided", label: "Undecided", match: (i) => !i.decision },
+];
+
 function Body({ review, decide }: FrameProps) {
   const router = useRouter();
-  const order = useMemo(() => triageOrder(review), [review]);
-  const want = useSearchParams().get("item");
+  const all = useMemo(() => triageOrder(review), [review]);
+  const params = useSearchParams();
+  const want = params.get("item");
+  const filter = (params.get("filter") ?? "all") as Filter;
+  const match = FILTERS.find((f) => f.k === filter)?.match ?? (() => true);
+  // keep the open finding visible even when it falls outside the filter
+  const order = useMemo(() => {
+    const kept = all.filter((i) => match(i) || i.id === want);
+    return kept.length ? kept : all;
+  }, [all, filter, want]);  // eslint-disable-line react-hooks/exhaustive-deps
   const idx = Math.max(0, order.findIndex((i) => i.id === want));
   const it = order[idx];
   const [ev, setEv] = useState(0);
@@ -35,9 +54,15 @@ function Body({ review, decide }: FrameProps) {
 
   useEffect(() => { setEv(0); setComment(it.comment ?? ""); setErr(null); setSaved(false); }, [it.id]); // eslint-disable-line react-hooks/exhaustive-deps
 
+  const q = (item: string, f: Filter = filter) =>
+    `/reviews/${review.id}/triage?item=${item}${f === "all" ? "" : `&filter=${f}`}`;
   const go = (k: number) => {
     const n = order[(k + order.length) % order.length];
-    router.replace(`/reviews/${review.id}/triage?item=${n.id}`, { scroll: false });
+    router.replace(q(n.id), { scroll: false });
+  };
+  const setFilter = (f: Filter) => {
+    const kept = all.filter(FILTERS.find((x) => x.k === f)!.match);
+    router.replace(q((kept[0] ?? it).id, f), { scroll: false });
   };
   const nextUndecided = () => {
     for (let k = 1; k <= order.length; k++) {
@@ -84,7 +109,7 @@ function Body({ review, decide }: FrameProps) {
     key: `${it.id}:${i}`, start: s.start, end: s.end, tone: it.tone, itemId: it.id,
   }));
   const n = it.evidence.length;
-  const decided = order.filter((i) => i.decision).length;
+  const decided = all.filter((i) => i.decision).length;
 
   return (
     <div className="split">
@@ -93,6 +118,19 @@ function Body({ review, decide }: FrameProps) {
           <button className="btn sm" onClick={() => go(idx - 1)} title="Previous (K)">‹</button>
           <span className="muted">Finding {idx + 1} of {order.length} · {decided} decided</span>
           <button className="btn sm" onClick={() => go(idx + 1)} title="Next (J)">›</button>
+        </div>
+        <div className="filters">
+          {FILTERS.map((f) => {
+            const n = all.filter(f.match).length;
+            if (!n && f.k !== "all") return null;
+            return (
+              <button key={f.k} className={`f${filter === f.k ? " on" : ""}`}
+                      onClick={() => setFilter(f.k)}>
+                {f.k !== "all" && f.k !== "undecided" && <span className={`d d-${f.k}`} />}
+                {f.label}<span className="c">{f.k === "all" ? all.length : n}</span>
+              </button>
+            );
+          })}
         </div>
         <div className="tcard">
           <div className="kind">{it.kind === "position" ? "Playbook position" : "Clause category"}</div>
@@ -145,7 +183,7 @@ function Body({ review, decide }: FrameProps) {
               : saved ? <span className="muted">Saved</span>
               : <span className="muted">Keys: J/K next/previous · A/F/D decide · C comment</span>}
           </div>
-          {decided === order.length && (
+          {decided === all.length && (
             <Link className="btn pri big" style={{ marginTop: 14 }} href={`/reviews/${review.id}/report`}>
               All findings decided: open the report →</Link>
           )}

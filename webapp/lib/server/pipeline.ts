@@ -88,11 +88,30 @@ function parsePresent(raw: string): [boolean | null, string[]] {
   return [typeof o?.present === "boolean" ? o.present : null, evidenceOf(o)];
 }
 
-/** Character ranges covering the text, each within the model's window. */
+/** Shrink [start,end) until the server's tokenizer says it fits the window. */
+async function fit(text: string, start: number, end: number): Promise<number> {
+  for (let i = 0; i < 6; i++) {
+    const n = await countTokens(text.slice(start, end));
+    if (n === null || n <= WINDOW_TOKENS) return end;
+    // scale by the measured ratio, with a little margin, then snap to a line
+    const target = Math.floor((end - start) * (WINDOW_TOKENS / n) * 0.95);
+    const shrunk = start + Math.max(target, 1000);
+    if (shrunk >= end) return end;
+    const nl = text.lastIndexOf("\n", shrunk);
+    end = nl > start + SNAP_CHARS ? nl + 1 : shrunk;
+  }
+  return end;
+}
+
+/**
+ * Character ranges covering the text, each within the model's window.
+ *
+ * The character estimate only picks the starting size: a token-dense contract
+ * can still exceed the window, and the endpoint rejects the whole request when
+ * it does, so every window is checked against the real tokenizer.
+ */
 export async function windows(text: string): Promise<[number, number][]> {
   if (text.length / CHARS_PER_TOKEN <= WINDOW_TOKENS) {
-    // the char estimate is deliberately pessimistic; confirm with the server's
-    // own tokenizer when it answers, and trust the estimate when it does not
     const n = await countTokens(text);
     if (n === null || n <= WINDOW_TOKENS) return [[0, text.length]];
   }
@@ -105,6 +124,7 @@ export async function windows(text: string): Promise<[number, number][]> {
       const nl = text.lastIndexOf("\n", end);
       if (nl > start + SNAP_CHARS) end = nl + 1;
     }
+    end = await fit(text, start, end);
     out.push([start, end]);
     if (end >= text.length) break;
     start = Math.max(end - OVERLAP_CHARS, start + 1);
