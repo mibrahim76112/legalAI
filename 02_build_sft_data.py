@@ -29,6 +29,8 @@ SUBSET_TO_FILE = {"train": "train", "dev": "valid", "test": "test"}
 # withheld from training; leaves the main contradiction sources in train
 HELDOUT_HYPOTHESES = ["nda-1", "nda-8", "nda-11", "nda-13"]
 
+SMOKE_SIZES = {"train": 300, "valid": 100, "test": 100}
+
 SYSTEM_PROMPT = (
     "You are reviewing a clause from a Non-Disclosure Agreement against a "
     "company policy position. Given the CLAUSE and the POLICY, determine "
@@ -117,11 +119,25 @@ def oversample(rows, target_label="Contradiction", seed=0):
     return out
 
 
+def stratified_sample(rows, n, seed=0):
+    """Take n rows keeping the label proportions."""
+    by_label = collections.defaultdict(list)
+    for r in rows:
+        by_label[r["label"]].append(r)
+    rng = random.Random(seed)
+    out = []
+    for label, group in sorted(by_label.items()):
+        k = max(1, round(n * len(group) / len(rows)))
+        out += rng.sample(group, min(k, len(group)))
+    rng.shuffle(out)
+    return out[:n]
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument(
         "--variant",
-        choices=["baseline", "oversampled", "heldout_hypothesis", "all"],
+        choices=["baseline", "oversampled", "heldout_hypothesis", "smoke", "all"],
         default="all",
     )
     args = ap.parse_args()
@@ -134,7 +150,7 @@ def main():
     for r in rows:
         by_subset[r["subset"]].append(r)
 
-    want = ["baseline", "oversampled", "heldout_hypothesis"]
+    want = ["baseline", "oversampled", "heldout_hypothesis", "smoke"]
     if args.variant != "all":
         want = [args.variant]
 
@@ -150,6 +166,13 @@ def main():
         write_split(out, "train", oversample(by_subset["train"]))
         write_split(out, "valid", by_subset["dev"])
         write_split(out, "test", by_subset["test"])
+
+    if "smoke" in want:
+        print("\nsmoke")
+        out = os.path.join(OUT_ROOT, "smoke")
+        for subset, fname in SUBSET_TO_FILE.items():
+            rows_n = stratified_sample(by_subset[subset], SMOKE_SIZES[fname])
+            write_split(out, fname, rows_n)
 
     if "heldout_hypothesis" in want:
         print(f"\nheldout_hypothesis (unseen: {HELDOUT_HYPOTHESES})")

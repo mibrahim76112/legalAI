@@ -1,5 +1,6 @@
 *.env
 venv/
+venv-mlx/
 
 __pycache__/
 *.pyc
@@ -14,3 +15,29 @@ __pycache__/
 contract_nli/
 flat_data/
 sft_data/
+adapters/
+
+.DS_Store
+._*
+__MACOSX/
+
+*.zip
+*.safetensors
+results/*.preds.jsonl
+
+./*.jsonl
+# cluster bundles: large, and the code inside is tracked unpacked
+*.tar.gz
+# run logs and scratch results (keep the archived drift/eval JSON, not the noise)
+*.log
+results/*.log
+results/try*.jsonl
+results/*smoke*.jsonl
+
+# local review store and env
+.data/
+webapp/.data/
+*.env.local
+
+# editor/tooling files
+AGENTS.md

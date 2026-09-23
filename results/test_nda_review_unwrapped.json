@@ -1,0 +1,288 @@
+{
+ "id": "aa733e85db",
+ "documentName": "test_nda",
+ "representing": "Receiving Party",
+ "counterparty": "Disclosing Party",
+ "playbookName": "Standard playbook",
+ "documentText": "MUTUAL NON-DISCLOSURE AGREEMENT\nNorthwind Analytics Inc. \u00b7 Corvid Systems Ltd.\nThis Mutual Non-Disclosure Agreement (this \u201cAgreement\u201d) is entered into as of 14 March 2025 (the \u201cEffective Date\u201d) by and between Northwind Analytics Inc., a Delaware corporation with offices at 1100 Harbour Street, Wilmington, Delaware (\u201cNorthwind\u201d), and Corvid Systems Ltd., a company incorporated in Ontario with offices at 44 Bayview Road, Toronto, Ontario (\u201cCorvid\u201d). Each party may disclose Confidential Information to the other and each party may receive Confidential Information from the other. Each party, when disclosing, is the \u201cDisclosing Party\u201d and, when receiving, is the \u201cReceiving Party\u201d.\n1. Purpose\nThe parties wish to explore a potential commercial relationship concerning data integration services (the \u201cPurpose\u201d). In connection with the Purpose, each party may disclose to the other certain non-public business, technical and financial information.\n2. Definition of Confidential Information\n\u201cConfidential Information\u201d means all non-public information disclosed by the Disclosing Party to the Receiving Party, whether disclosed orally, in writing or by inspection of tangible objects, that is either (a) marked or otherwise identified in writing as \u201cConfidential\u201d, \u201cProprietary\u201d or with a similar legend at the time of disclosure, or (b) if disclosed orally, identified as confidential at the time of disclosure and confirmed in writing within thirty (30) days of such disclosure.\n3. Exclusions\nConfidential Information does not include information that: (a) is or becomes publicly known through no act or omission of the Receiving Party; (b) was rightfully in the Receiving Party\u2019s possession without restriction prior to disclosure by the Disclosing Party;\n(c) is rightfully received from a third party without restriction and without breach of any obligation of confidentiality; or (d) is independently developed by the Receiving Party without use of or reference to the Confidential Information.\n4. Obligations of the Receiving Party\nThe Receiving Party shall hold the Confidential Information in strict confidence and shall not disclose any Confidential Information to any third party without the prior written consent of the Disclosing Party. The Receiving Party shall use the same degree of care to protect the Confidential Information as it uses to protect its own confidential information of like importance, but in no event less than reasonable care.\n5. Permitted Disclosure to Personnel\nThe Receiving Party may disclose Confidential Information to those of its employees and officers who have a bona fide need to know such Confidential Information for the Purpose, provided that each such employee or officer is bound by written obligations of confidentiality no less protective than those set out in this Agreement. The Receiving Party remains responsible for any breach of this Agreement by such persons.\n6. Use Restriction\nThe Receiving Party shall use the Confidential Information solely for the Purpose and for no other purpose whatsoever. The Receiving Party shall not use the Confidential Information for the benefit of any third party or for its own competitive advantage.\n7. No Reverse Engineering\nThe Receiving Party shall not reverse engineer, disassemble or decompile any prototypes, software or other tangible objects which embody the Disclosing Party\u2019s Confidential Information and which are provided to the Receiving Party hereunder.\n8. No Licence\nNothing in this Agreement is intended to grant any rights to the Receiving Party under any patent, copyright, trade secret or other intellectual property right of the Disclosing Party, nor shall this Agreement grant the Receiving Party any rights in or to the Confidential Information except as expressly set forth herein. No licence is granted, whether express or implied, and the Receiving Party shall not sublicense any Confidential Information to any person.\n9. Compelled Disclosure\nIn the event the Receiving Party is required by law, regulation or valid court order to disclose any Confidential Information, the Receiving Party shall promptly notify the Disclosing Party in writing prior to making any such disclosure, so as to afford the Disclosing Party a reasonable opportunity to seek a protective order or other appropriate remedy, and shall disclose only that portion of the Confidential Information which it is legally required to disclose.\n10. Term and Termination\nThis Agreement commences on the Effective Date and continues for a period of two (2) years, unless earlier terminated by either party upon thirty (30) days\u2019 prior written notice to the other party.\n11. Return of Materials\nUpon the written request of the Disclosing Party, or upon termination or expiration of this Agreement, the Receiving Party shall promptly return to the Disclosing Party all documents and other tangible materials containing or representing the Confidential Information, together with all copies thereof in the Receiving Party\u2019s possession or control, or shall destroy the same and certify such destruction in writing to the Disclosing Party.\n12. Survival\nThe obligations of confidentiality and non-use set out in Sections 4, 5, 6 and 8 shall survive the termination or expiration of this Agreement and shall continue for a period of three (3) years from the date of such termination or expiration.\n13. No Warranty\nAll Confidential Information is provided \u201cas is\u201d. The Disclosing Party makes no warranties, express or implied, regarding the accuracy or completeness of any Confidential Information.\n14. Governing Law\nThis Agreement shall be governed by and construed in accordance with the laws of the Province of Ontario and the federal laws of Canada applicable therein, without regard to conflict of laws principles.\n15. Entire Agreement\nThis Agreement constitutes the entire agreement between the parties with respect to the subject matter hereof and supersedes all prior discussions, negotiations and agreements, whether oral or written. Any amendment must be in writing and signed by both parties.\nNORTHWIND ANALYTICS INC.\nName:\nTitle:\nDate:\nCORVID SYSTEMS LTD.\nName:\nTitle:\nDate:",
+ "compliance": [
+  {
+   "id": "p0",
+   "kind": "position",
+   "title": "Receiving Party may acquire information similar to Confidential Information from a third party.",
+   "status": "Meets standard",
+   "tone": "grn",
+   "evidence": [
+    {
+     "text": "Confidential Information does not include information that:",
+     "start": 1493,
+     "end": 1552
+    },
+    {
+     "text": "(c) is rightfully received from a third party without restriction and without breach of any obligation of confidentiality; or",
+     "start": 1757,
+     "end": 1882
+    }
+   ],
+   "note": "The contract supports this position."
+  },
+  {
+   "id": "p1",
+   "kind": "position",
+   "title": "Receiving Party may share some Confidential Information with some third-parties (including consultants, agents and professional advisors).",
+   "status": "Needs attention",
+   "tone": "red",
+   "evidence": [
+    {
+     "text": "The Receiving Party shall hold the Confidential Information in strict confidence and shall not disclose any Confidential Information to any third party without the prior written consent of the Disclosing Party.",
+     "start": 2036,
+     "end": 2246
+    }
+   ],
+   "note": "The contract appears to conflict with this position."
+  },
+  {
+   "id": "p2",
+   "kind": "position",
+   "title": "Receiving Party shall destroy or return some Confidential Information upon the termination of Agreement.",
+   "status": "Meets standard",
+   "tone": "grn",
+   "evidence": [
+    {
+     "text": "Upon the written request of the Disclosing Party, or upon termination or expiration of this Agreement, the Receiving Party shall promptly return to the Disclosing Party all documents and other tangible materials containing or representing the Confidential Information, together with all copies thereof in the Receiving Party\u2019s possession or control, or shall destroy the same and certify such destruction in writing to the Disclosing Party.",
+     "start": 4673,
+     "end": 5113
+    }
+   ],
+   "note": "The contract supports this position."
+  },
+  {
+   "id": "p3",
+   "kind": "position",
+   "title": "Receiving Party may retain some Confidential Information even after the return or destruction of Confidential Information.",
+   "status": "Needs attention",
+   "tone": "red",
+   "evidence": [
+    {
+     "text": "Upon the written request of the Disclosing Party, or upon termination or expiration of this Agreement, the Receiving Party shall promptly return to the Disclosing Party all documents and other tangible materials containing or representing the Confidential Information, together with all copies thereof in the Receiving Party\u2019s possession or control, or shall destroy the same and certify such destruction in writing to the Disclosing Party.",
+     "start": 4673,
+     "end": 5113
+    }
+   ],
+   "note": "The contract appears to conflict with this position."
+  },
+  {
+   "id": "p4",
+   "kind": "position",
+   "title": "Receiving Party may share some Confidential Information with some of Receiving Party's employees.",
+   "status": "Meets standard",
+   "tone": "grn",
+   "evidence": [
+    {
+     "text": "The Receiving Party may disclose Confidential Information to those of its employees and officers who have a bona fide need to know such Confidential Information for the Purpose, provided that each such employee or officer is bound by written obligations of confidentiality no less protective than those set out in this Agreement.",
+     "start": 2496,
+     "end": 2825
+    }
+   ],
+   "note": "The contract supports this position."
+  },
+  {
+   "id": "p5",
+   "kind": "position",
+   "title": "Receiving Party shall not disclose the fact that Agreement was agreed or negotiated.",
+   "status": "Not addressed",
+   "tone": "amb",
+   "evidence": [],
+   "note": "The contract does not address this."
+  },
+  {
+   "id": "p6",
+   "kind": "position",
+   "title": "Receiving Party shall notify Disclosing Party in case Receiving Party is required by law, regulation or judicial process to disclose any Confidential Information.",
+   "status": "Meets standard",
+   "tone": "grn",
+   "evidence": [
+    {
+     "text": "In the event the Receiving Party is required by law, regulation or valid court order to disclose any Confidential Information, the Receiving Party shall promptly notify the Disclosing Party in writing prior to making any such disclosure, so as to afford the Disclosing Party a reasonable opportunity to seek a protective order or other appropriate remedy, and shall disclose only that portion of the Confidential Information which it is legally required to disclose.",
+     "start": 3959,
+     "end": 4425
+    }
+   ],
+   "note": "The contract supports this position."
+  },
+  {
+   "id": "p7",
+   "kind": "position",
+   "title": "Receiving Party shall not reverse engineer any objects which embody Disclosing Party's Confidential Information.",
+   "status": "Meets standard",
+   "tone": "grn",
+   "evidence": [
+    {
+     "text": "The Receiving Party shall not reverse engineer, disassemble or decompile any prototypes, software or other tangible objects which embody the Disclosing Party\u2019s Confidential Information and which are provided to the Receiving Party hereunder.",
+     "start": 3216,
+     "end": 3457
+    }
+   ],
+   "note": "The contract supports this position."
+  },
+  {
+   "id": "p8",
+   "kind": "position",
+   "title": "Receiving Party shall not solicit some of Disclosing Party's representatives.",
+   "status": "Not addressed",
+   "tone": "amb",
+   "evidence": [],
+   "note": "The contract does not address this."
+  },
+  {
+   "id": "p9",
+   "kind": "position",
+   "title": "Confidential Information shall only include technical information.",
+   "status": "Needs attention",
+   "tone": "red",
+   "evidence": [
+    {
+     "text": "In connection with the Purpose, each party may disclose to the other certain non-public business, technical and financial information.",
+     "start": 813,
+     "end": 947
+    }
+   ],
+   "note": "The contract appears to conflict with this position."
+  },
+  {
+   "id": "p10",
+   "kind": "position",
+   "title": "Receiving Party may independently develop information similar to Confidential Information.",
+   "status": "Meets standard",
+   "tone": "grn",
+   "evidence": [
+    {
+     "text": "Confidential Information does not include information that:",
+     "start": 1493,
+     "end": 1552
+    },
+    {
+     "text": "(d) is independently developed by the Receiving Party without use of or reference to the Confidential Information.",
+     "start": 1883,
+     "end": 1997
+    }
+   ],
+   "note": "The contract supports this position."
+  },
+  {
+   "id": "p11",
+   "kind": "position",
+   "title": "Receiving Party may create a copy of some Confidential Information in some circumstances.",
+   "status": "Not addressed",
+   "tone": "amb",
+   "evidence": [],
+   "note": "The contract does not address this."
+  },
+  {
+   "id": "p12",
+   "kind": "position",
+   "title": "Confidential Information may include verbally conveyed information.",
+   "status": "Meets standard",
+   "tone": "grn",
+   "evidence": [
+    {
+     "text": "\u201cConfidential Information\u201d means all non-public information disclosed by the Disclosing Party to the Receiving Party, whether disclosed orally, in writing or by inspection of tangible objects, that is either",
+     "start": 990,
+     "end": 1197
+    },
+    {
+     "text": "(a) marked or otherwise identified in writing as \u201cConfidential\u201d, \u201cProprietary\u201d or with a similar legend at the time of disclosure, or",
+     "start": 1198,
+     "end": 1331
+    },
+    {
+     "text": "(b) if disclosed orally, identified as confidential at the time of disclosure and confirmed in writing within thirty (30) days of such disclosure.",
+     "start": 1332,
+     "end": 1478
+    }
+   ],
+   "note": "The contract supports this position."
+  },
+  {
+   "id": "p13",
+   "kind": "position",
+   "title": "All Confidential Information shall be expressly identified by the Disclosing Party.",
+   "status": "Meets standard",
+   "tone": "grn",
+   "evidence": [
+    {
+     "text": "\u201cConfidential Information\u201d means all non-public information disclosed by the Disclosing Party to the Receiving Party, whether disclosed orally, in writing or by inspection of tangible objects, that is either",
+     "start": 990,
+     "end": 1197
+    },
+    {
+     "text": "(a) marked or otherwise identified in writing as \u201cConfidential\u201d, \u201cProprietary\u201d or with a similar legend at the time of disclosure, or",
+     "start": 1198,
+     "end": 1331
+    },
+    {
+     "text": "(b) if disclosed orally, identified as confidential at the time of disclosure and confirmed in writing within thirty (30) days of such disclosure.",
+     "start": 1332,
+     "end": 1478
+    }
+   ],
+   "note": "The contract supports this position."
+  },
+  {
+   "id": "p14",
+   "kind": "position",
+   "title": "Agreement shall not grant Receiving Party any right to Confidential Information.",
+   "status": "Meets standard",
+   "tone": "grn",
+   "evidence": [
+    {
+     "text": "Nothing in this Agreement is intended to grant any rights to the Receiving Party under any patent, copyright, trade secret or other intellectual property right of the Disclosing Party, nor shall this Agreement grant the Receiving Party any rights in or to the Confidential Information except as expressly set forth herein.",
+     "start": 3472,
+     "end": 3794
+    }
+   ],
+   "note": "The contract supports this position."
+  },
+  {
+   "id": "p15",
+   "kind": "position",
+   "title": "Receiving Party shall not use any Confidential Information for any purpose other than the purposes stated in Agreement.",
+   "status": "Meets standard",
+   "tone": "grn",
+   "evidence": [
+    {
+     "text": "The Receiving Party shall use the Confidential Information solely for the Purpose and for no other purpose whatsoever.",
+     "start": 2935,
+     "end": 3053
+    },
+    {
+     "text": "The Receiving Party shall not use the Confidential Information for the benefit of any third party or for its own competitive advantage.",
+     "start": 3054,
+     "end": 3189
+    }
+   ],
+   "note": "The contract supports this position."
+  },
+  {
+   "id": "p16",
+   "kind": "position",
+   "title": "Some obligations of Agreement may survive termination of Agreement.",
+   "status": "Meets standard",
+   "tone": "grn",
+   "evidence": [
+    {
+     "text": "The obligations of confidentiality and non-use set out in Sections 4, 5, 6 and 8 shall survive the termination or expiration of this Agreement and shall continue for a period of three (3) years from the date of such termination or expiration.",
+     "start": 5127,
+     "end": 5369
+    }
+   ],
+   "note": "The contract supports this position."
+  }
+ ],
+ "clauses": [],
+ "stats": {
+  "windows": 1,
+  "unparsed": 0,
+  "unlocated_quotes": 0
+ }
+}

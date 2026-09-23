@@ -1,0 +1,8 @@
+node_modules/
+.next/
+next-env.d.ts
+*.tsbuildinfo
+
+# local env (never committed)
+.env*.local
+.data/
