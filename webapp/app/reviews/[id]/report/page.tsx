@@ -24,17 +24,27 @@ function Body({ review }: FrameProps) {
           <p className="muted" style={{ margin: "4px 0 0" }}>
             {c.decided < c.total
               ? `${c.total - c.decided} findings have no decision yet; they appear as "Not yet reviewed".`
-              : "Every finding has a decision."} Markdown opens in any editor and pastes into email, Notion or Word.
+              : "Every finding has a decision."} The PDF prints with your decisions and comments included.
           </p>
         </div>
         <span className="grow" />
         <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
-          <button className="btn pri" onClick={() => download(`${name}_review.md`, md)}>Download report (.md)</button>
+          <button className="btn pri" onClick={() => window.print()}>Download PDF</button>
+          <button className="btn" onClick={() => download(`${name}_review.md`, md)}>Markdown</button>
           <button className="btn" onClick={async () => {
             await navigator.clipboard.writeText(md); setCopied(true); setTimeout(() => setCopied(false), 1500);
           }}>{copied ? "Copied" : "Copy"}</button>
           <button className="btn" onClick={() => download(`${name}.md`, contractToMarkdown(review.documentName, review.documentText))}>
-            Contract as .md</button>
+            Contract</button>
+        </div>
+      </div>
+      <div className="printhead">
+        <h1>{review.documentName}</h1>
+        <div>
+          {review.representing ? `Acting for ${review.representing} · ` : ""}
+          {review.playbookName ?? "Standard playbook"} ·{" "}
+          {new Date(review.createdAt * 1000).toLocaleDateString(undefined,
+            { year: "numeric", month: "long", day: "numeric" })}
         </div>
       </div>
       <Markdown src={md} />
