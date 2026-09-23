@@ -114,6 +114,7 @@ export async function windows(text: string): Promise<[number, number][]> {
 
 export interface RunOptions {
   tasks: Task[];
+  positions?: string[];          // an uploaded playbook, else the standard one
   onProgress?: (p: Progress) => void | Promise<void>;
 }
 
@@ -126,10 +127,11 @@ export interface RunResult {
   playbookName: string;
 }
 
-export async function runReview(text: string, { tasks, onProgress }: RunOptions): Promise<RunResult> {
+export async function runReview(text: string, { tasks, positions, onProgress }: RunOptions): Promise<RunResult> {
+  const playbook = positions?.length ? positions : PLAYBOOK_POSITIONS;
   const wins = await windows(text);
   const qs: { kind: "nli" | "cuad"; q: string }[] = [
-    ...(tasks.includes("compliance") ? PLAYBOOK_POSITIONS.map((q) => ({ kind: "nli" as const, q })) : []),
+    ...(tasks.includes("compliance") ? playbook.map((q) => ({ kind: "nli" as const, q })) : []),
     ...(tasks.includes("clauses") ? CLAUSE_CATEGORIES.map((q) => ({ kind: "cuad" as const, q })) : []),
   ];
   const stats = { windows: wins.length, unparsed: 0, unlocated_quotes: 0 };
@@ -167,7 +169,7 @@ export async function runReview(text: string, { tasks, onProgress }: RunOptions)
 
   const compliance: Item[] = [];
   if (tasks.includes("compliance")) {
-    PLAYBOOK_POSITIONS.forEach((q, i) => {
+    playbook.forEach((q, i) => {
       const res = (perQ.get(`nli:${q}`) ?? []).filter(([v]) => v) as [string, string[]][];
       const verdict = res.map(([v]) => v).sort((a, b) => VERDICT_RANK[a] - VERDICT_RANK[b])[0] ?? "NotMentioned";
       const ev = res.filter(([v]) => v === verdict).flatMap(([, e]) => e);
@@ -219,7 +221,7 @@ export async function runReview(text: string, { tasks, onProgress }: RunOptions)
     compliance, clauses, stats,
     representing: tasks.includes("compliance") ? "Receiving Party" : "Counterparty",
     counterparty: tasks.includes("compliance") ? "Disclosing Party" : "—",
-    playbookName: "Standard playbook",
+    playbookName: positions?.length ? "Uploaded playbook" : "Standard playbook",
   };
 }
 

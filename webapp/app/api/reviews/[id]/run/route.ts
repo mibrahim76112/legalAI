@@ -23,6 +23,7 @@ export async function POST(_req: Request, { params }: { params: Promise<{ id: st
   try {
     const out = await runReview(rec.documentText, {
       tasks: rec.tasks,
+      positions: rec.positions ?? undefined,
       // progress goes to its own key so the polling GET (a different
       // invocation) can read it without racing this one's final write
       onProgress: (p) => setProgress(id, p),

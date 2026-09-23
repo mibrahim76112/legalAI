@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import Shell from "@/components/Shell";
 import Stepper from "@/components/Stepper";
@@ -24,13 +24,10 @@ export default function New() {
   const [tasks, setTasks] = useState<Task[]>([]);
   const [busy, setBusy] = useState(false);
   const [err, setErr] = useState<string | null>(null);
-  const [service, setService] = useState<string | null>(null);
+  const [book, setBook] = useState<{ name: string; positions: string[] } | null>(null);
   const fileRef = useRef<HTMLInputElement>(null);
+  const bookRef = useRef<HTMLInputElement>(null);
   const [drag, setDrag] = useState(false);
-
-  useEffect(() => {
-    api.health().then((h) => setService(h.model)).catch((e) => setService(String(e.message ?? e)));
-  }, []);
 
   const stats = useMemo(() => {
     const tokens = Math.round(text.length / 3.6);  // ~3.6 chars per token in contracts
@@ -38,16 +35,6 @@ export default function New() {
     const words = text ? text.trim().split(/\s+/).length : 0;
     return { tokens, windows, words };
   }, [text]);
-
-  // rough: ~7 s per question per window, plus ~4 s per note
-  const estimate = useMemo(() => {
-    const qs = (tasks.includes("compliance") ? POSITIONS.length : 0)
-      + (tasks.includes("clauses") ? CATEGORIES.length : 0);
-    const notes = (tasks.includes("compliance") ? POSITIONS.length * 0.8 : 0)
-      + (tasks.includes("clauses") ? 6 : 0);
-    const secs = qs * 7 * stats.windows + notes * 4 + stats.windows * (stats.tokens > 4000 ? 60 : 10);
-    return Math.max(1, Math.round(secs / 60));
-  }, [tasks, stats]);
 
   async function pick(f: File) {
     setFile(f); setErr(null); setBusy(true);
@@ -67,10 +54,25 @@ export default function New() {
     }
   }
 
+  const positions = book?.positions ?? POSITIONS;
+  const playbookLabel = book ? book.name : "standard";
+
+  async function pickBook(f: File) {
+    setErr(null); setBusy(true);
+    try {
+      setBook(await api.playbook(f));
+    } catch (e) {
+      setErr(e instanceof Error ? e.message : String(e));
+    } finally {
+      setBusy(false);
+    }
+  }
+
   async function start() {
     setBusy(true); setErr(null);
     try {
-      const { id } = await api.submit(text, tasks, name.trim() || "Contract");
+      const { id } = await api.submit(text, tasks, name.trim() || "Contract",
+                                      book?.positions, book?.name);
       // the review page starts the run and shows progress
       router.push(`/reviews/${id}`);
     } catch (e) {
@@ -87,13 +89,6 @@ export default function New() {
       </div>
       <div className="body-pad narrow">
         <Stepper steps={STEPS} at={step} />
-
-        {service && service !== "ready" && (
-          <p className="warn" style={{ marginBottom: 18 }}>
-            {service === "loading" ? "Preparing the service; you can upload a contract now."
-              : "The review service is unavailable right now."}
-          </p>
-        )}
 
         {step === 0 && (
           <div className="field">
@@ -142,7 +137,7 @@ export default function New() {
               <div className="h">Selected from the document; adjust if needed.</div>
               <div className="picks">
                 <Pick on={tasks.includes("compliance")} title="Playbook positions"
-                      sub={`${POSITIONS.length} NDA positions · is each one met, contradicted or missing?`}
+                      sub="Is each standing position met, contradicted or missing?"
                       onClick={() => setTasks((t) => t.includes("compliance")
                         ? t.filter((x) => x !== "compliance") : [...t, "compliance"])} />
                 <Pick on={tasks.includes("clauses")} title="Clause inventory"
@@ -150,11 +145,29 @@ export default function New() {
                       onClick={() => setTasks((t) => t.includes("clauses")
                         ? t.filter((x) => x !== "clauses") : [...t, "clauses"])} />
               </div>
-              <details className="det2">
-                <summary>What the playbook checks ({POSITIONS.length} positions)</summary>
-                <ol>{POSITIONS.map((p) => <li key={p}>{p}</li>)}</ol>
-              </details>
             </div>
+
+            {tasks.includes("compliance") && (
+              <div className="field">
+                <label>Playbook</label>
+                <div className="h">The standing positions each contract is checked against.</div>
+                <div className="picks">
+                  <Pick on={!book} title="Standard playbook"
+                        sub={`${POSITIONS.length} positions for inbound NDAs`}
+                        onClick={() => setBook(null)} />
+                  <Pick on={!!book} title={book ? book.name : "Upload your playbook"}
+                        sub={book ? `${book.positions.length} positions found`
+                                  : "PDF, DOCX or TXT — one position per line or bullet"}
+                        onClick={() => bookRef.current?.click()} />
+                </div>
+                <input ref={bookRef} type="file" hidden accept=".pdf,.docx,.txt"
+                       onChange={(e) => { const f = e.target.files?.[0]; if (f) pickBook(f); }} />
+                <details className="det2">
+                  <summary>Positions being checked ({positions.length})</summary>
+                  <ol>{positions.map((p) => <li key={p}>{p}</li>)}</ol>
+                </details>
+              </div>
+            )}
             <div className="wnav">
               <button className="btn" onClick={() => setStep(1)}>Back</button>
               <button className="btn pri" disabled={!tasks.length} onClick={() => setStep(3)}>Continue →</button>
@@ -168,9 +181,8 @@ export default function New() {
             <div className="card" style={{ padding: "16px 18px" }}>
               <Row k="Contract" v={`${name} · ${stats.words.toLocaleString()} words`} />
               <Row k="Checks" v={tasks.map((t) => t === "compliance"
-                ? `${POSITIONS.length} playbook positions` : `${CATEGORIES.length} clause types`).join(" + ")} />
-              <Row k="Passes" v={stats.windows === 1 ? "one" : `${stats.windows} overlapping parts`} />
-              <Row k="Roughly" v={`${estimate} minute${estimate > 1 ? "s" : ""}`} />
+                ? `${positions.length} playbook positions` : `${CATEGORIES.length} clause types`).join(" + ")} />
+              <Row k="Playbook" v={positions.length + " positions · " + playbookLabel} />
             </div>
             <p className="muted" style={{ marginTop: 10 }}>
               The review is saved automatically when it finishes.
