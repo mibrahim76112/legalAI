@@ -12,6 +12,7 @@ import type { Decision, Item, Review } from "@/lib/types";
 export interface FrameProps {
   review: Review;
   decide: (item: Item, d: Decision, comment: string | null) => Promise<void>;
+  explain: (item: Item) => Promise<void>;
 }
 
 const TABS = [
@@ -30,7 +31,7 @@ export default function ReviewFrame({ children, full }: {
 }) {
   const { id } = useParams<{ id: string }>();
   const path = usePathname();
-  const { review, error, reload, decide } = useReview(id);
+  const { review, error, reload, decide, explain } = useReview(id);
   const started = useRef(false);
 
   // a queued review has no worker behind it: this page starts the run, and the
@@ -77,7 +78,7 @@ export default function ReviewFrame({ children, full }: {
         {review && (review.status === "queued" || review.status === "running") && <Running review={review} />}
         {review && (review.status === "error" || review.status === "interrupted") &&
           <Failed review={review} onRerun={reload} />}
-        {review?.status === "done" && children({ review, decide })}
+        {review?.status === "done" && children({ review, decide, explain })}
       </div>
     </Shell>
   );
@@ -101,7 +102,6 @@ function Running({ review }: { review: Review }) {
     { k: "queued", l: "Reading the contract", on: true },
     { k: "positions", l: "Checking playbook positions", on: review.tasks.includes("compliance") },
     { k: "clauses", l: "Finding clauses", on: review.tasks.includes("clauses") },
-    { k: "notes", l: "Explaining what each finding means", on: true },
   ].filter((s) => s.on);
   const cur = Math.max(0, stages.findIndex((s) => s.k === (p?.stage ?? "queued")));
   return (
@@ -118,7 +118,7 @@ function Running({ review }: { review: Review }) {
             {k === cur && p && p.total > 0 && (
               <span className="muted" style={{ marginLeft: 8 }}>
                 {p.done} of {p.total}
-                {p.windows && p.windows > 1 && s.k !== "notes" && ` · part ${p.window} of ${p.windows}`}
+                {p.windows && p.windows > 1 && ` · part ${p.window} of ${p.windows}`}
               </span>
             )}
           </div>

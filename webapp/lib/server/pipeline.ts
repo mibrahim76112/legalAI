@@ -217,26 +217,6 @@ export async function runReview(text: string, { tasks, positions, onProgress }: 
     });
   }
 
-  // Task 3 was trained on (clause category, clause text). Clause notes are in
-  // distribution; position notes pass the position as the "category" and are
-  // outside it, hence model-beta and a label in the UI.
-  const toNote: [Item, "model" | "model-beta"][] = [
-    ...compliance.filter((i) => i.evidence.length).map((i) => [i, "model-beta"] as [Item, "model-beta"]),
-    ...clauses.filter((i) => i.evidence.length).map((i) => [i, "model"] as [Item, "model"]),
-  ];
-  let notesDone = 0;
-  await pool(toNote, PARALLEL, async ([item, source]) => {
-    const clause = item.evidence.map((s) => s.text).join(" ");
-    const raw = await ask([{ role: "system", content: TASK3_SYSTEM },
-                           { role: "user", content: task3User(item.title, clause) }]);
-    item.note = stripWrappers(raw).trim();
-    item.noteSource = source;
-    notesDone++;
-    if (notesDone % 4 === 0 || notesDone === toNote.length) {
-      await onProgress?.({ stage: "notes", done: notesDone, total: toNote.length });
-    }
-  });
-
   return {
     compliance, clauses, stats,
     representing: tasks.includes("compliance") ? "Receiving Party" : "Counterparty",
@@ -246,3 +226,16 @@ export async function runReview(text: string, { tasks, positions, onProgress }: 
 }
 
 export { norm };
+
+/**
+ * One finding's "why it matters" note, written on request.
+ *
+ * Task 3 was trained on (clause category, clause text), so it needs the quoted
+ * evidence: a finding with nothing quoted has nothing to explain.
+ */
+export async function writeNote(title: string, evidence: string[]): Promise<string> {
+  if (!evidence.length) throw new Error("This finding has no supporting language to explain.");
+  const raw = await ask([{ role: "system", content: TASK3_SYSTEM },
+                         { role: "user", content: task3User(title, evidence.join(" ")) }]);
+  return stripWrappers(raw).trim();
+}

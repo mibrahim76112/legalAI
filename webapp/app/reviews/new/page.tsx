@@ -25,6 +25,8 @@ export default function New() {
   const [busy, setBusy] = useState(false);
   const [err, setErr] = useState<string | null>(null);
   const [book, setBook] = useState<{ name: string; positions: string[] } | null>(null);
+  const [positions, setPositions] = useState<string[]>(PLAYBOOK_POSITIONS);
+  const [draft, setDraft] = useState("");
   const fileRef = useRef<HTMLInputElement>(null);
   const bookRef = useRef<HTMLInputElement>(null);
   const [drag, setDrag] = useState(false);
@@ -54,13 +56,25 @@ export default function New() {
     }
   }
 
-  const positions = book?.positions ?? POSITIONS;
-  const playbookLabel = book ? book.name : "standard";
+  const edited = book
+    ? positions.join("|") !== book.positions.join("|")
+    : positions.join("|") !== POSITIONS.join("|");
+  const playbookLabel = (book ? book.name : "standard") + (edited ? " (edited)" : "");
+  const custom = Boolean(book) || edited;
+
+  const addPosition = () => {
+    const t = draft.trim();
+    if (!t || positions.includes(t)) { setDraft(""); return; }
+    setPositions((ps) => [...ps, /[.!?]$/.test(t) ? t : `${t}.`]);
+    setDraft("");
+  };
 
   async function pickBook(f: File) {
     setErr(null); setBusy(true);
     try {
-      setBook(await api.playbook(f));
+      const b = await api.playbook(f);
+      setBook(b);
+      setPositions(b.positions);
     } catch (e) {
       setErr(e instanceof Error ? e.message : String(e));
     } finally {
@@ -72,7 +86,8 @@ export default function New() {
     setBusy(true); setErr(null);
     try {
       const { id } = await api.submit(text, tasks, name.trim() || "Contract",
-                                      book?.positions, book?.name);
+                                      custom ? positions : undefined,
+                                      custom ? playbookLabel : undefined);
       // the review page starts the run and shows progress
       router.push(`/reviews/${id}`);
     } catch (e) {
@@ -154,7 +169,7 @@ export default function New() {
                 <div className="picks">
                   <Pick on={!book} title="Standard playbook"
                         sub={`${POSITIONS.length} positions for inbound NDAs`}
-                        onClick={() => setBook(null)} />
+                        onClick={() => { setBook(null); setPositions(POSITIONS); }} />
                   <Pick on={!!book} title={book ? book.name : "Upload your playbook"}
                         sub={book ? `${book.positions.length} positions found`
                                   : "PDF, DOCX or TXT — one position per line or bullet"}
@@ -163,14 +178,34 @@ export default function New() {
                 <input ref={bookRef} type="file" hidden accept=".pdf,.docx,.txt"
                        onChange={(e) => { const f = e.target.files?.[0]; if (f) pickBook(f); }} />
                 <details className="det2">
-                  <summary>Positions being checked ({positions.length})</summary>
-                  <ol>{positions.map((p) => <li key={p}>{p}</li>)}</ol>
+                  <summary>Positions being checked ({positions.length}) — add or remove</summary>
+                  <div className="plist">
+                    {positions.map((p, i) => (
+                      <div key={`${i}-${p.slice(0, 24)}`} className="prow">
+                        <span className="n">{i + 1}</span>
+                        <span className="t">{p}</span>
+                        <button className="x" title="Remove this position"
+                                onClick={() => setPositions((ps) => ps.filter((_, k) => k !== i))}>✕</button>
+                      </div>
+                    ))}
+                    <div className="padd">
+                      <input type="text" value={draft} placeholder="Add a position, e.g. Receiving Party shall not…"
+                             onChange={(e) => setDraft(e.target.value)}
+                             onKeyDown={(e) => { if (e.key === "Enter") { e.preventDefault(); addPosition(); } }} />
+                      <button className="btn sm" disabled={!draft.trim()} onClick={addPosition}>Add</button>
+                    </div>
+                    {positions.length === 0 && (
+                      <p className="muted">Add at least one position, or switch back to the standard playbook.</p>
+                    )}
+                  </div>
                 </details>
               </div>
             )}
             <div className="wnav">
               <button className="btn" onClick={() => setStep(1)}>Back</button>
-              <button className="btn pri" disabled={!tasks.length} onClick={() => setStep(3)}>Continue →</button>
+              <button className="btn pri"
+                      disabled={!tasks.length || (tasks.includes("compliance") && !positions.length)}
+                      onClick={() => setStep(3)}>Continue →</button>
             </div>
           </>
         )}
