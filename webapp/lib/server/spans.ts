@@ -1,7 +1,7 @@
 /**
  * Quoted model output -> character offsets in the original contract.
  *
- * Port of macbundle/lib/spans.py, which round-tripped 745/745 gold spans on
+ * Port of inference/lib/spans.py, which round-tripped 745/745 gold spans on
  * the cluster. The invariant from that file holds here too: normWithMap(s)[0]
  * must equal norm(s) exactly, because the per-character index back into the
  * original is the only reason offsets are recoverable. `sameNorm` asserts it.

@@ -5,7 +5,7 @@ x @ A.T @ B.T * (alpha / r). mlx-lm's LoRALinear stores lora_a as (in, r) and
 lora_b as (r, out) and computes x @ lora_a @ lora_b * scale. So each matrix is
 transposed and scale = alpha / r.
 
-    python inference/convert_peft_to_mlx.py macbundle/adapter adapters/llama_3task_mlx
+    python inference/convert_peft_to_mlx.py adapters/llama_3task adapters/llama_3task_mlx
 """
 
 import json

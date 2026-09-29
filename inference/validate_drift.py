@@ -16,7 +16,8 @@ from collections import Counter
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-sys.path.insert(0, str(ROOT / "macbundle" / "lib"))
+sys.path.insert(0, str(ROOT / "inference" / "lib"))
+sys.path.insert(0, str(ROOT / "v1_contractnli"))
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 from doc_harness import parse_output, _find_json, strip_wrappers  # noqa: E402
@@ -105,7 +106,7 @@ def report(recs):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--data", default=str(ROOT / "macbundle" / "validation_60.jsonl"))
+    ap.add_argument("--data", default=str(ROOT / "inference" / "validation_60.jsonl"))
     ap.add_argument("--model", default="mlx-community/Meta-Llama-3.1-8B-Instruct-4bit")
     ap.add_argument("--adapter", default=str(ROOT / "adapters" / "llama_3task_mlx"))
     # required: the file is appended to and resumed from, so two runs must not share it

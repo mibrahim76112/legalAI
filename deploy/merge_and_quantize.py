@@ -3,7 +3,7 @@
 Run on a CUDA box (cluster or Colab), not the Mac: it needs the bf16 base in
 PyTorch. FP8_DYNAMIC is data-free, so there is no calibration set.
 
-    python deploy/merge_and_quantize.py --adapter macbundle4b/adapter \
+    python deploy/merge_and_quantize.py --adapter adapters/qwen3_4b_3task \
         --out qwen3-4b-contract-fp8
 
 Skip this entirely if you serve the adapter with vLLM's --enable-lora

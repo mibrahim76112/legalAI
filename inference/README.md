@@ -1,12 +1,12 @@
 # Local inference (Mac, MLX)
 
 Llama-3.1-8B-Instruct 4-bit + the cluster's three-task LoRA adapter,
-converted from PEFT. Needs `macbundle/` (from the cluster) alongside.
+converted from PEFT. Shared modules come from `inference/lib/` and `v1_contractnli/`.
 
 ## One-time setup
 
 ```bash
-venv-mlx/bin/python inference/convert_peft_to_mlx.py macbundle/adapter adapters/llama_3task_mlx
+venv-mlx/bin/python inference/convert_peft_to_mlx.py adapters/llama_3task adapters/llama_3task_mlx
 venv-mlx/bin/pip install pypdf
 ```
 

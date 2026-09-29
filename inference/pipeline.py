@@ -1,7 +1,7 @@
 """Contract -> Review: the three-task adapter run over one live document.
 
 Contracts longer than the context budget are split into overlapping windows
-(the cluster's CUAD path was windowed too, see macbundle/README). Windows are
+(the cluster's CUAD path was windowed too, see inference/README). Windows are
 the outer loop and questions the inner one, so each window's prefill is paid
 once and reused for every question through the engine's prefix cache.
 
@@ -13,7 +13,8 @@ from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-sys.path.insert(0, str(ROOT / "macbundle" / "lib"))
+sys.path.insert(0, str(ROOT / "inference" / "lib"))
+sys.path.insert(0, str(ROOT / "v1_contractnli"))
 
 import prompts as P  # noqa: E402
 from doc_harness import parse_output, _find_json, strip_wrappers  # noqa: E402

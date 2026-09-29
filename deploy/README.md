@@ -35,7 +35,7 @@ Roughly 1.5-2x the throughput of bf16 and frees GPU memory. Run
 has no CUDA and would need the multi-GB bf16 base first.
 
     pip install torch transformers peft llmcompressor
-    python merge_and_quantize.py --adapter macbundle4b/adapter --out qwen3-4b-contract-fp8
+    python merge_and_quantize.py --adapter adapters/qwen3_4b_3task --out qwen3-4b-contract-fp8
 
 FP8_DYNAMIC is data-free, so there is no calibration set to get wrong. Only if
 FP8 costs too much accuracy is W4A16 + GPTQ worth the calibration data (use
@@ -52,7 +52,7 @@ rehearsals; turn it off on demo day so the first request isn't a cold start.
 
 ## Prompt parity, or the numbers stop meaning anything
 
-* The system prompts must stay byte-identical to `macbundle*/lib/prompts.py`.
+* The system prompts must stay byte-identical to `inference/lib/prompts.py`.
 * Task 3 uses the SHORT prompt (`TASK3_SYSTEM_TRAINED` in
   `inference/pipeline.py`), not `prompts.TASK3_SYSTEM`.
 * `temperature=0`, `max_tokens=1024`.
@@ -66,7 +66,7 @@ Same check as the local build, against the same reference:
 
     python inference/validate_drift.py --backend remote \
       --endpoint https://<id>.endpoints.huggingface.cloud/v1 \
-      --data macbundle4b/validation_60.jsonl --out results/drift_endpoint.jsonl
+      --data inference/validation_60.jsonl --out results/drift_endpoint.jsonl
 
 Compare label agreement with `cluster_bf16_output` to the local figures in
 `inference/README.md`. A quantized endpoint that agrees less than local 4-bit

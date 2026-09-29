@@ -1,6 +1,6 @@
 /**
  * The prompts the adapter was trained on, copied verbatim from
- * macbundle/lib/prompts.py. Changing a character puts the model
+ * inference/lib/prompts.py. Changing a character puts the model
  * off-distribution, so treat these as fixed.
  *
  * Task 3 uses the SHORT system prompt that the validation rows use, not
