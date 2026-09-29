@@ -6,7 +6,8 @@ each one in a sentence a non-lawyer can act on. Every answer is anchored to
 quoted contract text, so a reviewer can verify rather than trust.
 
 Built as a technical assessment. One LoRA adapter handles all three tasks, and
-there's a Next.js demo that runs on real model output.
+there's a Next.js interface in `webapp/` that runs on real model output — every
+finding on screen came from the fine-tuned adapter, nothing is mocked.
 
 ## The three tasks
 
@@ -117,8 +118,10 @@ v2/
   measure_ttft.py       latency at concurrency 1
   near_dup_check.py     MinHash near-duplicate screen across splits
   jobs/                 SLURM scripts
-  webapp/               Next.js demo (see its own README)
   *.md                  findings, decisions, methodology
+
+webapp/                 Next.js review interface, with API routes that call the
+                        model for live extraction. See webapp/README.md.
 
 v1_contractnli/         earlier single-task work. Frozen; imported from, never edited.
 ```
@@ -142,7 +145,7 @@ sbatch v2/jobs/eval_multitask.sh
 The demo:
 
 ```bash
-cd v2/webapp && npm install && npm run dev
+cd webapp && npm install && npm run dev
 ```
 
 ## Honest limitations
