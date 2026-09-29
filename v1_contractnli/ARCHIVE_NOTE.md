@@ -29,6 +29,33 @@ moved with `git mv`, so per-file history is intact.
 - Oracle evidence: perfect retrieval does **not** improve verdicts (±0.008).
 - CUAD: rejected by the Phase 0 decision rule (14–16% vs a 40% threshold).
 
+## Rebuilding the training data
+
+The `doc_sft*/` and `reasoning/` JSONL files are not tracked — they are derived
+from ContractNLI and came to 618 MB, which is a lot to clone for something a
+build script reproduces. Run these from inside `v1_contractnli/`, in order; the
+later steps read the earlier ones.
+
+| step | command | writes |
+|---|---|---|
+| 1 | `python build_doc_sft.py` | `doc_sft/` — downloads ContractNLI from the Hub |
+| 2 | `python build_oracle_eval.py` | `doc_sft_oracle/` — reads `doc_sft/valid.jsonl` |
+| 3 | `bash gen_reasoning.sh` | `reasoning/` — **needs a GPU**, ~3h |
+| 4 | `python build_armb_data.py` | `doc_sft_armb/` — reads `reasoning/pass1_raw.jsonl` and `doc_sft/train.jsonl` |
+
+Everything except step 3 is CPU text processing. Seeds and the drop list are
+fixed in the scripts, so the splits come back identical — check a rebuild
+against the tracked `doc_sft/_manifest.json` and `doc_sft_armb/_manifest.json`,
+which record the per-split class counts, the yield, and the dropped rows.
+
+Three ablation directories are **not** reproducible from what is committed.
+`doc_sft_evfirst/` (evidence-first key order) and `doc_sft_amatch/` were built
+by editing the builder rather than by a flag, and those edits were not kept;
+`doc_sft_armb2/` was most likely `build_armb_data.py --f2-strict --out
+doc_sft_armb2`, but it has no manifest to confirm it. None of them are needed to
+reproduce the headline — they back the negative results above, and those numbers
+are already written down in `ARMB_RESULTS.md` and `TRAINING_DIAGNOSTICS.md`.
+
 ## Left unfinished
 
 - EVADE validation — 7,188 conditioned rationales generated (3h02m GPU),

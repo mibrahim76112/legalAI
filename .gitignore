@@ -48,6 +48,8 @@ v2/risk_notes/
 v2/risk_notes_smoke*/
 v2/baseline_subset.jsonl
 v2/quant_subset.jsonl
+v1_contractnli/doc_sft*/*.jsonl
+v1_contractnli/reasoning/*.jsonl
 
 # scratch job-id markers
 v2/.llama_job
