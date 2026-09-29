@@ -148,21 +148,6 @@ The demo:
 cd webapp && npm install && npm run dev
 ```
 
-## Honest limitations
-
-- ContractNLI is NDAs only, and CUAD covers 18 of its 41 clause categories.
-- Risk notes are model-generated. No lawyer has reviewed them. 30 samples sit in
-  `v2/RISK_NOTE_SAMPLES.md` waiting for that.
-- Training and inference run at 16,384 tokens, but CUAD contracts reach 83,679.
-  About 12% of CUAD gold spans are not visible inside the window, which caps
-  evidence recall regardless of model quality.
-- Every run uses seed 42. Training variance is unmeasured, so small gaps between
-  models should be read against the paired bootstrap rather than the point
-  estimates.
-- Evidence extraction is the weakest part. Of the strict failures on
-  ContractNLI, 65% found the right region with the wrong extent and 27% never
-  located it — a distinction that matters, because the fixes differ.
-
 ## Reading order
 
 `v2/SFT_METHODOLOGY.md` for the training approach, `v2/RESULTS_THREE_TASK.md`
