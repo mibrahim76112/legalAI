@@ -128,7 +128,9 @@ v1_contractnli/         earlier single-task work. Frozen; imported from, never e
 
 Datasets and model weights are not in the repo. Rebuild them with the `build_*`
 scripts — seeds are fixed (20260919 for data, 42 for training) so the splits
-reproduce exactly.
+reproduce exactly. The v1 training data is rebuilt separately; the order and the
+three ablation directories that cannot be reproduced are described in
+`v1_contractnli/ARCHIVE_NOTE.md`.
 
 ## Running it
 
