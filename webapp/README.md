@@ -14,13 +14,13 @@ npm run dev          # http://localhost:3000
 
 ## Where the data comes from
 
-`data/reviews.json` is produced by `../build_demo_data.py`, which reads the
+`data/reviews.json` is produced by `../v2/build_demo_data.py`, which reads the
 archived predictions at `/scratch/ibi761/legalai/v2_results/raw__llama_3task.jsonl`
 and locates each quoted span in the source contract using the same routine that
 round-tripped 745/745 gold spans during evaluation. Regenerate with:
 
 ```
-python ../build_demo_data.py
+python ../v2/build_demo_data.py
 ```
 
 ## Two reviews, deliberately

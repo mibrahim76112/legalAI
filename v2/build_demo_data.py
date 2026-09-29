@@ -51,7 +51,7 @@ def cuad_parse(raw):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--out", default="v2/webapp/data/reviews.json")
+    ap.add_argument("--out", default="webapp/data/reviews.json")
     args = ap.parse_args()
 
     dev = [json.loads(l) for l in open("v2/combined/dev.jsonl", encoding="utf-8")]

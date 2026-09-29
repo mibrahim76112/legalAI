@@ -38,7 +38,7 @@ def main():
     ap.add_argument("--adapter",
                     default="/scratch/ibi761/legalai/v2_sft/Qwen__Qwen3-4B__3task/final")
     ap.add_argument("--doc-id", default="")
-    ap.add_argument("--out", default="v2/webapp/data/one_document.json")
+    ap.add_argument("--out", default="webapp/data/one_document.json")
     ap.add_argument("--max-model-len", type=int, default=16384)
     ap.add_argument("--max-new-tokens", type=int, default=1024)
     ap.add_argument("--gpu-mem-util", type=float, default=0.90)

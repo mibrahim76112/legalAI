@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Build the UI payload: ONE review, both tabs, same document.
 
-Prefers v2/webapp/data/one_document.json (both task heads run over a single
+Prefers webapp/data/one_document.json (both task heads run over a single
 contract). Falls back to the archived two-review data only if that is absent.
 """
 import sys, json, re, argparse
@@ -135,8 +135,8 @@ def from_archive(out_path):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--src", default="v2/webapp/data/one_document.json")
-    ap.add_argument("--out", default="v2/webapp/data/ui.json")
+    ap.add_argument("--src", default="webapp/data/one_document.json")
+    ap.add_argument("--out", default="webapp/data/ui.json")
     args = ap.parse_args()
     src = Path(args.src)
     if not src.exists():
