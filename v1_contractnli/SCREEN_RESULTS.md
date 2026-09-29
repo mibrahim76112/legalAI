@@ -200,7 +200,7 @@ stronger argument than naming one winner and burying the other run.
 
 # Verification runs (27 extra cells)
 
-Three decisions flagged **WEAK** in `decision_reviews.md` were tested rather
+Three decisions flagged **WEAK** during review were tested rather
 than argued. One of them changes a recommendation.
 
 ## W2. Exemplar choice swamps the gaps the ranking rested on

@@ -151,8 +151,8 @@ cd webapp && npm install && npm run dev
 ## Reading order
 
 `v2/SFT_METHODOLOGY.md` for the training approach, `v2/RESULTS_THREE_TASK.md`
-for full results with significance testing, `v2/decision_reviews.md` for why
-each choice was made and what would overturn it, and `v2/handoffs.md` for the
-chronology including what broke.
+for full results with significance testing, `v2/CONTRACTNLI_EVALUATION.md` and
+`v2/EVIDENCE_EVALUATION.md` for the per-task breakdowns, and
+`v2/TASK_EXAMPLES.md` for what the inputs and outputs actually look like.
 
 Slides: `Contract_2.pptx`.
