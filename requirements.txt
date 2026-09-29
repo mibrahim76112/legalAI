@@ -1,0 +1,15 @@
+# core training + inference
+torch
+transformers
+peft
+accelerate
+datasets
+safetensors
+vllm
+
+# retrieval comparison
+sentence-transformers
+numpy
+
+# risk-note teacher + evaluation helpers
+huggingface_hub

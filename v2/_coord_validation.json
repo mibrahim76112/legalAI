@@ -1,0 +1,20 @@
+{
+  "counts": {
+    "gold_spans": 745,
+    "roundtrip_OK": 745
+  },
+  "position_coverage": {
+    "start_of_window": {
+      "ok": 31,
+      "n": 31
+    },
+    "end_of_window": {
+      "n": 78
+    },
+    "in_overlap": {}
+  },
+  "b_visibility": {
+    "visible": 745
+  },
+  "failures_sample": []
+}

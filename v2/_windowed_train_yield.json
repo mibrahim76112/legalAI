@@ -1,0 +1,18 @@
+{
+  "absent_rows_out": 5229,
+  "absent_rows_in": 4091,
+  "present_rows_in": 2155,
+  "present_rows_out": 2065,
+  "absent_rows_out_from_present_contract": 1296,
+  "windows_with_PARTIAL_evidence": 428,
+  "present_rows_UNPLACEABLE": 156,
+  "windows_per_contract": {
+    "1": 263,
+    "3": 23,
+    "2": 44,
+    "5": 5,
+    "6": 4,
+    "4": 8
+  },
+  "total_rows_out": 8590
+}

@@ -1,0 +1,15 @@
+[
+  {
+    "model": "nvidia/NVIDIA-Nemotron-Nano-9B-v2",
+    "seq_len": 16384,
+    "fits": null,
+    "error": "KeyError: 'mlp'"
+  },
+  {
+    "model": "google/gemma-4-12B-it",
+    "seq_len": 16384,
+    "fits": false,
+    "error": "OutOfMemoryError",
+    "gpu_total_gib": 79.2
+  }
+]

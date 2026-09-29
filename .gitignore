@@ -1,0 +1,32 @@
+# secrets
+.env
+*.token
+
+# python
+__pycache__/
+*.py[cod]
+*.bak
+
+# node
+node_modules/
+.next/
+next-env.d.ts
+
+# SLURM
+slurm-*.out
+
+# derived datasets — regenerate with v2/build_*.py (2.5 GB, seeds recorded)
+v2/combined/
+v2/combined_2task/
+v2/combined_win/
+v2/cuad/
+v2/cuad_windowed/
+v2/chunks/
+v2/risk_notes/
+v2/risk_notes_smoke*/
+v2/baseline_subset.jsonl
+v2/quant_subset.jsonl
+
+# scratch job-id markers
+v2/.llama_job
+v2/.rn_*

@@ -1,0 +1,9 @@
+{
+  "counts": {
+    "overlap_regions": 19,
+    "spans_tested": 227,
+    "both_windows_AGREE": 227,
+    "roundtrip_OK": 227
+  },
+  "failures": []
+}

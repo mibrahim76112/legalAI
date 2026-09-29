@@ -1,0 +1,138 @@
+[
+  {
+    "model": "Qwen3-4B",
+    "params_trainable": null,
+    "train_seconds": 12564,
+    "train_hms": "3h29m",
+    "steps": 947,
+    "rows": 15138,
+    "train_tokens_total": 63556569,
+    "train_tokens_prompt": 62636899,
+    "train_tokens_supervised": 919670,
+    "train_tokens_per_sec": 5058.6,
+    "sec_per_row": 0.83,
+    "peak_gib_at_16384": 43.2,
+    "final_train_loss": 0.1111,
+    "final_eval_loss": 0.1538,
+    "eval_seconds_2489": 6035,
+    "eval_sec_per_example": 2.425,
+    "eval_examples_per_sec": 0.412,
+    "lora": {
+      "r": 16,
+      "alpha": 32,
+      "dropout": 0.05,
+      "target_modules": [
+        "q_proj",
+        "k_proj",
+        "v_proj",
+        "o_proj",
+        "gate_proj",
+        "up_proj",
+        "down_proj"
+      ]
+    },
+    "max_seq_len": 16384
+  },
+  {
+    "model": "Qwen3-8B",
+    "params_trainable": null,
+    "train_seconds": 15939,
+    "train_hms": "4h25m",
+    "steps": 947,
+    "rows": 15138,
+    "train_tokens_total": 63556569,
+    "train_tokens_prompt": 62636899,
+    "train_tokens_supervised": 919670,
+    "train_tokens_per_sec": 3987.5,
+    "sec_per_row": 1.053,
+    "peak_gib_at_16384": 52.7,
+    "final_train_loss": 0.1017,
+    "final_eval_loss": 0.1424,
+    "eval_seconds_2489": null,
+    "eval_sec_per_example": null,
+    "eval_examples_per_sec": null,
+    "lora": {
+      "r": 16,
+      "alpha": 32,
+      "dropout": 0.05,
+      "target_modules": [
+        "q_proj",
+        "k_proj",
+        "v_proj",
+        "o_proj",
+        "gate_proj",
+        "up_proj",
+        "down_proj"
+      ]
+    },
+    "max_seq_len": 16384
+  },
+  {
+    "model": "Llama-3.1-8B",
+    "params_trainable": null,
+    "train_seconds": 13776,
+    "train_hms": "3h49m",
+    "steps": 947,
+    "rows": 15138,
+    "train_tokens_total": 62815853,
+    "train_tokens_prompt": 61900369,
+    "train_tokens_supervised": 915484,
+    "train_tokens_per_sec": 4559.8,
+    "sec_per_row": 0.91,
+    "peak_gib_at_16384": 46.8,
+    "final_train_loss": 0.1009,
+    "final_eval_loss": 0.1435,
+    "eval_seconds_2489": 5140,
+    "eval_sec_per_example": 2.065,
+    "eval_examples_per_sec": 0.484,
+    "lora": {
+      "r": 16,
+      "alpha": 32,
+      "dropout": 0.05,
+      "target_modules": [
+        "q_proj",
+        "k_proj",
+        "v_proj",
+        "o_proj",
+        "gate_proj",
+        "up_proj",
+        "down_proj"
+      ]
+    },
+    "max_seq_len": 16384
+  },
+  {
+    "model": "Qwen3-14B",
+    "params_trainable": null,
+    "train_seconds": 23686,
+    "train_hms": "6h34m",
+    "steps": 947,
+    "rows": 15138,
+    "train_tokens_total": 63556569,
+    "train_tokens_prompt": 62636899,
+    "train_tokens_supervised": 919670,
+    "train_tokens_per_sec": 2683.3,
+    "sec_per_row": 1.565,
+    "peak_gib_at_16384": 66.8,
+    "final_train_loss": 0.0894,
+    "final_eval_loss": 0.1245,
+    "eval_seconds_2489": 8954,
+    "eval_sec_per_example": 3.597,
+    "eval_examples_per_sec": 0.278,
+    "lora": {
+      "r": 16,
+      "alpha": 32,
+      "dropout": 0.05,
+      "target_modules": [
+        "q_proj",
+        "k_proj",
+        "v_proj",
+        "o_proj",
+        "gate_proj",
+        "up_proj",
+        "down_proj"
+      ]
+    },
+    "max_seq_len": 16384
+  }
+]

@@ -1,0 +1,230 @@
+{
+  "rows_with_evidence": 366,
+  "spans_total": 745,
+  "spans_visible": 653,
+  "rows_fully_visible": 329,
+  "spans_invisible": 92,
+  "rows_with_invisible_span": 37,
+  "budget": 15360,
+  "span_visibility": 0.876510067114094,
+  "invisible_keys": [
+    [
+      "SoupmanInc_20150814_8-K_EX-10.1_9230148_EX-10.1_Franchise Agreement1",
+      "Exclusivity"
+    ],
+    [
+      "IPAYMENT,INC_05_14_2007-EX-10.1-SPONSORSHIP AGREEMENT",
+      "Anti-Assignment"
+    ],
+    [
+      "LiquidmetalTechnologiesInc_20200205_8-K_EX-10.1_11968198_EX-10.1_Development Agreement",
+      "Notice Period To Terminate Renewal"
+    ],
+    [
+      "LiquidmetalTechnologiesInc_20200205_8-K_EX-10.1_11968198_EX-10.1_Development Agreement",
+      "License Grant"
+    ],
+    [
+      "GRANTIERRAENERGYINC_05_07_2012-EX-10.6-TRANSPORTATION CONTRACT",
+      "Minimum Commitment"
+    ],
+    [
+      "DovaPharmaceuticalsInc_20181108_10-Q_EX-10.2_11414857_EX-10.2_Promotion Agreement",
+      "Covenant Not To Sue"
+    ],
+    [
+      "SoupmanInc_20150814_8-K_EX-10.1_9230148_EX-10.1_Franchise Agreement1",
+      "Minimum Commitment"
+    ],
+    [
+      "GRANTIERRAENERGYINC_05_07_2012-EX-10.6-TRANSPORTATION CONTRACT",
+      "Anti-Assignment"
+    ],
+    [
+      "DovaPharmaceuticalsInc_20181108_10-Q_EX-10.2_11414857_EX-10.2_Promotion Agreement",
+      "Non-Compete"
+    ],
+    [
+      "DovaPharmaceuticalsInc_20181108_10-Q_EX-10.2_11414857_EX-10.2_Promotion Agreement",
+      "Anti-Assignment"
+    ],
+    [
+      "GRANTIERRAENERGYINC_05_07_2012-EX-10.6-TRANSPORTATION CONTRACT",
+      "Insurance"
+    ],
+    [
+      "DovaPharmaceuticalsInc_20181108_10-Q_EX-10.2_11414857_EX-10.2_Promotion Agreement",
+      "License Grant"
+    ],
+    [
+      "DovaPharmaceuticalsInc_20181108_10-Q_EX-10.2_11414857_EX-10.2_Promotion Agreement",
+      "Exclusivity"
+    ],
+    [
+      "ZEBRATECHNOLOGIESCORP_04_16_2014-EX-10.1-INTELLECTUAL PROPERTY AGREEMENT",
+      "License Grant"
+    ],
+    [
+      "SoupmanInc_20150814_8-K_EX-10.1_9230148_EX-10.1_Franchise Agreement1",
+      "Ip Ownership Assignment"
+    ],
+    [
+      "DovaPharmaceuticalsInc_20181108_10-Q_EX-10.2_11414857_EX-10.2_Promotion Agreement",
+      "Cap On Liability"
+    ],
+    [
+      "DovaPharmaceuticalsInc_20181108_10-Q_EX-10.2_11414857_EX-10.2_Promotion Agreement",
+      "Ip Ownership Assignment"
+    ],
+    [
+      "SoupmanInc_20150814_8-K_EX-10.1_9230148_EX-10.1_Franchise Agreement1",
+      "Audit Rights"
+    ],
+    [
+      "ALLIANCEBANCORPINCOFPENNSYLVANIA_10_18_2006-EX-1.2-AGENCY AGREEMENT",
+      "Insurance"
+    ],
+    [
+      "STARTECGLOBALCOMMUNICATIONSCORP_11_16_1998-EX-10.30-CONSTRUCTION AND MAINTENANCE AGREEMENT",
+      "Revenue/Profit Sharing"
+    ],
+    [
+      "ZEBRATECHNOLOGIESCORP_04_16_2014-EX-10.1-INTELLECTUAL PROPERTY AGREEMENT",
+      "Ip Ownership Assignment"
+    ],
+    [
+      "SoupmanInc_20150814_8-K_EX-10.1_9230148_EX-10.1_Franchise Agreement1",
+      "Covenant Not To Sue"
+    ],
+    [
+      "ZEBRATECHNOLOGIESCORP_04_16_2014-EX-10.1-INTELLECTUAL PROPERTY AGREEMENT",
+      "Exclusivity"
+    ],
+    [
+      "DovaPharmaceuticalsInc_20181108_10-Q_EX-10.2_11414857_EX-10.2_Promotion Agreement",
+      "Audit Rights"
+    ],
+    [
+      "DovaPharmaceuticalsInc_20181108_10-Q_EX-10.2_11414857_EX-10.2_Promotion Agreement",
+      "Non-Transferable License"
+    ],
+    [
+      "SoupmanInc_20150814_8-K_EX-10.1_9230148_EX-10.1_Franchise Agreement1",
+      "Anti-Assignment"
+    ],
+    [
+      "LiquidmetalTechnologiesInc_20200205_8-K_EX-10.1_11968198_EX-10.1_Development Agreement",
+      "Non-Transferable License"
+    ],
+    [
+      "LiquidmetalTechnologiesInc_20200205_8-K_EX-10.1_11968198_EX-10.1_Development Agreement",
+      "Renewal Term"
+    ],
+    [
+      "SoupmanInc_20150814_8-K_EX-10.1_9230148_EX-10.1_Franchise Agreement1",
+      "License Grant"
+    ],
+    [
+      "STARTECGLOBALCOMMUNICATIONSCORP_11_16_1998-EX-10.30-CONSTRUCTION AND MAINTENANCE AGREEMENT",
+      "Audit Rights"
+    ],
+    [
+      "SoupmanInc_20150814_8-K_EX-10.1_9230148_EX-10.1_Franchise Agreement1",
+      "Revenue/Profit Sharing"
+    ],
+    [
+      "ZEBRATECHNOLOGIESCORP_04_16_2014-EX-10.1-INTELLECTUAL PROPERTY AGREEMENT",
+      "Non-Transferable License"
+    ],
+    [
+      "DovaPharmaceuticalsInc_20181108_10-Q_EX-10.2_11414857_EX-10.2_Promotion Agreement",
+      "Revenue/Profit Sharing"
+    ],
+    [
+      "GRANTIERRAENERGYINC_05_07_2012-EX-10.6-TRANSPORTATION CONTRACT",
+      "Cap On Liability"
+    ],
+    [
+      "SoupmanInc_20150814_8-K_EX-10.1_9230148_EX-10.1_Franchise Agreement1",
+      "Insurance"
+    ],
+    [
+      "SoupmanInc_20150814_8-K_EX-10.1_9230148_EX-10.1_Franchise Agreement1",
+      "Renewal Term"
+    ],
+    [
+      "DovaPharmaceuticalsInc_20181108_10-Q_EX-10.2_11414857_EX-10.2_Promotion Agreement",
+      "Minimum Commitment"
+    ]
+  ],
+  "by_category": {
+    "Anti-Assignment": {
+      "visible": 73,
+      "invisible": 9
+    },
+    "Covenant Not To Sue": {
+      "visible": 11,
+      "invisible": 3
+    },
+    "Non-Compete": {
+      "visible": 24,
+      "invisible": 1
+    },
+    "License Grant": {
+      "visible": 70,
+      "invisible": 8
+    },
+    "Post-Termination Services": {
+      "visible": 42
+    },
+    "Renewal Term": {
+      "visible": 25,
+      "invisible": 2
+    },
+    "Audit Rights": {
+      "visible": 59,
+      "invisible": 6
+    },
+    "Exclusivity": {
+      "invisible": 5,
+      "visible": 37
+    },
+    "Notice Period To Terminate Renewal": {
+      "visible": 15,
+      "invisible": 1
+    },
+    "Termination For Convenience": {
+      "visible": 29
+    },
+    "Revenue/Profit Sharing": {
+      "visible": 42,
+      "invisible": 7
+    },
+    "Non-Transferable License": {
+      "visible": 21,
+      "invisible": 4
+    },
+    "Cap On Liability": {
+      "visible": 58,
+      "invisible": 3
+    },
+    "Uncapped Liability": {
+      "visible": 12
+    },
+    "Ip Ownership Assignment": {
+      "visible": 17,
+      "invisible": 8
+    },
+    "Insurance": {
+      "visible": 54,
+      "invisible": 19
+    },
+    "Change Of Control": {
+      "visible": 30
+    },
+    "Minimum Commitment": {
+      "visible": 34,
+      "invisible": 16
+    }
+  }
+}

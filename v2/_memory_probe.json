@@ -1,0 +1,62 @@
+[
+  {
+    "model": "Qwen/Qwen3-14B",
+    "seq_len": 16384,
+    "peak_gib": 66.81,
+    "reserved_gib": 71.91,
+    "fits": true,
+    "gpu_total_gib": 79.2
+  },
+  {
+    "model": "Qwen/Qwen3-14B",
+    "seq_len": 32768,
+    "fits": false,
+    "error": "OutOfMemoryError",
+    "gpu_total_gib": 79.2
+  },
+  {
+    "model": "Qwen/Qwen3-8B",
+    "seq_len": 16384,
+    "peak_gib": 52.7,
+    "reserved_gib": 56.82,
+    "fits": true,
+    "gpu_total_gib": 79.2
+  },
+  {
+    "model": "Qwen/Qwen3-8B",
+    "seq_len": 32768,
+    "fits": false,
+    "error": "OutOfMemoryError",
+    "gpu_total_gib": 79.2
+  },
+  {
+    "model": "NousResearch/Meta-Llama-3.1-8B-Instruct",
+    "seq_len": 16384,
+    "peak_gib": 46.83,
+    "reserved_gib": 50.73,
+    "fits": true,
+    "gpu_total_gib": 79.2
+  },
+  {
+    "model": "NousResearch/Meta-Llama-3.1-8B-Instruct",
+    "seq_len": 32768,
+    "fits": false,
+    "error": "OutOfMemoryError",
+    "gpu_total_gib": 79.2
+  },
+  {
+    "model": "Qwen/Qwen3-4B",
+    "seq_len": 16384,
+    "peak_gib": 43.16,
+    "reserved_gib": 46.05,
+    "fits": true,
+    "gpu_total_gib": 79.2
+  },
+  {
+    "model": "Qwen/Qwen3-4B",
+    "seq_len": 32768,
+    "fits": false,
+    "error": "OutOfMemoryError",
+    "gpu_total_gib": 79.2
+  }
+]

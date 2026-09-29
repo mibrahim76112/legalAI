@@ -1,0 +1,55 @@
+{
+  "budget": 15360,
+  "data": "v2/combined/dev.jsonl",
+  "by_task": {
+    "cuad": {
+      "rows": 1098,
+      "rows_with_evidence": 366,
+      "truncated": 198,
+      "evidence_invisible": 37
+    },
+    "risknote": {
+      "rows": 354
+    },
+    "contractnli": {
+      "rows": 1037,
+      "rows_with_evidence": 614
+    }
+  },
+  "cuad_evidence_rows_by_category": {
+    "Anti-Assignment": 44,
+    "Covenant Not To Sue": 10,
+    "Non-Compete": 15,
+    "License Grant": 29,
+    "Post-Termination Services": 21,
+    "Renewal Term": 24,
+    "Audit Rights": 28,
+    "Exclusivity": 20,
+    "Notice Period To Terminate Renewal": 14,
+    "Termination For Convenience": 21,
+    "Revenue/Profit Sharing": 20,
+    "Non-Transferable License": 12,
+    "Cap On Liability": 29,
+    "Uncapped Liability": 10,
+    "Ip Ownership Assignment": 13,
+    "Insurance": 20,
+    "Change Of Control": 16,
+    "Minimum Commitment": 20
+  },
+  "cuad_invisible_by_category": {
+    "Exclusivity": 3,
+    "Anti-Assignment": 4,
+    "Notice Period To Terminate Renewal": 1,
+    "License Grant": 4,
+    "Minimum Commitment": 3,
+    "Covenant Not To Sue": 2,
+    "Non-Compete": 1,
+    "Insurance": 3,
+    "Ip Ownership Assignment": 3,
+    "Cap On Liability": 2,
+    "Audit Rights": 3,
+    "Revenue/Profit Sharing": 3,
+    "Non-Transferable License": 3,
+    "Renewal Term": 2
+  }
+}

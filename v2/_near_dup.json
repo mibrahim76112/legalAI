@@ -1,0 +1,534 @@
+{
+  "n_docs": 1117,
+  "perms": 256,
+  "shingle_k": 5,
+  "screen": 0.35,
+  "cross_split": {
+    "0.95": 8,
+    "0.8": 9,
+    "0.6": 17
+  },
+  "within_split_080": 14,
+  "top": [
+    {
+      "jaccard": 1.0,
+      "a": [
+        "nli",
+        "537"
+      ],
+      "split_a": "test",
+      "b": [
+        "nli",
+        "538"
+      ],
+      "split_b": "train"
+    },
+    {
+      "jaccard": 1.0,
+      "a": [
+        "nli",
+        "52"
+      ],
+      "split_a": "test",
+      "b": [
+        "nli",
+        "97"
+      ],
+      "split_b": "test"
+    },
+    {
+      "jaccard": 1.0,
+      "a": [
+        "nli",
+        "515"
+      ],
+      "split_a": "train",
+      "b": [
+        "nli",
+        "548"
+      ],
+      "split_b": "train"
+    },
+    {
+      "jaccard": 1.0,
+      "a": [
+        "cuad",
+        "ADUROBIOTECH,INC_06_02_2020-EX-10.7-CONSULTING AGREEMENT"
+      ],
+      "split_a": "train",
+      "b": [
+        "cuad",
+        "ADUROBIOTECH,INC_06_02_2020-EX-10.7-CONSULTING AGREEMENT(1)"
+      ],
+      "split_b": "train"
+    },
+    {
+      "jaccard": 0.9974,
+      "a": [
+        "nli",
+        "538"
+      ],
+      "split_a": "train",
+      "b": [
+        "nli",
+        "539"
+      ],
+      "split_b": "test"
+    },
+    {
+      "jaccard": 0.9974,
+      "a": [
+        "nli",
+        "537"
+      ],
+      "split_a": "test",
+      "b": [
+        "nli",
+        "539"
+      ],
+      "split_b": "test"
+    },
+    {
+      "jaccard": 0.9959,
+      "a": [
+        "nli",
+        "391"
+      ],
+      "split_a": "train",
+      "b": [
+        "nli",
+        "395"
+      ],
+      "split_b": "test"
+    },
+    {
+      "jaccard": 0.9875,
+      "a": [
+        "nli",
+        "395"
+      ],
+      "split_a": "test",
+      "b": [
+        "nli",
+        "444"
+      ],
+      "split_b": "test"
+    },
+    {
+      "jaccard": 0.9834,
+      "a": [
+        "nli",
+        "324"
+      ],
+      "split_a": "train",
+      "b": [
+        "nli",
+        "364"
+      ],
+      "split_b": "train"
+    },
+    {
+      "jaccard": 0.9834,
+      "a": [
+        "nli",
+        "391"
+      ],
+      "split_a": "train",
+      "b": [
+        "nli",
+        "444"
+      ],
+      "split_b": "test"
+    },
+    {
+      "jaccard": 0.9757,
+      "a": [
+        "nli",
+        "481"
+      ],
+      "split_a": "train",
+      "b": [
+        "nli",
+        "486"
+      ],
+      "split_b": "dev"
+    },
+    {
+      "jaccard": 0.9697,
+      "a": [
+        "nli",
+        "399"
+      ],
+      "split_a": "train",
+      "b": [
+        "nli",
+        "400"
+      ],
+      "split_b": "test"
+    },
+    {
+      "jaccard": 0.9634,
+      "a": [
+        "nli",
+        "548"
+      ],
+      "split_a": "train",
+      "b": [
+        "nli",
+        "549"
+      ],
+      "split_b": "test"
+    },
+    {
+      "jaccard": 0.9634,
+      "a": [
+        "nli",
+        "515"
+      ],
+      "split_a": "train",
+      "b": [
+        "nli",
+        "549"
+      ],
+      "split_b": "test"
+    },
+    {
+      "jaccard": 0.9243,
+      "a": [
+        "nli",
+        "136"
+      ],
+      "split_a": "train",
+      "b": [
+        "nli",
+        "250"
+      ],
+      "split_b": "train"
+    },
+    {
+      "jaccard": 0.921,
+      "a": [
+        "cuad",
+        "ChinaRealEstateInformationCorp_20090929_F-1_EX-10.32_4771615_EX-10.32_Content License Agreement"
+      ],
+      "split_a": "test",
+      "b": [
+        "cuad",
+        "LejuHoldingsLtd_20140121_DRS (on F-1)_EX-10.26_8473102_EX-10.26_Content License Agreement1"
+      ],
+      "split_b": "test"
+    },
+    {
+      "jaccard": 0.9172,
+      "a": [
+        "nli",
+        "49"
+      ],
+      "split_a": "test",
+      "b": [
+        "nli",
+        "53"
+      ],
+      "split_b": "test"
+    },
+    {
+      "jaccard": 0.8851,
+      "a": [
+        "nli",
+        "335"
+      ],
+      "split_a": "train",
+      "b": [
+        "nli",
+        "366"
+      ],
+      "split_b": "train"
+    },
+    {
+      "jaccard": 0.8465,
+      "a": [
+        "cuad",
+        "ARMSTRONGFLOORING,INC_01_07_2019-EX-10.2-INTELLECTUAL PROPERTY AGREEMENT"
+      ],
+      "split_a": "train",
+      "b": [
+        "cuad",
+        "ArmstrongFlooringInc_20190107_8-K_EX-10.2_11471795_EX-10.2_Intellectual Property Agreement"
+      ],
+      "split_b": "train"
+    },
+    {
+      "jaccard": 0.8458,
+      "a": [
+        "nli",
+        "335"
+      ],
+      "split_a": "train",
+      "b": [
+        "nli",
+        "608"
+      ],
+      "split_b": "train"
+    },
+    {
+      "jaccard": 0.8432,
+      "a": [
+        "nli",
+        "366"
+      ],
+      "split_a": "train",
+      "b": [
+        "nli",
+        "608"
+      ],
+      "split_b": "train"
+    },
+    {
+      "jaccard": 0.8365,
+      "a": [
+        "nli",
+        "247"
+      ],
+      "split_a": "train",
+      "b": [
+        "nli",
+        "303"
+      ],
+      "split_b": "train"
+    },
+    {
+      "jaccard": 0.8192,
+      "a": [
+        "nli",
+        "496"
+      ],
+      "split_a": "test",
+      "b": [
+        "nli",
+        "502"
+      ],
+      "split_b": "train"
+    },
+    {
+      "jaccard": 0.793,
+      "a": [
+        "nli",
+        "306"
+      ],
+      "split_a": "train",
+      "b": [
+        "nli",
+        "318"
+      ],
+      "split_b": "train"
+    },
+    {
+      "jaccard": 0.7732,
+      "a": [
+        "nli",
+        "471"
+      ],
+      "split_a": "test",
+      "b": [
+        "nli",
+        "529"
+      ],
+      "split_b": "train"
+    },
+    {
+      "jaccard": 0.7656,
+      "a": [
+        "cuad",
+        "IdeanomicsInc_20151124_8-K_EX-10.2_9354744_EX-10.2_Content License Agreement"
+      ],
+      "split_a": "train",
+      "b": [
+        "cuad",
+        "IdeanomicsInc_20160330_10-K_EX-10.26_9512211_EX-10.26_Content License Agreement"
+      ],
+      "split_b": "dev"
+    },
+    {
+      "jaccard": 0.7608,
+      "a": [
+        "nli",
+        "197"
+      ],
+      "split_a": "train",
+      "b": [
+        "nli",
+        "369"
+      ],
+      "split_b": "train"
+    },
+    {
+      "jaccard": 0.751,
+      "a": [
+        "nli",
+        "204"
+      ],
+      "split_a": "train",
+      "b": [
+        "nli",
+        "269"
+      ],
+      "split_b": "train"
+    },
+    {
+      "jaccard": 0.7269,
+      "a": [
+        "nli",
+        "226"
+      ],
+      "split_a": "train",
+      "b": [
+        "nli",
+        "290"
+      ],
+      "split_b": "train"
+    },
+    {
+      "jaccard": 0.7101,
+      "a": [
+        "nli",
+        "287"
+      ],
+      "split_a": "train",
+      "b": [
+        "nli",
+        "502"
+      ],
+      "split_b": "train"
+    },
+    {
+      "jaccard": 0.7095,
+      "a": [
+        "nli",
+        "287"
+      ],
+      "split_a": "train",
+      "b": [
+        "nli",
+        "496"
+      ],
+      "split_b": "test"
+    },
+    {
+      "jaccard": 0.7035,
+      "a": [
+        "nli",
+        "565"
+      ],
+      "split_a": "test",
+      "b": [
+        "nli",
+        "586"
+      ],
+      "split_b": "dev"
+    },
+    {
+      "jaccard": 0.6864,
+      "a": [
+        "nli",
+        "518"
+      ],
+      "split_a": "train",
+      "b": [
+        "nli",
+        "606"
+      ],
+      "split_b": "test"
+    },
+    {
+      "jaccard": 0.6734,
+      "a": [
+        "cuad",
+        "INTELLIGENTHIGHWAYSOLUTIONS,INC_01_18_2018-EX-10.1-Strategic Alliance Agreement"
+      ],
+      "split_a": "train",
+      "b": [
+        "cuad",
+        "SIBANNAC,INC_12_04_2017-EX-2.1-Strategic Alliance Agreement"
+      ],
+      "split_b": "train"
+    },
+    {
+      "jaccard": 0.6477,
+      "a": [
+        "nli",
+        "42"
+      ],
+      "split_a": "test",
+      "b": [
+        "nli",
+        "560"
+      ],
+      "split_b": "train"
+    },
+    {
+      "jaccard": 0.6277,
+      "a": [
+        "nli",
+        "226"
+      ],
+      "split_a": "train",
+      "b": [
+        "nli",
+        "48"
+      ],
+      "split_b": "test"
+    },
+    {
+      "jaccard": 0.6213,
+      "a": [
+        "nli",
+        "424"
+      ],
+      "split_a": "train",
+      "b": [
+        "nli",
+        "425"
+      ],
+      "split_b": "train"
+    },
+    {
+      "jaccard": 0.62,
+      "a": [
+        "cuad",
+        "NETGEAR,INC_04_21_2003-EX-10.16- AMENDMENT #2 TO THE DISTRIBUTION AGREEMENT"
+      ],
+      "split_a": "train",
+      "b": [
+        "cuad",
+        "NETGEAR,INC_04_21_2003-EX-10.16-AMENDMENT TO THE DISTRIBUTOR AGREEMENT BETWEEN INGRAM MICRO AND NETGEAR"
+      ],
+      "split_b": "test"
+    },
+    {
+      "jaccard": 0.5959,
+      "a": [
+        "cuad",
+        "SEPARATEACCOUNTIIOFAGL_05_02_2011-EX-99.(J)(4)-UNCONDITIONAL CAPITAL MAINTENANCE AGREEMENT"
+      ],
+      "split_a": "train",
+      "b": [
+        "cuad",
+        "VARIABLESEPARATEACCOUNT_04_30_2014-EX-13.C-UNCONDITIONAL CAPITAL MAINTENANCE AGREEMENT"
+      ],
+      "split_b": "test"
+    },
+    {
+      "jaccard": 0.5701,
+      "a": [
+        "nli",
+        "104"
+      ],
+      "split_a": "train",
+      "b": [
+        "nli",
+        "4"
+      ],
+      "split_b": "test"
+    }
+  ]
+}

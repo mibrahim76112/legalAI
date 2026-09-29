@@ -1,0 +1,540 @@
+{
+  "A": {
+    "n": 1098,
+    "f1": 0.7988077496274217,
+    "precision": 0.8786885245901639,
+    "recall": 0.73224043715847,
+    "tp": 268,
+    "fp": 37,
+    "fn": 98,
+    "tn": 695,
+    "evidence_recall": 0.3907103825136612,
+    "evidence_n": 366,
+    "evidence_ok": 143
+  },
+  "B": {
+    "n": 1098,
+    "f1": 0.8221574344023324,
+    "precision": 0.88125,
+    "recall": 0.7704918032786885,
+    "tp": 282,
+    "fp": 38,
+    "fn": 84,
+    "tn": 694,
+    "evidence_recall": 0.3879781420765027,
+    "evidence_n": 366,
+    "evidence_ok": 142
+  },
+  "per_category": {
+    "Anti-Assignment": {
+      "A": {
+        "n": 61,
+        "f1": 0.9655172413793104,
+        "precision": 0.9767441860465116,
+        "recall": 0.9545454545454546,
+        "tp": 42,
+        "fp": 1,
+        "fn": 2,
+        "tn": 16,
+        "evidence_recall": 0.5909090909090909,
+        "evidence_n": 44,
+        "evidence_ok": 26
+      },
+      "B": {
+        "n": 61,
+        "f1": 0.9772727272727273,
+        "precision": 0.9772727272727273,
+        "recall": 0.9772727272727273,
+        "tp": 43,
+        "fp": 1,
+        "fn": 1,
+        "tn": 16,
+        "evidence_recall": 0.5909090909090909,
+        "evidence_n": 44,
+        "evidence_ok": 26
+      }
+    },
+    "Audit Rights": {
+      "A": {
+        "n": 61,
+        "f1": 0.88,
+        "precision": 1.0,
+        "recall": 0.7857142857142857,
+        "tp": 22,
+        "fp": 0,
+        "fn": 6,
+        "tn": 33,
+        "evidence_recall": 0.39285714285714285,
+        "evidence_n": 28,
+        "evidence_ok": 11
+      },
+      "B": {
+        "n": 61,
+        "f1": 0.8679245283018867,
+        "precision": 0.92,
+        "recall": 0.8214285714285714,
+        "tp": 23,
+        "fp": 2,
+        "fn": 5,
+        "tn": 31,
+        "evidence_recall": 0.35714285714285715,
+        "evidence_n": 28,
+        "evidence_ok": 10
+      }
+    },
+    "Cap On Liability": {
+      "A": {
+        "n": 61,
+        "f1": 0.8813559322033899,
+        "precision": 0.8666666666666667,
+        "recall": 0.896551724137931,
+        "tp": 26,
+        "fp": 4,
+        "fn": 3,
+        "tn": 28,
+        "evidence_recall": 0.41379310344827586,
+        "evidence_n": 29,
+        "evidence_ok": 12
+      },
+      "B": {
+        "n": 61,
+        "f1": 0.8813559322033899,
+        "precision": 0.8666666666666667,
+        "recall": 0.896551724137931,
+        "tp": 26,
+        "fp": 4,
+        "fn": 3,
+        "tn": 28,
+        "evidence_recall": 0.3793103448275862,
+        "evidence_n": 29,
+        "evidence_ok": 11
+      }
+    },
+    "Change Of Control": {
+      "A": {
+        "n": 61,
+        "f1": 0.7333333333333334,
+        "precision": 0.7857142857142857,
+        "recall": 0.6875,
+        "tp": 11,
+        "fp": 3,
+        "fn": 5,
+        "tn": 42,
+        "evidence_recall": 0.3125,
+        "evidence_n": 16,
+        "evidence_ok": 5
+      },
+      "B": {
+        "n": 61,
+        "f1": 0.6428571428571429,
+        "precision": 0.75,
+        "recall": 0.5625,
+        "tp": 9,
+        "fp": 3,
+        "fn": 7,
+        "tn": 42,
+        "evidence_recall": 0.25,
+        "evidence_n": 16,
+        "evidence_ok": 4
+      }
+    },
+    "Covenant Not To Sue": {
+      "A": {
+        "n": 61,
+        "f1": 0.625,
+        "precision": 0.8333333333333334,
+        "recall": 0.5,
+        "tp": 5,
+        "fp": 1,
+        "fn": 5,
+        "tn": 50,
+        "evidence_recall": 0.2,
+        "evidence_n": 10,
+        "evidence_ok": 2
+      },
+      "B": {
+        "n": 61,
+        "f1": 0.625,
+        "precision": 0.8333333333333334,
+        "recall": 0.5,
+        "tp": 5,
+        "fp": 1,
+        "fn": 5,
+        "tn": 50,
+        "evidence_recall": 0.3,
+        "evidence_n": 10,
+        "evidence_ok": 3
+      }
+    },
+    "Exclusivity": {
+      "A": {
+        "n": 61,
+        "f1": 0.7647058823529412,
+        "precision": 0.9285714285714286,
+        "recall": 0.65,
+        "tp": 13,
+        "fp": 1,
+        "fn": 7,
+        "tn": 40,
+        "evidence_recall": 0.3,
+        "evidence_n": 20,
+        "evidence_ok": 6
+      },
+      "B": {
+        "n": 61,
+        "f1": 0.8333333333333334,
+        "precision": 0.9375,
+        "recall": 0.75,
+        "tp": 15,
+        "fp": 1,
+        "fn": 5,
+        "tn": 40,
+        "evidence_recall": 0.35,
+        "evidence_n": 20,
+        "evidence_ok": 7
+      }
+    },
+    "Insurance": {
+      "A": {
+        "n": 61,
+        "f1": 0.8235294117647058,
+        "precision": 1.0,
+        "recall": 0.7,
+        "tp": 14,
+        "fp": 0,
+        "fn": 6,
+        "tn": 41,
+        "evidence_recall": 0.4,
+        "evidence_n": 20,
+        "evidence_ok": 8
+      },
+      "B": {
+        "n": 61,
+        "f1": 0.9189189189189189,
+        "precision": 1.0,
+        "recall": 0.85,
+        "tp": 17,
+        "fp": 0,
+        "fn": 3,
+        "tn": 41,
+        "evidence_recall": 0.45,
+        "evidence_n": 20,
+        "evidence_ok": 9
+      }
+    },
+    "Ip Ownership Assignment": {
+      "A": {
+        "n": 61,
+        "f1": 0.7000000000000001,
+        "precision": 1.0,
+        "recall": 0.5384615384615384,
+        "tp": 7,
+        "fp": 0,
+        "fn": 6,
+        "tn": 48,
+        "evidence_recall": 0.23076923076923078,
+        "evidence_n": 13,
+        "evidence_ok": 3
+      },
+      "B": {
+        "n": 61,
+        "f1": 0.8181818181818181,
+        "precision": 1.0,
+        "recall": 0.6923076923076923,
+        "tp": 9,
+        "fp": 0,
+        "fn": 4,
+        "tn": 48,
+        "evidence_recall": 0.23076923076923078,
+        "evidence_n": 13,
+        "evidence_ok": 3
+      }
+    },
+    "License Grant": {
+      "A": {
+        "n": 61,
+        "f1": 0.8620689655172413,
+        "precision": 0.8620689655172413,
+        "recall": 0.8620689655172413,
+        "tp": 25,
+        "fp": 4,
+        "fn": 4,
+        "tn": 28,
+        "evidence_recall": 0.3793103448275862,
+        "evidence_n": 29,
+        "evidence_ok": 11
+      },
+      "B": {
+        "n": 61,
+        "f1": 0.8771929824561403,
+        "precision": 0.8928571428571429,
+        "recall": 0.8620689655172413,
+        "tp": 25,
+        "fp": 3,
+        "fn": 4,
+        "tn": 29,
+        "evidence_recall": 0.3448275862068966,
+        "evidence_n": 29,
+        "evidence_ok": 10
+      }
+    },
+    "Minimum Commitment": {
+      "A": {
+        "n": 61,
+        "f1": 0.5161290322580645,
+        "precision": 0.7272727272727273,
+        "recall": 0.4,
+        "tp": 8,
+        "fp": 3,
+        "fn": 12,
+        "tn": 38,
+        "evidence_recall": 0.1,
+        "evidence_n": 20,
+        "evidence_ok": 2
+      },
+      "B": {
+        "n": 61,
+        "f1": 0.5625000000000001,
+        "precision": 0.75,
+        "recall": 0.45,
+        "tp": 9,
+        "fp": 3,
+        "fn": 11,
+        "tn": 38,
+        "evidence_recall": 0.15,
+        "evidence_n": 20,
+        "evidence_ok": 3
+      }
+    },
+    "Non-Compete": {
+      "A": {
+        "n": 61,
+        "f1": 0.6666666666666667,
+        "precision": 0.8888888888888888,
+        "recall": 0.5333333333333333,
+        "tp": 8,
+        "fp": 1,
+        "fn": 7,
+        "tn": 45,
+        "evidence_recall": 0.06666666666666667,
+        "evidence_n": 15,
+        "evidence_ok": 1
+      },
+      "B": {
+        "n": 61,
+        "f1": 0.7200000000000001,
+        "precision": 0.9,
+        "recall": 0.6,
+        "tp": 9,
+        "fp": 1,
+        "fn": 6,
+        "tn": 45,
+        "evidence_recall": 0.06666666666666667,
+        "evidence_n": 15,
+        "evidence_ok": 1
+      }
+    },
+    "Non-Transferable License": {
+      "A": {
+        "n": 61,
+        "f1": 0.7199999999999999,
+        "precision": 0.6923076923076923,
+        "recall": 0.75,
+        "tp": 9,
+        "fp": 4,
+        "fn": 3,
+        "tn": 45,
+        "evidence_recall": 0.5833333333333334,
+        "evidence_n": 12,
+        "evidence_ok": 7
+      },
+      "B": {
+        "n": 61,
+        "f1": 0.7692307692307692,
+        "precision": 0.7142857142857143,
+        "recall": 0.8333333333333334,
+        "tp": 10,
+        "fp": 4,
+        "fn": 2,
+        "tn": 45,
+        "evidence_recall": 0.5833333333333334,
+        "evidence_n": 12,
+        "evidence_ok": 7
+      }
+    },
+    "Notice Period To Terminate Renewal": {
+      "A": {
+        "n": 61,
+        "f1": 0.8333333333333333,
+        "precision": 1.0,
+        "recall": 0.7142857142857143,
+        "tp": 10,
+        "fp": 0,
+        "fn": 4,
+        "tn": 47,
+        "evidence_recall": 0.5714285714285714,
+        "evidence_n": 14,
+        "evidence_ok": 8
+      },
+      "B": {
+        "n": 61,
+        "f1": 0.782608695652174,
+        "precision": 1.0,
+        "recall": 0.6428571428571429,
+        "tp": 9,
+        "fp": 0,
+        "fn": 5,
+        "tn": 47,
+        "evidence_recall": 0.42857142857142855,
+        "evidence_n": 14,
+        "evidence_ok": 6
+      }
+    },
+    "Post-Termination Services": {
+      "A": {
+        "n": 61,
+        "f1": 0.7222222222222222,
+        "precision": 0.8666666666666667,
+        "recall": 0.6190476190476191,
+        "tp": 13,
+        "fp": 2,
+        "fn": 8,
+        "tn": 38,
+        "evidence_recall": 0.23809523809523808,
+        "evidence_n": 21,
+        "evidence_ok": 5
+      },
+      "B": {
+        "n": 61,
+        "f1": 0.7567567567567567,
+        "precision": 0.875,
+        "recall": 0.6666666666666666,
+        "tp": 14,
+        "fp": 2,
+        "fn": 7,
+        "tn": 38,
+        "evidence_recall": 0.19047619047619047,
+        "evidence_n": 21,
+        "evidence_ok": 4
+      }
+    },
+    "Renewal Term": {
+      "A": {
+        "n": 61,
+        "f1": 0.8181818181818182,
+        "precision": 0.9,
+        "recall": 0.75,
+        "tp": 18,
+        "fp": 2,
+        "fn": 6,
+        "tn": 35,
+        "evidence_recall": 0.6666666666666666,
+        "evidence_n": 24,
+        "evidence_ok": 16
+      },
+      "B": {
+        "n": 61,
+        "f1": 0.8695652173913043,
+        "precision": 0.9090909090909091,
+        "recall": 0.8333333333333334,
+        "tp": 20,
+        "fp": 2,
+        "fn": 4,
+        "tn": 35,
+        "evidence_recall": 0.7083333333333334,
+        "evidence_n": 24,
+        "evidence_ok": 17
+      }
+    },
+    "Revenue/Profit Sharing": {
+      "A": {
+        "n": 61,
+        "f1": 0.8333333333333334,
+        "precision": 0.9375,
+        "recall": 0.75,
+        "tp": 15,
+        "fp": 1,
+        "fn": 5,
+        "tn": 40,
+        "evidence_recall": 0.25,
+        "evidence_n": 20,
+        "evidence_ok": 5
+      },
+      "B": {
+        "n": 61,
+        "f1": 0.9189189189189189,
+        "precision": 1.0,
+        "recall": 0.85,
+        "tp": 17,
+        "fp": 0,
+        "fn": 3,
+        "tn": 41,
+        "evidence_recall": 0.25,
+        "evidence_n": 20,
+        "evidence_ok": 5
+      }
+    },
+    "Termination For Convenience": {
+      "A": {
+        "n": 61,
+        "f1": 0.7906976744186046,
+        "precision": 0.7727272727272727,
+        "recall": 0.8095238095238095,
+        "tp": 17,
+        "fp": 5,
+        "fn": 4,
+        "tn": 35,
+        "evidence_recall": 0.5714285714285714,
+        "evidence_n": 21,
+        "evidence_ok": 12
+      },
+      "B": {
+        "n": 61,
+        "f1": 0.7906976744186046,
+        "precision": 0.7727272727272727,
+        "recall": 0.8095238095238095,
+        "tp": 17,
+        "fp": 5,
+        "fn": 4,
+        "tn": 35,
+        "evidence_recall": 0.6190476190476191,
+        "evidence_n": 21,
+        "evidence_ok": 13
+      }
+    },
+    "Uncapped Liability": {
+      "A": {
+        "n": 61,
+        "f1": 0.5,
+        "precision": 0.5,
+        "recall": 0.5,
+        "tp": 5,
+        "fp": 5,
+        "fn": 5,
+        "tn": 46,
+        "evidence_recall": 0.3,
+        "evidence_n": 10,
+        "evidence_ok": 3
+      },
+      "B": {
+        "n": 61,
+        "f1": 0.47619047619047616,
+        "precision": 0.45454545454545453,
+        "recall": 0.5,
+        "tp": 5,
+        "fp": 6,
+        "fn": 5,
+        "tn": 45,
+        "evidence_recall": 0.3,
+        "evidence_n": 10,
+        "evidence_ok": 3
+      }
+    }
+  },
+  "error_analysis": {
+    "coverage": 21,
+    "model_accuracy": 77,
+    "aggregation": 38,
+    "grounding": 20
+  }
+}
