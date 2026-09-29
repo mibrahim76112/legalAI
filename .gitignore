@@ -1,21 +1,43 @@
 # secrets
 .env
+*.env.local
 *.token
 
 # python
 __pycache__/
 *.py[cod]
 *.bak
+venv/
+venv-mlx/
 
 # node
 node_modules/
 .next/
 next-env.d.ts
 
-# SLURM
-slurm-*.out
+# macOS
+.DS_Store
+._*
+__MACOSX/
 
-# derived datasets — regenerate with v2/build_*.py (2.5 GB, seeds recorded)
+# logs and scratch
+slurm-*.out
+*.log
+results/*.log
+results/try*.jsonl
+results/*smoke*.jsonl
+results/*.preds.jsonl
+
+# model weights and bundles (large; tracked unpacked where it matters)
+*.safetensors
+*.zip
+*.tar.gz
+
+# derived datasets — regenerate with the build scripts, seeds are recorded
+contract_nli/
+flat_data/
+sft_data/
+adapters/
 v2/combined/
 v2/combined_2task/
 v2/combined_win/
@@ -30,3 +52,10 @@ v2/quant_subset.jsonl
 # scratch job-id markers
 v2/.llama_job
 v2/.rn_*
+
+# local review store
+.data/
+webapp/.data/
+
+# editor/tooling
+AGENTS.md
